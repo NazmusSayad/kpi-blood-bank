@@ -1,7 +1,6 @@
 import { useLayoutEffect, useState } from 'react'
 import { Button } from '@mui/material'
 import Wrapper from '@/layouts/Wrapper'
-import AppNavLink from './NavLink'
 import logoSrc from '@/assets/logo.jpg?url'
 import NavModal from './NavModal'
 import { Link } from 'react-router-dom'
