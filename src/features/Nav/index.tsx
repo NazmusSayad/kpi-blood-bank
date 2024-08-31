@@ -1,5 +1,5 @@
 import { useLayoutEffect, useState } from 'react'
-import { Button } from '@mui/material'
+import { Button, IconButton } from '@mui/material'
 import Wrapper from '@/layouts/Wrapper'
 import logoSrc from '@/assets/logo.jpg?url'
 import NavModal from './NavModal'
@@ -27,13 +27,13 @@ export default function Nav() {
     >
       <Wrapper>
         <div className={'flex justify-between items-center'}>
-          <div className={'py-2'}>
+          <IconButton component={Link} to="/">
             <img
               src={logoSrc}
               alt={'Logo'}
               className={'w-10 h-10 rounded-[50%]'}
             />
-          </div>
+          </IconButton>
 
           <div className={'hidden sm:flex items-center gap-3'}>
             {links.map((link) => (
