@@ -39,7 +39,11 @@ export default function Hero(props: Props) {
                   Donate
                 </Button>
 
-                <Button variant={'outlined'} color={'error'}>
+                <Button
+                  variant={'outlined'}
+                  color={'error'}
+                  className={'backdrop-blur-sm !bg-red-50/50'}
+                >
                   Request
                 </Button>
               </div>

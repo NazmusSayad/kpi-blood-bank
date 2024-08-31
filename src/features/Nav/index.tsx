@@ -4,6 +4,7 @@ import Wrapper from '@/layouts/Wrapper'
 import AppNavLink from './NavLink'
 import logoSrc from '@/assets/logo.jpg?url'
 import NavModal from './NavModal'
+import { Link } from 'react-router-dom'
 
 export default function Nav() {
   const [scrollPosition, setScrollPosition] = useState(0)
@@ -35,9 +36,16 @@ export default function Nav() {
             />
           </div>
 
-          <div className={'hidden sm:flex items-center gap-1'}>
+          <div className={'hidden sm:flex items-center gap-3'}>
             {links.map((link) => (
-              <AppNavLink key={link.to} {...link} />
+              <Button
+                variant={'text'}
+                color={'inherit'}
+                LinkComponent={Link}
+                href={link.to}
+              >
+                {link.label}
+              </Button>
             ))}
           </div>
 
