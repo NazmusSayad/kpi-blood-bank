@@ -16,8 +16,8 @@ export default function Hero(props: Props) {
       />
 
       <div className={'absolute inset-0'}>
-        <Wrapper className={'md:ml-[10%] h-full'}>
-          <div className={'h-full w-full flex items-center'}>
+        <Wrapper className={'h-full'}>
+          <div className={'md:ml-[8%] h-full w-full flex items-center'}>
             <div className={'flex-1'}>
               <div className={'mb-16 text-white text-center md:text-left'}>
                 <h1
