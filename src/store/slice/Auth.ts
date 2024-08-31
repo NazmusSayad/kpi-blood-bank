@@ -11,7 +11,7 @@ const sessionState = {
 
 export default createSlice('auth', {
   initialState: { ...sessionState },
-  reducers: {
+  actions: {
     login(state, jwt: string) {
       state.jwt = jwt
     },
