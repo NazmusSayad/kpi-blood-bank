@@ -1,9 +1,11 @@
+import About from './About'
 import Hero from './Hero'
 
 export default function Home() {
   return (
     <>
       <Hero />
+      <About />
       Lorem ipsum dolor sit amet consectetur adipisicing elit. Praesentium odit
       nisi atque libero dolor provident accusantium doloremque? Sint labore
       doloremque eligendi aspernatur voluptas vel quaerat esse nam animi ipsam
