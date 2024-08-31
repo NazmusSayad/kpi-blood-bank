@@ -1,0 +1,9 @@
+@use './fonts';
+@use './colors';
+@use './keyframes';
+
+@use './app';
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;

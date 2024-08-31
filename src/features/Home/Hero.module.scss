@@ -1,0 +1,24 @@
+.background {
+  --bg-size: 100%;
+  background-size: var(--bg-size);
+
+  @include min(90em) {
+    --bg-size: 80%;
+  }
+
+  @include max($md) {
+    --bg-size: 120%;
+  }
+
+  @include max($sm) {
+    --bg-size: 140%;
+  }
+
+  @include max($xs) {
+    --bg-size: 160%;
+  }
+
+  @include max($xxs) {
+    --bg-size: 180%;
+  }
+}

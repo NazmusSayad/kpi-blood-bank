@@ -1,0 +1,18 @@
+html {
+  scroll-behavior: smooth;
+  color-scheme: light;
+}
+
+html,
+body,
+#Root {
+  height: 100%;
+  min-height: 100%;
+  max-height: 100%;
+}
+
+body {
+  font-family: Inter, Noto Sans Bengali, sans-serif;
+  overflow: hidden;
+  overflow-y: scroll;
+}
