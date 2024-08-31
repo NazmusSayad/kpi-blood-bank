@@ -41,8 +41,8 @@ export default function Nav() {
               <Button
                 variant={'text'}
                 color={'inherit'}
-                LinkComponent={Link}
-                href={link.to}
+                component={Link}
+                to={link.to}
               >
                 {link.label}
               </Button>

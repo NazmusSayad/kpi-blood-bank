@@ -39,8 +39,9 @@ export default function NavModal() {
               <Button
                 variant={'text'}
                 color={'inherit'}
-                LinkComponent={Link}
-                href={link.to}
+                component={Link}
+                to={link.to}
+                onClick={() => setIsOpen(false)}
               >
                 {link.label}
               </Button>

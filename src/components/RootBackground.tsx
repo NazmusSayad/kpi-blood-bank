@@ -24,7 +24,7 @@ export default function RootBackground() {
         <canvas ref={canvasRef} className={'size-full'} />
       </div>
 
-      <div className={'absolute inset-0 opacity-50'}>
+      <div className={'absolute inset-0 opacity-20'}>
         <Particles />
       </div>
     </div>
