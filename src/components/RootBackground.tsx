@@ -12,6 +12,7 @@ export default function RootBackground() {
       characters: '.',
       colors: ['#f00'],
       background: '#eee',
+      delay: 200,
     })
 
     rain.play()
