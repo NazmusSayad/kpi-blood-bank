@@ -3,7 +3,7 @@ import LinkButton from '@/components/ui/LinkButton'
 export default function AdminSidebar() {
   return (
     <div className={'p-2 bg-red-300/30 flex flex-col justify-between'}>
-      <ul>
+      <ul className={'flex size-full justify-center md:flex-col'}>
         <li>
           <LinkButton
             fullWidth
@@ -26,10 +26,8 @@ export default function AdminSidebar() {
             Request
           </LinkButton>
         </li>
-      </ul>
 
-      <ul>
-        <li>
+        <li className={'md:mt-auto'}>
           <LinkButton
             fullWidth
             to={'/admin'}

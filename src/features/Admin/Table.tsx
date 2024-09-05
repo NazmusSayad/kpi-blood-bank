@@ -146,21 +146,17 @@ export default function Table() {
   )
 
   return (
-    <div
-      className={'overflow-hidden py-3 max-w-[min(120rem,95%)] w-full mx-auto '}
-    >
-      <Paper sx={{ height: '100%', width: '100%' }}>
-        <DataGrid
-          rows={rows}
-          columns={columns}
-          sx={{ border: 0 }}
-          initialState={{
-            pagination: { paginationModel: { page: 0, pageSize: 20 } },
-          }}
-          hideFooterSelectedRowCount
-        />
-      </Paper>
-    </div>
+    <Paper className={'max-w-[min(100rem,100%)] w-full mx-auto h-full'}>
+      <DataGrid
+        rows={rows}
+        columns={columns}
+        initialState={{
+          pagination: { paginationModel: { page: 0, pageSize: 20 } },
+        }}
+        sx={{ border: 0 }}
+        hideFooterSelectedRowCount
+      />
+    </Paper>
   )
 }
 
