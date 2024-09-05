@@ -1,12 +1,14 @@
 import { useLayoutEffect, useState } from 'react'
-import { Button, IconButton } from '@mui/material'
+import { IconButton } from '@mui/material'
 import Wrapper from '@/layouts/Wrapper'
 import logoSrc from '@/assets/logo.jpg?url'
 import NavModal from './NavModal'
-import { Link } from 'react-router-dom'
+import { Link, useLocation } from 'react-router-dom'
+import LinkButton from '@/components/ui/LinkButton'
 
 export default function Nav() {
   const [scrollPosition, setScrollPosition] = useState(0)
+  const location = useLocation()
 
   useLayoutEffect(() => {
     const handleScroll = () => {
@@ -17,11 +19,13 @@ export default function Nav() {
     return () => window.removeEventListener('scroll', handleScroll)
   }, [])
 
+  console.log(location)
+
   return (
     <div
-      className={tw(
+      className={cn(
         'fixed top-0 w-full -z-[-999] border-b border-transparent transition-all duration-300 text-white bg-transparent',
-        scrollPosition > 0 &&
+        (scrollPosition > 0 || location.pathname !== '/') &&
           'bg-red-500/80 border-b-gray-500/20 backdrop-blur-lg shadow-sm'
       )}
     >
@@ -37,24 +41,20 @@ export default function Nav() {
 
           <div className={'hidden sm:flex items-center gap-3'}>
             {links.map((link) => (
-              <Button
-                variant={'text'}
-                color={'inherit'}
-                component={Link}
-                to={link.to}
-              >
+              <LinkButton variant={'text'} color={'inherit'} to={link.to}>
                 {link.label}
-              </Button>
+              </LinkButton>
             ))}
           </div>
 
           <div className={'hidden sm:block'}>
-            <Button
+            <LinkButton
+              to={'/admin'}
               color={'inherit'}
               variant={scrollPosition > 0 ? 'contained' : 'outlined'}
             >
-              Login
-            </Button>
+              Admin
+            </LinkButton>
           </div>
 
           <div className={'block sm:hidden'}>

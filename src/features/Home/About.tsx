@@ -26,23 +26,21 @@ export default function About() {
           </div>
 
           <div
-            className={tw(
+            className={cn(
               'text-white bg-red-500/75 backdrop-blur-md',
               'px-[5%] py-[3%] grid gap-2 sm:text-lg md:text-xl lg:text-2xl'
             )}
           >
             <p className={'drop-shadow-md'}>
-              আমরা একটি সম্পূর্ণ বাংলাদেশি প্রযুক্তি সংবাদপত্র। আমরা প্রযুক্তি
-              সম্পর্কে সবকিছু নিয়ে লেখা লিখি।
+              আমরা খুলনা পলিটেকনিক ইনস্টিটিউট এর শিক্ষক ও শিক্ষার্থী।
             </p>
-            <p className={'drop-shadow-md'}>
-              আমরা একটি সম্পূর্ণ বাংলাদেশি প্রযুক্তি সংবাদপত্র। আমরা প্রযুক্তি
-              সম্পর্কে সবকিছু নিয়ে লেখা লিখি।
-            </p>
-            <p className={'drop-shadow-md'}>
-              আমরা একটি সম্পূর্ণ বাংলাদেশি প্রযুক্তি সংবাদপত্র। আমরা প্রযুক্তি
-              সম্পর্কে সবকিছু নিয়ে লেখা লিখি।
-            </p>
+
+            <div>
+              <li className={'drop-shadow-md'}>
+                আমরা একটি স্বেচ্ছাসেবী সংগঠন।
+              </li>
+              <li className={'drop-shadow-md'}>মানুষের সাথে মানুষের জন্য।</li>
+            </div>
           </div>
         </div>
       </Wrapper>

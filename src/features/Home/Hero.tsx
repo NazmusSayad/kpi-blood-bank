@@ -2,13 +2,14 @@ import Wrapper from '@/layouts/Wrapper'
 import css from './Hero.module.scss'
 import BGSvg from '@/assets/6262.svg?url'
 import { Button } from '@mui/material'
+import { Link } from 'react-router-dom'
 
 export default function Hero(props: Props) {
   return (
     <div className={'min-h-screen relative isolate bg-red-900/60'}>
       <div
         style={{ backgroundImage: `url(${BGSvg})` }}
-        className={tw(
+        className={cn(
           css.background,
           'absolute inset-0 opacity-50',
           'bg-no-repeat bg-right-bottom'
@@ -21,7 +22,7 @@ export default function Hero(props: Props) {
             <div className={'flex-1'}>
               <div className={'mb-16 text-white text-center md:text-left'}>
                 <h1
-                  className={tw(
+                  className={cn(
                     'font-[Galada]',
                     '!leading-[1.5] font-bold drop-shadow-lg',
                     'text-6xl xxs:text-7xl sm:text-[6rem] md:text-[7rem] lg:text-[8rem] xl:text-[9rem] xxl:text-[10rem]'
@@ -35,11 +36,18 @@ export default function Hero(props: Props) {
                 <h3>রক্ত দিতে এবং পেতে সাহায্য করুন</h3>
               </div>
               <div className={'flex gap-3 md:justify-start justify-center'}>
-                <Button variant={'contained'} color={'error'}>
+                <Button
+                  {...{ to: '/donate' }}
+                  LinkComponent={Link}
+                  variant={'contained'}
+                  color={'error'}
+                >
                   Donate
                 </Button>
 
                 <Button
+                  {...{ to: '/request' }}
+                  LinkComponent={Link}
                   variant={'outlined'}
                   color={'error'}
                   className={'backdrop-blur-sm !bg-red-50/50'}

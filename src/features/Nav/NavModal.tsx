@@ -3,6 +3,7 @@ import { Button, IconButton, Modal } from '@mui/material'
 import { RxHamburgerMenu } from 'react-icons/rx'
 import navLinks from './nav-links'
 import { Link } from 'react-router-dom'
+import LinkButton from '@/components/ui/LinkButton'
 
 export default function NavModal() {
   const [isOpen, setIsOpen] = useState(false)
@@ -21,7 +22,7 @@ export default function NavModal() {
 
       <Modal open={isOpen} onClose={handleOnClose}>
         <div
-          className={tw(
+          className={cn(
             'w-[min(15rem,100%)] h-full ml-auto text-white px-4',
             'bg-slate-800/60 backdrop-blur-lg drop-shadow-lg'
           )}
@@ -36,15 +37,14 @@ export default function NavModal() {
 
           <div className={'flex flex-col text-center gap-2'}>
             {navLinks.map((link) => (
-              <Button
+              <LinkButton
+                to={link.to}
                 variant={'text'}
                 color={'inherit'}
-                component={Link}
-                to={link.to}
                 onClick={() => setIsOpen(false)}
               >
                 {link.label}
-              </Button>
+              </LinkButton>
             ))}
           </div>
 

@@ -6,12 +6,12 @@ function twFn(...args: unknown[]) {
   return twMerge(tailwind(...args))
 }
 
-window.tw = twFn
+window.cn = twFn
 window.$store = actions
 window.$useStore = useStore
 
 declare global {
-  var tw: typeof twFn
+  var cn: typeof twFn
   var $store: typeof actions
   var $useStore: typeof useStore
 }

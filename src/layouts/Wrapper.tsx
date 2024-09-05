@@ -4,7 +4,7 @@ export default function Wrapper(props: Props) {
   return (
     <div
       {...props}
-      className={tw(
+      className={cn(
         'max-w-[95rem] w-full mx-auto px-[3%] lg:px-[5%]',
         props.className
       )}
