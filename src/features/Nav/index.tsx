@@ -40,8 +40,13 @@ export default function Nav() {
           </IconButton>
 
           <div className={'hidden sm:flex items-center gap-3'}>
-            {links.map((link) => (
-              <LinkButton variant={'text'} color={'inherit'} to={link.to}>
+            {links.map((link, i) => (
+              <LinkButton
+                key={i}
+                variant={'text'}
+                color={'inherit'}
+                to={link.to}
+              >
                 {link.label}
               </LinkButton>
             ))}

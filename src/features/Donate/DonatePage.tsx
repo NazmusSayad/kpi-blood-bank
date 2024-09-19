@@ -20,12 +20,11 @@ export default function DonatePage() {
         <Wrapper className={'pt-2'}>
           <h1
             className={
-              'text-[clamp(2rem,6vw,2.5rem)] text-center font-medium font-rubik'
+              'text-[clamp(2rem,6vw,2.5rem)] text-center font-medium max-w-[30ch] mx-auto'
             }
           >
-            Your donation can save other's life
+            রক্ত দিব জীবন বাঁচাবো, মানব সেবায় নিজেকে নিয়োজিত রাখব।
           </h1>
-          <h3 className={'text-center'}>So let's donate</h3>
 
           <DonateForm />
         </Wrapper>

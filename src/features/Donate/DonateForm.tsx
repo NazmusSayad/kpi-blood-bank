@@ -6,22 +6,23 @@ import {
   InputLabel,
   FormControl,
 } from '@mui/material'
-import { MuiTelInput } from 'mui-tel-input'
 import { useState } from 'react'
+import { MuiTelInput } from 'mui-tel-input'
+import CustomDatePicker from '@/components/ui/CustomDatePicker'
 
 export default function DonateForm() {
   const [state, setState] = useState<{
     name: string
-    age: string
     phoneNumber: string
     bloodGroup: string
     address: string
+    dateOfBirth: string
   }>({
     name: '',
-    age: '',
     phoneNumber: '+8801',
     bloodGroup: '',
     address: '',
+    dateOfBirth: '',
   })
 
   function setFormValue(key: keyof typeof state, value: string) {
@@ -35,28 +36,25 @@ export default function DonateForm() {
           <FormControl required>
             <TextField
               required
-              label="Name"
+              label="নাম"
               value={state.name}
               onChange={(e) => setFormValue('name', e.target.value)}
             />
           </FormControl>
 
           <FormControl required>
-            <TextField
-              type={'number'}
-              required
-              label="Age"
-              value={state.age}
-              onChange={(e) => setFormValue('age', e.target.value)}
+            <CustomDatePicker
+              label="জন্ম তারিখ"
+              textFieldProps={{ required: true }}
             />
           </FormControl>
 
           <FormControl required>
-            <InputLabel id="blood-group-label">Blood Group</InputLabel>
+            <InputLabel id="blood-group-label">রক্তের গ্রুপ</InputLabel>
             <Select
               required
-              label="Blood Group"
-              placeholder="Blood Group"
+              label="রক্তের গ্রুপ"
+              placeholder="রক্তের গ্রুপ"
               labelId={'blood-group-label'}
               value={state.bloodGroup}
               onChange={(e) => setFormValue('bloodGroup', e.target.value)}
@@ -73,12 +71,26 @@ export default function DonateForm() {
           </FormControl>
 
           <FormControl required>
+            <CustomDatePicker
+              label="সর্বশেষ রক্ত দানের তারিখ"
+              textFieldProps={{ required: true }}
+            />
+          </FormControl>
+
+          <FormControl required>
+            <CustomDatePicker
+              label="পরবর্তী রক্ত প্রদানের তারিখ"
+              textFieldProps={{ required: true }}
+            />
+          </FormControl>
+
+          <FormControl required>
             <MuiTelInput
               required
+              label="মোবাইল নাম্বার"
               defaultCountry={'BD'}
               onlyCountries={['BD']}
               langOfCountryName={'bn'}
-              label="Phone Number"
               value={state.phoneNumber}
               onChange={(e) => setFormValue('phoneNumber', e)}
             />

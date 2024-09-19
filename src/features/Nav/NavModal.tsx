@@ -36,8 +36,9 @@ export default function NavModal() {
           </div>
 
           <div className={'flex flex-col text-center gap-2'}>
-            {navLinks.map((link) => (
+            {navLinks.map((link, i) => (
               <LinkButton
+                key={i}
                 to={link.to}
                 variant={'text'}
                 color={'inherit'}
