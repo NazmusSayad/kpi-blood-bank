@@ -4,14 +4,11 @@ import bgImage from '@/assets/bg-image-1.svg?url'
 
 export default function DonatePage() {
   return (
-    <div
-      style={{
-        backgroundImage: `url(${bgImage})`,
-        backgroundSize: 'contain',
-        backgroundPosition: 'center',
-        backgroundRepeat: 'no-repeat',
-      }}
-    >
+    <div className={'relative isolate'}>
+      <div className={'fixed inset-0'}>
+        <img src={bgImage} className={'size-full object-contain max-w-[90rem] mx-auto'} />
+      </div>
+
       <div
         className={
           'relative min-h-screen pt-14 bg-stone-200/95 isolate backdrop-blur-sm'
