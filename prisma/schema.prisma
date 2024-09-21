@@ -7,16 +7,44 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
+model User {
+  id       String   @id @default(uuid())
+  role     UserRole
+  name     String
+  username String
+  password String
+}
+
 model DonationDonors {
-  id           Int      @id @default(autoincrement())
+  id       String  @id @default(uuid())
+  name     String
+  phone    String
+  phone2   String?
+  whatsapp String?
+
+  occupation           String?
+  educationalInstitute String?
+  groupName            String?
+  rollNumber           String?
+  session              String?
+
   bloodGroup   String
   dateOfBirth  DateTime
-  lastDonated  DateTime
-  name         String
-  nextDonation DateTime
-  phone        String
+  lastDonated  DateTime?
+  nextDonation DateTime?
+
+  nidNumber              String?
+  birthCertificateNumber String
+
+  presentAddress   String
+  permanentAddress String
 }
 
 model DonationRequsts {
-  id Int @id @default(autoincrement())
+  id String @id @default(uuid())
+}
+
+enum UserRole {
+  ADMIN
+  MODERATOR
 }
