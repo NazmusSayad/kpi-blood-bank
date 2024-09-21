@@ -47,4 +47,5 @@ model DonationRequsts {
 enum UserRole {
   ADMIN
   MODERATOR
+  
 }
