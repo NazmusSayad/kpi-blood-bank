@@ -12,6 +12,8 @@ const errorManager = new ErrorManager()
 
 export const appRoute = RouteWrapper<[NextRequest, NextRequestContext]>(
   (err, req, ctx) => {
+    console.log({ err })
+
     const [message, statusCode] = errorManager.getErrorInfo(err)
     return NextResponse.json({ message }, { status: statusCode })
   },
