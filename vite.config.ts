@@ -8,11 +8,8 @@ export default defineConfig({
   plugins: [react(), vitePWA(), svgr({ include: '**/*.svg' })],
 
   css: {
-    devSourcemap: true,
     preprocessorOptions: {
-      scss: {
-        additionalData: `@use '@/styles/core' as *;\n`,
-      },
+      scss: { additionalData: `@use '@/styles/core' as *;\n` },
     },
   },
 
