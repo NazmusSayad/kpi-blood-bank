@@ -28,7 +28,7 @@ model DonationDonors {
   rollNumber           String?
   session              String?
 
-  bloodGroup   String
+  // bloodGroup   String
   dateOfBirth  DateTime
   lastDonated  DateTime?
   nextDonation DateTime?
