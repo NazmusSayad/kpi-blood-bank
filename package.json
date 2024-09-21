@@ -6,7 +6,7 @@
     "vite-dev": "vite --host",
     "next-dev": "next dev --turbo --port 8000",
     "vite-build": "tsc && vite build",
-    "next-build": "next build",
+    "next-build": "prisma generate && next build",
     "prisma": "prisma generate && prisma db push"
   },
   "dependencies": {
