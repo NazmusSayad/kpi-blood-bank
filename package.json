@@ -1,10 +1,13 @@
 {
   "type": "module",
   "scripts": {
-    "dev": "vite --host",
     "tsc": "tsc --watch",
-    "build": "tsc && vite build",
-    "preview": "vite preview"
+    "dev": "run-p vite-dev next-dev",
+    "vite-dev": "vite --host",
+    "next-dev": "next dev --turbo --port 8000",
+    "vite-build": "tsc && vite build",
+    "next-build": "next build",
+    "prisma": "prisma generate && prisma db push"
   },
   "dependencies": {
     "@emotion/react": "^11.13.3",
@@ -13,12 +16,14 @@
     "@mui/material": "^6.1.1",
     "@mui/x-data-grid": "^7.16.0",
     "@mui/x-date-pickers": "^7.17.0",
+    "@prisma/client": "^5.19.1",
     "@reduxjs/toolkit": "latest",
     "css-reset-plus": "latest",
     "error-boundary-react": "latest",
     "get-classnames": "latest",
     "moment": "^2.30.1",
     "mui-tel-input": "^6.0.0",
+    "next": "^14.2.13",
     "react": "latest",
     "react-dom": "latest",
     "react-icons": "^5.3.0",
@@ -26,6 +31,8 @@
     "react-redux": "latest",
     "react-router-dom": "latest",
     "react-rtk": "latest",
+    "req-error": "^2.0.1",
+    "route-wrapper": "^1.0.4",
     "tailwind-merge": "^2.5.2",
     "tailwind-variant-group": "^3.0.4",
     "vite-plugin-svgr": "^4.2.0"
@@ -36,6 +43,7 @@
     "@types/react-dom": "latest",
     "@vitejs/plugin-react-swc": "latest",
     "postcss-preset-env": "latest",
+    "prisma": "^5.19.1",
     "sass": "latest",
     "tailwindcss": "^3.4.10",
     "typescript": "latest",
