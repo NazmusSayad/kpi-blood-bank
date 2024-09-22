@@ -26,6 +26,7 @@
     "react-net-kit": "latest",
     "req-error": "^2.0.1",
     "route-wrapper": "^1.0.4",
+    "sharp": "^0.33.5",
     "tailwind-merge": "^2.5.2",
     "tailwind-variant-group": "^3.0.4",
     "zustand": "^5.0.0-rc.2"

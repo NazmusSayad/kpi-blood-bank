@@ -5,5 +5,5 @@ export default {
   },
 }
 console.log('\n'.repeat(3))
-console.log({ VERCEL_URL })
+console.log({ VERCEL_URL: process.env.VERCEL_URL })
 console.log('\n'.repeat(3))
