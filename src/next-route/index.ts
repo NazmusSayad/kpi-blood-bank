@@ -1,33 +1,26 @@
+import { ReqError } from 'req-error'
 import { cookies } from 'next/headers'
 import RouteWrapper from 'route-wrapper'
-import { ErrorManager, ReqError } from 'req-error'
 import { NextRequest, NextResponse } from 'next/server'
-
-type NextRequestContext = Record<string, unknown> & {
-  readonly params: Record<string, string>
-  status: number
-  token?: string
-}
-
-const errorManager = new ErrorManager()
+import { errorManager, NextRequestContext } from './helpers'
 
 export const appRoute = RouteWrapper<[NextRequest, NextRequestContext]>(
-  (err, req, ctx) => {
+  (err) => {
     const [message, statusCode] = errorManager.getErrorInfo(err)
     return NextResponse.json({ message }, { status: statusCode })
   },
 
-  (data, req, ctx) => {
+  (data, _, ctx) => {
     const status = ctx.status ? +ctx.status : 200
     return NextResponse.json({ data }, { status })
   }
-).use((req, ctx) => {
-  const token = cookies().get('token')
-  ctx.token = token?.value
+).use((_, ctx) => {
+  const token = cookies().get('authorization')
+  ctx.authorizationToken = token?.value
 })
 
-export const authRoute = appRoute.create().use((req, { token }) => {
-  if (!token) {
-    throw new ReqError('Unauthorized', 401)
+export const authRoute = appRoute.create().use((_, { authorizationToken }) => {
+  if (!authorizationToken) {
+    throw new ReqError('Authorization token is required', 401)
   }
 })
