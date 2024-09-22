@@ -9,6 +9,6 @@ export const GET = appRoute(async () => {
     message: 'Hello, world!',
     donors: await db.donationDonors.findMany(),
     time: new Date(),
-    env: { ...process.env },
+    env,
   }
 })
