@@ -3,7 +3,8 @@ export default {
   sassOptions: {
     additionalData: `@use '@/styles/core' as *;\n`,
   },
+
+  compiler: {
+    removeConsole: process.env.NODE_ENV === 'production' ? true : undefined,
+  },
 }
-console.log('\n'.repeat(3))
-console.log({ VERCEL_URL: process.env.VERCEL_URL })
-console.log('\n'.repeat(3))
