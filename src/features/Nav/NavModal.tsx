@@ -2,8 +2,8 @@ import { useState } from 'react'
 import { Button, IconButton, Modal } from '@mui/material'
 import { RxHamburgerMenu } from 'react-icons/rx'
 import navLinks from './nav-links'
-import { Link } from 'react-router-dom'
 import LinkButton from '@/components/ui/LinkButton'
+import { cn } from '@/utils'
 
 export default function NavModal() {
   const [isOpen, setIsOpen] = useState(false)
@@ -39,7 +39,7 @@ export default function NavModal() {
             {navLinks.map((link, i) => (
               <LinkButton
                 key={i}
-                to={link.to}
+                href={link.to}
                 variant={'text'}
                 color={'inherit'}
                 onClick={() => setIsOpen(false)}

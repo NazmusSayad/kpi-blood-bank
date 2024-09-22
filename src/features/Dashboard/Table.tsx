@@ -1,6 +1,7 @@
+'use client'
+
+import { Paper, Button, ButtonGroup } from '@mui/material'
 import { DataGrid, GridColDef } from '@mui/x-data-grid'
-import Paper from '@mui/material/Paper'
-import { Button, ButtonGroup } from '@mui/material'
 
 export default function Table() {
   const { columns, rows } = createRowColumn(

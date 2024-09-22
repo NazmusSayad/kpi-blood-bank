@@ -1,14 +1,15 @@
 import Wrapper from '@/layouts/Wrapper'
 import css from './Hero.module.scss'
-import BGSvg from '@/assets/6262.svg?url'
+import BGSvg from '@/assets/6262.svg'
 import { Button } from '@mui/material'
-import { Link } from 'react-router-dom'
+import { cn } from '@/utils'
+import Link from 'next/link'
 
-export default function Hero(props: Props) {
+export default function Hero() {
   return (
     <div className={'min-h-screen relative isolate bg-red-900/60'}>
       <div
-        style={{ backgroundImage: `url(${BGSvg})` }}
+        style={{ backgroundImage: `url(${BGSvg.src})` }}
         className={cn(
           css.background,
           'absolute inset-0 opacity-50',
@@ -37,7 +38,7 @@ export default function Hero(props: Props) {
               </div>
               <div className={'flex gap-3 md:justify-start justify-center'}>
                 <Button
-                  {...{ to: '/donate' }}
+                  href={'/donate'}
                   LinkComponent={Link}
                   variant={'contained'}
                   color={'error'}
@@ -46,7 +47,7 @@ export default function Hero(props: Props) {
                 </Button>
 
                 <Button
-                  {...{ to: '/request' }}
+                  href={'/request'}
                   LinkComponent={Link}
                   variant={'outlined'}
                   color={'error'}
@@ -62,5 +63,3 @@ export default function Hero(props: Props) {
     </div>
   )
 }
-
-type Props = {}

@@ -1,4 +1,6 @@
-import CanvasMatrix from '@/lib/canvas-matrix'
+'use client'
+
+import CanvasMatrix from './canvas-matrix'
 import { useLayoutEffect, useRef } from 'react'
 import Particles from './Particles'
 

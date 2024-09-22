@@ -1,3 +1,4 @@
+import { cn } from '@/utils'
 import { ComponentProps } from 'react'
 
 export default function Wrapper(props: Props) {

@@ -1,12 +1,12 @@
 import Wrapper from '@/layouts/Wrapper'
 import RequestForm from './RequestForm'
-import bgImage from '@/assets/bg-image-2.svg?url'
+import bgImage from '@/assets/bg-image-2.svg'
 
 export default function RequestPage() {
   return (
     <div
       style={{
-        backgroundImage: `url(${bgImage})`,
+        backgroundImage: `url(${bgImage.src})`,
         backgroundSize: 'contain',
         backgroundPosition: 'center',
         backgroundRepeat: 'no-repeat',

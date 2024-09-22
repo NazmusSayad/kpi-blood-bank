@@ -1,12 +1,15 @@
 import Wrapper from '@/layouts/Wrapper'
 import DonateForm from './DonateForm'
-import bgImage from '@/assets/bg-image-1.svg?url'
+import bgImage from '@/assets/bg-image-1.svg'
 
 export default function DonatePage() {
   return (
     <div className={'relative isolate'}>
       <div className={'fixed inset-0'}>
-        <img src={bgImage} className={'size-full object-contain max-w-[90rem] mx-auto'} />
+        <img
+          src={bgImage.src}
+          className={'size-full object-contain max-w-[90rem] mx-auto'}
+        />
       </div>
 
       <div

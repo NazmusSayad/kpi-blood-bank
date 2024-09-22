@@ -1,7 +1,7 @@
 /** @type {import('tailwindcss').Config} */
 export default {
   content: {
-    files: ['./src/**/*.{ts,tsx}', './index.html'],
+    files: ['./src/**/*.{ts,tsx}', './app/**/*.{ts,tsx}'],
     transform: require('tailwind-variant-group').transform,
   },
   theme: {

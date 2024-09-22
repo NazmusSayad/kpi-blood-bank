@@ -1,6 +1,7 @@
-import { Link } from 'react-router-dom'
 import { ComponentProps } from 'react'
 import { Button } from '@mui/material'
+import { cn } from '@/utils'
+import Link from 'next/link'
 
 export default function LinkButton({ className, ...props }: Props) {
   return (
@@ -13,5 +14,5 @@ export default function LinkButton({ className, ...props }: Props) {
 }
 
 type Props = Omit<ComponentProps<typeof Button>, 'LinkComponent' | 'href'> & {
-  to: string
+  href: string
 }

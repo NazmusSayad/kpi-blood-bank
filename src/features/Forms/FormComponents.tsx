@@ -1,6 +1,6 @@
 import { ComponentProps } from 'react'
-import { Accordion, AccordionDetails, AccordionSummary } from '@mui/material'
 import { FaChevronDown } from 'react-icons/fa'
+import { Accordion, AccordionDetails, AccordionSummary } from '@mui/material'
 
 export function FormAccordion({
   header,

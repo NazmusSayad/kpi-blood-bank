@@ -1,5 +1,6 @@
 import Wrapper from '@/layouts/Wrapper'
-import aboutUrl from '@/assets/about.jpg?url'
+import aboutUrl from '@/assets/about.jpg'
+import { cn } from '@/utils'
 
 export default function About() {
   return (
@@ -22,7 +23,7 @@ export default function About() {
           }
         >
           <div className={'max-h-[50vh] overflow-hidden opacity-90'}>
-            <img src={aboutUrl} className={'size-full object-cover'} />
+            <img src={aboutUrl.src} className={'size-full object-cover'} />
           </div>
 
           <div
