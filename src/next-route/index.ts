@@ -6,14 +6,13 @@ import { NextRequest, NextResponse } from 'next/server'
 type NextRequestContext = Record<string, unknown> & {
   readonly params: Record<string, string>
   status: number
+  token?: string
 }
 
 const errorManager = new ErrorManager()
 
 export const appRoute = RouteWrapper<[NextRequest, NextRequestContext]>(
   (err, req, ctx) => {
-    console.log({ err })
-
     const [message, statusCode] = errorManager.getErrorInfo(err)
     return NextResponse.json({ message }, { status: statusCode })
   },
@@ -22,11 +21,12 @@ export const appRoute = RouteWrapper<[NextRequest, NextRequestContext]>(
     const status = ctx.status ? +ctx.status : 200
     return NextResponse.json({ data }, { status })
   }
-)
-
-export const authRoute = appRoute.create().use(() => {
+).use((req, ctx) => {
   const token = cookies().get('token')
+  ctx.token = token?.value
+})
 
+export const authRoute = appRoute.create().use((req, { token }) => {
   if (!token) {
     throw new ReqError('Unauthorized', 401)
   }
