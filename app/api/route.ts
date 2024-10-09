@@ -5,6 +5,6 @@ export const GET = appRoute(async () => {
   throw {
     message: 'Hello, world!',
     time: new Date(),
-    donors: await db.donationDonors.findMany(),
+    users: await db.user.findMany(),
   }
 })

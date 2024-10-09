@@ -8,43 +8,48 @@ datasource db {
 }
 
 model User {
-  id       String   @id @default(uuid())
-  role     UserRole
-  name     String
-  username String
-  password String
-}
+  id          Int        @id @default(autoincrement())
+  name        String
+  password    String
+  role        UserRole
+  accountType UserType
+  bloodGroup  BloodGroup
+  phone       Int
 
-model DonationDonors {
-  id       String  @id @default(uuid())
-  name     String
-  phone    String
-  phone2   String?
-  whatsapp String?
+  // One of them is required
+  nidNumber              Int? @unique
+  birthCertificateNumber Int? @unique
 
-  occupation           String?
-  educationalInstitute String?
-  groupName            String?
-  rollNumber           String?
-  session              String?
+  email     String?
+  birthDate DateTime?
 
-  bloodGroup   String
-  dateOfBirth  DateTime
-  lastDonated  DateTime?
-  nextDonation DateTime?
-
-  nidNumber              String?
-  birthCertificateNumber String
-
-  presentAddress   String
-  permanentAddress String
-}
-
-model DonationRequsts {
-  id String @id @default(uuid())
+  student_educationalInstitute String?
+  student_department           String?
+  student_session              String?
+  student_rollNumber           Int?
+  student_registrationNumber   Int?
 }
 
 enum UserRole {
-  ADMIN
+  USER
   MODERATOR
+  ADMIN
+  SUPER_ADMIN
+}
+
+enum UserType {
+  GUEST
+  STUDENT
+  TEACHER
+}
+
+enum BloodGroup {
+  A_POSITIVE
+  A_NEGATIVE
+  B_POSITIVE
+  B_NEGATIVE
+  O_POSITIVE
+  O_NEGATIVE
+  AB_POSITIVE
+  AB_NEGATIVE
 }
