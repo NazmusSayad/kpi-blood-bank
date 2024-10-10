@@ -5,5 +5,5 @@ import { createAuthJwtToken } from '@/controllers/auth/helpers'
 export const GET = authRoute(async (req) => {
   const token = await createAuthJwtToken(req.user.id)
   setAuthCookie(token)
-  throw req.user
+  throw { user: req.user, ip: req.ip }
 })
