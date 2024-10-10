@@ -9,12 +9,12 @@ datasource db {
 
 model User {
   id          Int        @id @default(autoincrement())
+  phone       Int        @unique
   name        String
   password    String
   role        UserRole
   accountType UserType
   bloodGroup  BloodGroup
-  phone       Int
 
   // One of them is required
   nidNumber              Int? @unique
