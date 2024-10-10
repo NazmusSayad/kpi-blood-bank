@@ -1,6 +1,9 @@
 import { authRoute } from '@/next-route'
+import { setAuthCookie } from '@/utils/cookies'
+import { createAuthJwtToken } from '@/controllers/auth/helpers'
 
 export const GET = authRoute(async (req) => {
-  console.log(req.user)
-  throw { message: 'Hello, world!' }
+  const token = await createAuthJwtToken(req.user.id)
+  setAuthCookie(token)
+  throw req.user
 })
