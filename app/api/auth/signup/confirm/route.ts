@@ -1,6 +1,8 @@
 import { appRoute } from '@/next-route'
+import { selectInObj } from '@/db/helpers'
 import { setAuthCookie } from '@/utils/cookies'
-import { confirmSignUp } from '@/controllers/auth/authController'
+import { UserPrivateFields } from '@/db/config'
+import { confirmSignUp } from '@/service/auth/auth'
 
 export const POST = appRoute(async (req) => {
   if (!req.data.token || !req.data.otp) {
@@ -13,5 +15,5 @@ export const POST = appRoute(async (req) => {
   )
 
   setAuthCookie(user.jwtToken)
-  throw user.user
+  throw selectInObj(user.user, UserPrivateFields)
 })

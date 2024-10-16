@@ -3,10 +3,10 @@ import { BloodGroup, Prisma } from '@prisma/client'
 
 const mainFields = {
   name: r.string(),
-  password: r.string(),
+  password: r.string().minLength(6),
   accountType: r.string('GUEST', 'TEACHER'),
   bloodGroup: r.string(...Object.values(BloodGroup)),
-  phone: r.number().max(9999999999).min(1000000000),
+  phone: r.number().max(999999999).min(100000000),
 } as const
 
 const studentsFields = {

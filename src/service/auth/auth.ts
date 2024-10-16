@@ -2,13 +2,13 @@ import {
   createAuthJwtToken,
   createSignupJwtToken,
   parseSignupJwtToken,
-} from './helpers'
-import r from 'rype'
+} from './_jwtHelpers'
 import db from '@/db'
+import argon2 from '@/utils/argon2'
 import { ReqError } from 'req-error'
 import userType from '@/rype/userType'
-import { UserPrivateFields } from '@/db/config'
-import { createSelectionObj } from '@/db/helpers'
+import generateOtp from '@/utils/generateOtp'
+import _printOTP from '@/utils/_printOTP'
 
 export async function login(password: string, id: number, phone: number) {
   if (!(id || phone) || !password) {
@@ -23,8 +23,8 @@ export async function login(password: string, id: number, phone: number) {
     throw new ReqError('User not found', 404)
   }
 
-  if (user.password !== password) {
-    throw new ReqError('Password not matched', 400)
+  if (!(await argon2.check(user.password, password))) {
+    throw new ReqError('Incorrect password entered', 400)
   }
 
   return { user, jwtToken: await createAuthJwtToken(user.id) }
@@ -72,24 +72,19 @@ export async function createSignupToken(data: unknown) {
     throw new ReqError(existedKey.join(', ') + ' already used', 400)
   }
 
-  const otp = Math.floor(100000 + Math.random() * 900000).toString()
-  console.log('> OTP:', otp)
+  const otp = generateOtp()
+  _printOTP('Signup', otp)
   return createSignupJwtToken(user, otp)
 }
 
 export async function confirmSignUp(token: string, otp: string) {
-  const data = (await parseSignupJwtToken(
-    token as string,
-    otp
-  )) as r.inferOutput<typeof userType>
-
+  const data = await parseSignupJwtToken(token as string, otp)
   const user = await db.user.create({
     data: {
       ...data,
       role: 'USER',
+      password: await argon2.generate(data.password),
     },
-
-    select: createSelectionObj(...UserPrivateFields),
   })
 
   return { user, jwtToken: await createAuthJwtToken(user.id) }

@@ -9,7 +9,7 @@ import { ReqError } from 'req-error'
 import { cookies } from 'next/headers'
 import RouteWrapper from 'route-wrapper'
 import { NextResponse } from 'next/server'
-import { parseAuthJwtToken } from '@/controllers/auth/helpers'
+import { parseAuthJwtToken } from '@/service/auth/_jwtHelpers'
 
 export const appRoute = RouteWrapper<[NextRequestCustom, NextRequestContext]>(
   (err) => {
@@ -43,8 +43,8 @@ export const authRoute = appRoute
       throw new ReqError('Authorization token is required', 401)
     }
 
-    const payload = await parseAuthJwtToken(ctx.authorizationToken)
-    const user = await db.user.findUnique({ where: { id: payload.userId } })
+    const userId = await parseAuthJwtToken(ctx.authorizationToken)
+    const user = await db.user.findUnique({ where: { id: userId } })
 
     if (!user) {
       throw new ReqError('User not found', 404)
