@@ -82,7 +82,7 @@ export async function confirmSignUp(token: string, otp: string) {
   const user = await db.user.create({
     data: {
       ...data,
-      role: 'USER',
+      role: 'MEMBER',
       password: await argon2.generate(data.password),
     },
   })

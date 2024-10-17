@@ -13,10 +13,9 @@ export default function Layout({ children }: { children: React.ReactNode }) {
   const userStore = useUserStore((state) => state)
 
   useLayoutEffect(() => {
-    if (
-      'localStorage' in globalThis &&
-      localStorage.getItem('isLoggedIn') === '1'
-    ) {
+    const hasLoggedIn = localStorage.getItem('isLoggedIn') === '1'
+
+    if (hasLoggedIn) {
       userStore.setLoggedIn(true)
       ;(async () => {
         const { data, ok } = await http.get<{ data: User }>('/account')

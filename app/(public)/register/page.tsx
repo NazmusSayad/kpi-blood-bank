@@ -1,14 +1,10 @@
 import Layout from '@/features/Auth/Layout'
-import Nav from '@/features/Nav'
+import Register from '@/features/Auth/Register'
 
-export default function RegisterPage() {
+export default function LoginPage() {
   return (
-    <main>
-      <Nav />
-
-      <Layout>
-        <h1>Register</h1>
-      </Layout>
-    </main>
+    <Layout>
+      <Register />
+    </Layout>
   )
 }

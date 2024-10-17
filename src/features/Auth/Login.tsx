@@ -6,6 +6,7 @@ import { Button } from '@mui/material'
 import { User } from '@prisma/client'
 import { useUserStore } from '@/zustand'
 import { useRouter } from 'next/navigation'
+import LinkButton from '@/components/ui/LinkButton'
 import PasswordInput from '@/components/ui/PasswordInput'
 import PhoneNumberInput from '@/components/ui/PhoneNumberInput'
 
@@ -22,18 +23,14 @@ export default function Login() {
       password,
     })
 
-    if (!ok) {
-      console.error(error)
-      return
-    }
-
+    if (!ok) return
     userStore.setUser(data)
     router.replace('/account')
   }
 
   return (
-    <div className={'bg-green-300 h-full'}>
-      <h1 className={'text-4xl text-center font-medium'}>Sign in</h1>
+    <div className={'grid grid-rows-[auto,1fr]'}>
+      <h1 className={'text-4xl text-center font-medium mb-12'}>Login</h1>
 
       <form
         onSubmit={(e) => {
@@ -41,8 +38,8 @@ export default function Login() {
           handleLogin()
         }}
       >
-        <div className={'grid gap-4'}>
-          <div>
+        <div>
+          <div className={'mb-4'}>
             <PhoneNumberInput
               fullWidth
               required
@@ -52,7 +49,7 @@ export default function Login() {
             />
           </div>
 
-          <div>
+          <div className={'mb-0'}>
             <PasswordInput
               fullWidth
               required
@@ -62,8 +59,33 @@ export default function Login() {
             />
           </div>
 
+          <div className={'text-right gap-0'}>
+            <LinkButton
+              size={'small'}
+              className="text-blue-500"
+              href="/forgot-password"
+            >
+              Forgot Password?
+            </LinkButton>
+          </div>
+
+          <div className={'mb-2'}>
+            <Button fullWidth variant={'contained'} type={'submit'}>
+              Login
+            </Button>
+          </div>
+
           <div>
-            <Button type={'submit'}>Submit</Button>
+            <p className={'text-center'}>
+              Don't have an account?{' '}
+              <LinkButton
+                size={'small'}
+                className="text-blue-500"
+                href="/register"
+              >
+                Register
+              </LinkButton>
+            </p>
           </div>
         </div>
       </form>

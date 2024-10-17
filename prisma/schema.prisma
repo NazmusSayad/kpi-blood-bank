@@ -8,17 +8,16 @@ datasource db {
 }
 
 model User {
-  id          Int        @id @default(autoincrement())
-  phone       Int        @unique
+  id          Int         @id @default(autoincrement())
+  phone       Int         @unique
   name        String
   password    String
   role        UserRole
-  accountType UserType
+  accountType AccountType
   bloodGroup  BloodGroup
 
-  // One of them is required
-  nidNumber              Int? @unique
-  birthCertificateNumber Int? @unique
+  nidNumber              String? @unique
+  birthCertificateNumber String? @unique
 
   email     String?
   birthDate DateTime?
@@ -26,18 +25,18 @@ model User {
   student_educationalInstitute String?
   student_department           String?
   student_session              String?
-  student_rollNumber           Int?
-  student_registrationNumber   Int?
+  student_rollNumber           String?
+  student_registrationNumber   String?
 }
 
 enum UserRole {
-  USER
+  MEMBER
   MODERATOR
   ADMIN
   SUPER_ADMIN
 }
 
-enum UserType {
+enum AccountType {
   GUEST
   STUDENT
   TEACHER

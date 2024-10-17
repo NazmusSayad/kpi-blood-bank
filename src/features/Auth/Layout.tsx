@@ -23,7 +23,9 @@ export default function Layout({ children }) {
           </div>
         </div>
 
-        <Wrapper className={'max-w-[35rem] h-full'}>{children}</Wrapper>
+        <Wrapper className={'max-w-[35rem]'}>
+          <div className={'min-h-[90%] grid items-center'}>{children}</div>
+        </Wrapper>
       </div>
     </main>
   )

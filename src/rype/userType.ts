@@ -18,24 +18,24 @@ const studentsFields = {
   student_rollNumber: r.number().optional(),
   student_registrationNumber: r.number().optional(),
 
-  nidNumber: r.number().optional(),
-  birthCertificateNumber: r.number().optional(),
+  nidNumber: r.string().optional(),
+  birthCertificateNumber: r.string().optional(),
 }
 
 const userType = r.or(
   r.object({
     ...mainFields,
-    nidNumber: r.number(),
+    nidNumber: r.string(),
   }),
   r.object({
     ...mainFields,
     ...studentsFields,
-    birthCertificateNumber: r.number(),
+    birthCertificateNumber: r.string(),
   }),
   r.object({
     ...mainFields,
     ...studentsFields,
-    nidNumber: r.number(),
+    nidNumber: r.string(),
   })
 )
 
