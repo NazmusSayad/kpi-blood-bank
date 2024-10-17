@@ -1,4 +1,4 @@
-import { appRoute } from '@/api-route'
+import { appRoute } from '@/router/api'
 import { selectInObj } from '@/db/helpers'
 import { setAuthCookie } from '@/utils/cookies'
 import { UserPrivateFields } from '@/db/config'

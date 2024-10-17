@@ -1,4 +1,4 @@
-import { authRoute } from '@/api-route'
+import { authRoute } from '@/router/api'
 import { selectInObj } from '@/db/helpers'
 import { setAuthCookie } from '@/utils/cookies'
 import { UserPrivateFields } from '@/db/config'

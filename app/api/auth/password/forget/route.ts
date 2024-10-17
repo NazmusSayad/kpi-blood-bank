@@ -1,4 +1,4 @@
-import { appRoute } from '@/api-route'
+import { appRoute } from '@/router/api'
 import { forgetPassword } from '@/service/auth/password'
 
 export const POST = appRoute(async (req) => {
