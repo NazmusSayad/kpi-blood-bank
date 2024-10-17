@@ -1,11 +1,11 @@
 import { useState } from 'react'
-import { Button, IconButton, Modal } from '@mui/material'
+import { IconButton, Modal } from '@mui/material'
 import { RxHamburgerMenu } from 'react-icons/rx'
 import navLinks from './nav-links'
 import LinkButton from '@/components/ui/LinkButton'
 import { cn } from '@/utils'
 
-export default function NavModal() {
+export default function NavModal({ isLoggedIn }: { isLoggedIn: boolean }) {
   const [isOpen, setIsOpen] = useState(false)
 
   function handleOnClose(e: MouseEvent, reason: string) {
@@ -52,15 +52,31 @@ export default function NavModal() {
           <hr className={'mt-2 mb-4 opacity-10'} />
 
           <div className={'flex flex-col gap-2'}>
-            <Button variant={'outlined'} color={'primary'}>
-              Login
-            </Button>
-            <Button variant={'outlined'} color={'primary'}>
-              Login
-            </Button>
-            <Button variant={'contained'} color={'primary'}>
-              Login
-            </Button>
+            {isLoggedIn ? (
+              <>
+                <LinkButton
+                  variant={'contained'}
+                  color={'primary'}
+                  href={'/account'}
+                >
+                  Account
+                </LinkButton>
+              </>
+            ) : (
+              <>
+                <LinkButton
+                  variant={'outlined'}
+                  color={'primary'}
+                  href={'/login'}
+                >
+                  Login
+                </LinkButton>
+
+                <LinkButton variant={'contained'} href={'/register'}>
+                  Register
+                </LinkButton>
+              </>
+            )}
           </div>
         </div>
       </Modal>

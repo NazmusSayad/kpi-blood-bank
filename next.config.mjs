@@ -2,6 +2,7 @@
 export default {
   sassOptions: {
     additionalData: `@use '@/styles/core' as *;\n`,
+    silenceDeprecations: ['legacy-js-api'],
   },
 
   compiler: {

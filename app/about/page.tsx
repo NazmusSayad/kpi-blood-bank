@@ -1,7 +1,7 @@
 'use client'
 
 import Nav from '@/features/Nav'
-import { useApiOnce } from '@/api'
+import { useApiOnce } from '@/api/http'
 
 export default function Page() {
   const res = useApiOnce({ url: '/api' })

@@ -7,8 +7,8 @@ import db from '@/db'
 import argon2 from '@/utils/argon2'
 import { ReqError } from 'req-error'
 import userType from '@/rype/userType'
-import generateOtp from '@/utils/generateOtp'
 import _printOTP from '@/utils/_printOTP'
+import generateOtp from '@/utils/generateOtp'
 
 export async function login(password: string, id: number, phone: number) {
   if (!(id || phone) || !password) {
@@ -78,7 +78,7 @@ export async function createSignupToken(data: unknown) {
 }
 
 export async function confirmSignUp(token: string, otp: string) {
-  const data = await parseSignupJwtToken(token as string, otp)
+  const data = await parseSignupJwtToken(token, otp)
   const user = await db.user.create({
     data: {
       ...data,

@@ -9,9 +9,11 @@ import LinkButton from '@/components/ui/LinkButton'
 import { cn } from '@/utils'
 import Link from 'next/link'
 import Image from 'next/image'
+import { useUserStore } from '@/zustand'
 
 export default function Nav(props: NavProps) {
   const [scrollPosition, setScrollPosition] = useState(0)
+  const isLoggedIn = useUserStore((state) => state.isLoggedIn)
 
   useLayoutEffect(() => {
     const handleScroll = () => {
@@ -28,7 +30,7 @@ export default function Nav(props: NavProps) {
         props.fixed ? 'fixed' : 'sticky',
         'top-0 w-full -z-[-999] border-b border-transparent transition-all duration-300 text-white bg-transparent',
         !(scrollPosition === 0 && props.transparent) &&
-          'bg-red-500/80 border-b-gray-500/20 backdrop-blur-lg shadow-sm'
+          'bg-red-500/95 border-b-gray-500/20 backdrop-blur-lg shadow-sm'
       )}
     >
       <Wrapper>
@@ -56,18 +58,39 @@ export default function Nav(props: NavProps) {
             ))}
           </div>
 
-          <div className={'hidden sm:block'}>
-            <LinkButton
-              href={'/admin'}
-              color={'inherit'}
-              variant={scrollPosition > 0 ? 'contained' : 'outlined'}
-            >
-              Admin
-            </LinkButton>
+          <div className={'hidden sm:flex gap-2'}>
+            {isLoggedIn ? (
+              <>
+                <LinkButton
+                  href={'/account'}
+                  color={'inherit'}
+                  variant={'outlined'}
+                >
+                  Account
+                </LinkButton>
+              </>
+            ) : (
+              <>
+                <LinkButton
+                  href={'/login'}
+                  color={'inherit'}
+                  variant={'outlined'}
+                >
+                  Login
+                </LinkButton>
+                <LinkButton
+                  href={'/register'}
+                  color={scrollPosition > 0 ? undefined : 'inherit'}
+                  variant={scrollPosition > 0 ? 'contained' : 'outlined'}
+                >
+                  Register
+                </LinkButton>
+              </>
+            )}
           </div>
 
           <div className={'block sm:hidden'}>
-            <NavModal />
+            <NavModal  isLoggedIn={isLoggedIn}/>
           </div>
         </div>
       </Wrapper>
