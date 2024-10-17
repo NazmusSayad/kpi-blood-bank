@@ -4,7 +4,7 @@ import {
   NextRequestContext,
   NextAuthRequestCustom,
 } from './helpers'
-import db from '@/db'
+import db from '@/service/db'
 import { ReqError } from 'req-error'
 import { cookies } from 'next/headers'
 import RouteWrapper from 'route-wrapper'

@@ -3,7 +3,7 @@ import {
   parseForgetPassJwtToken,
   createForgetPassJwtToken,
 } from '../jwtHelpers'
-import db from '@/db'
+import db from '@/service/db'
 import argon2 from '@/utils/argon2'
 import { ReqError } from 'req-error'
 import _printOTP from '@/utils/_printOTP'

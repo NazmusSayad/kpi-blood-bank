@@ -3,7 +3,7 @@ import {
   createSignupJwtToken,
   parseSignupJwtToken,
 } from '../jwtHelpers'
-import db from '@/db'
+import db from '@/service/db'
 import argon2 from '@/utils/argon2'
 import { ReqError } from 'req-error'
 import userType from '@/rype/userType'

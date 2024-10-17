@@ -1,8 +1,8 @@
 import { appRoute } from '@/router/api'
-import { selectInObj } from '@/db/helpers'
+import { selectInObj } from '@/service/db/helpers'
 import { login } from '@/service/auth/auth'
 import { setAuthCookie } from '@/utils/cookies'
-import { UserPrivateFields } from '@/db/config'
+import { UserPrivateFields } from '@/service/db/config'
 
 export const POST = appRoute(async (req) => {
   const { password, id, phone } = req.data
