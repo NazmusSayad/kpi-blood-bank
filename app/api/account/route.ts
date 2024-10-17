@@ -1,8 +1,8 @@
-import { authRoute } from '@/next-route'
+import { authRoute } from '@/api-route'
 import { selectInObj } from '@/db/helpers'
 import { setAuthCookie } from '@/utils/cookies'
 import { UserPrivateFields } from '@/db/config'
-import { createAuthJwtToken } from '@/service/auth/_jwtHelpers'
+import { createAuthJwtToken } from '@/service/jwtHelpers'
 
 export const GET = authRoute(async (req) => {
   const token = await createAuthJwtToken(req.user.id)

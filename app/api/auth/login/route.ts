@@ -1,4 +1,4 @@
-import { appRoute } from '@/next-route'
+import { appRoute } from '@/api-route'
 import { selectInObj } from '@/db/helpers'
 import { login } from '@/service/auth/auth'
 import { setAuthCookie } from '@/utils/cookies'

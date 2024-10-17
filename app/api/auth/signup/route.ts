@@ -1,4 +1,4 @@
-import { appRoute } from '@/next-route'
+import { appRoute } from '@/api-route'
 import { createSignupToken } from '@/service/auth/auth'
 
 export const POST = appRoute(async (req) => {

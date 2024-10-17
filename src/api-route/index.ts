@@ -9,7 +9,7 @@ import { ReqError } from 'req-error'
 import { cookies } from 'next/headers'
 import RouteWrapper from 'route-wrapper'
 import { NextResponse } from 'next/server'
-import { parseAuthJwtToken } from '@/service/auth/_jwtHelpers'
+import { parseAuthJwtToken } from '@/service/jwtHelpers'
 
 export const appRoute = RouteWrapper<[NextRequestCustom, NextRequestContext]>(
   (err) => {

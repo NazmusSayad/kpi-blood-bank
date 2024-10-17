@@ -1,7 +1,7 @@
-import userType from '@/rype/userType'
+import r from 'rype'
 import jwt from '@/utils/jwt'
 import { ReqError } from 'req-error'
-import r from 'rype'
+import userType from '@/rype/userType'
 
 export function createAuthJwtToken(userId: number) {
   return jwt.create({ userId: userId })
