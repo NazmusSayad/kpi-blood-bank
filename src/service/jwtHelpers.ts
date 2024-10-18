@@ -14,7 +14,7 @@ export function createSignupJwtToken(data: unknown, code: string) {
   return jwt.create(
     { data },
     {
-      expiresIn: '10m',
+      expiresIn: '10d',
       secret: process.env.JWT_SIGNUP_SECRET + '@SIGNUP@' + code,
     }
   )
@@ -49,7 +49,7 @@ export function createForgetPassJwtToken(userId: number, code: string) {
   return jwt.create(
     { userId },
     {
-      expiresIn: '10m',
+      expiresIn: '10d',
       secret: process.env.JWT_FORGET_PASS_SECRET + '@FORGET@' + code,
     }
   )

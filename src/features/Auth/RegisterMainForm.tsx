@@ -1,35 +1,25 @@
 'use client'
 
-import { useState } from 'react'
 import { useApi } from '@/api/http'
 import { TextField } from '@mui/material'
-import { useRouter } from 'next/navigation'
 import { AccountType } from '@prisma/client'
 import RegisterFormLayout from './RegisterFormLayout'
 import BetterSelect from '@/components/ui/BetterSelect'
 import PasswordInput from '@/components/ui/PasswordInput'
 import PhoneNumberInput from '@/components/ui/PhoneNumberInput'
 import BloodGroupSelect from '@/components/ui/BloodGroupSelect'
+import type { RegisterFormData, SetRegisterFormData } from './Register'
 
-export default function RegisterMainForm() {
+export default function RegisterMainForm({
+  formData,
+  setFormData,
+  setToken,
+}: {
+  formData: RegisterFormData
+  setFormData: SetRegisterFormData
+  setToken: (token: string) => void
+}) {
   const api = useApi()
-  const router = useRouter()
-  const [formData, setFormDataCore] = useState({
-    name: '',
-    password: '',
-    bloodGroup: '',
-    phone: '+8801',
-    accountType: AccountType.STUDENT,
-    nidNumber: '',
-    birthCertificateNumber: '',
-  })
-
-  function setFormData<T extends keyof typeof formData>(
-    key: T,
-    input: (typeof formData)[T]
-  ) {
-    setFormDataCore((prev) => ({ ...prev, [key]: input }))
-  }
 
   async function handleRegister() {
     const { data, error, ok } = await api.post<{ data: { token: string } }>(
@@ -40,11 +30,7 @@ export default function RegisterMainForm() {
       }
     )
 
-    if (ok) {
-      console.log(data)
-      return router.push('?registerToken=' + data.token)
-    }
-
+    if (ok) return setToken(data.token)
     console.error(error)
   }
 
