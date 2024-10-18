@@ -15,8 +15,8 @@ const studentsFields = {
   student_educationalInstitute: r.string().optional(),
   student_department: r.string().optional(),
   student_session: r.string().optional(),
-  student_rollNumber: r.number().optional(),
-  student_registrationNumber: r.number().optional(),
+  student_rollNumber: r.string().optional(),
+  student_registrationNumber: r.string().optional(),
 
   nidNumber: r.string().optional(),
   birthCertificateNumber: r.string().optional(),
