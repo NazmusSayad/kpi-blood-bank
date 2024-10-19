@@ -2,7 +2,7 @@ import db from '@/service/db'
 import argon2 from '@/utils/argon2'
 import { ReqError } from 'req-error'
 import userType from '@/rype/userType'
-import _printOTP from '@/utils/_printOTP'
+import _printOTP from '@/service/sendOtp'
 import generateOtp from '@/utils/generateOtp'
 import { createSignupJwtToken, parseSignupJwtToken } from '../jwtHelpers'
 

@@ -31,11 +31,11 @@ model User {
   student_rollNumber           String?
   student_registrationNumber   String?
 
-  X_donations            BloodDonation[] @relation("BloodDonationUser")
-  X_donationsCreated     BloodDonation[] @relation("BloodDonationCreatedBy")
-  X_donationsApproved    BloodDonation[] @relation("BloodDonationCompletionApprover")
-  X_bloodRequests        BloodRequest[]  @relation("BloodRequest")
-  X_requestAssignedDonor BloodRequest[]  @relation("BloodRequestAssignDonors")
+  X_donations              BloodDonation[] @relation("BloodDonationUser")
+  X_donationsCreated       BloodDonation[] @relation("BloodDonationCreatedBy")
+  X_donationsStatusUpdated BloodDonation[] @relation("BloodDonationStatusUpdatedBy")
+  X_bloodRequests          BloodRequest[]  @relation("BloodRequest")
+  X_requestAssignedDonor   BloodRequest[]  @relation("BloodRequestAssignDonors")
 }
 
 model BloodDonation {
@@ -46,13 +46,14 @@ model BloodDonation {
   userId Int
   user   User @relation("BloodDonationUser", fields: [userId], references: [id])
 
-  createdBy Int
-  createdAt DateTime @default(now())
-  creator   User     @relation("BloodDonationCreatedBy", fields: [createdBy], references: [id])
+  createdAt   DateTime @default(now())
+  createdById Int
+  createdBy   User     @relation("BloodDonationCreatedBy", fields: [createdById], references: [id])
 
-  completionApprovedBy Int?
-  completedAt          DateTime?
-  completionApprover   User?     @relation("BloodDonationCompletionApprover", fields: [completionApprovedBy], references: [id])
+  statusUpdatedAt     DateTime?
+  statusUpdatedById   Int?
+  statusUpdatedBy     User?     @relation("BloodDonationStatusUpdatedBy", fields: [statusUpdatedById], references: [id])
+  statusUpdateComment String?
 }
 
 model BloodRequest {
@@ -92,7 +93,6 @@ enum BloodGroup {
 
 enum BloodDonationStatus {
   PENDING
-  APPROVED
   REJECTED
   COMPLETED
 }

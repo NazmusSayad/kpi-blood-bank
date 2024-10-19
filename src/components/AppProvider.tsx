@@ -6,8 +6,10 @@ import muiTheme from '@/styles/mui-theme'
 import { ThemeProvider } from '@mui/material'
 import useUserStore from '@/zustand/useUserStore'
 import { ReactNode, useLayoutEffect } from 'react'
+import { useRouter } from 'next/navigation'
 
 export default function AppProvider({ children }: { children: ReactNode }) {
+  const router = useRouter()
   const userStore = useUserStore()
 
   useLayoutEffect(() => {
@@ -17,7 +19,11 @@ export default function AppProvider({ children }: { children: ReactNode }) {
         authToken: string
       }>('/auth')
 
-      if (!ok) return userStore.clearUser()
+      if (!ok) {
+        userStore.clearUser()
+        await http.get('/auth/clear')
+        return router.refresh()
+      }
       userStore.authenticate(data.user, data.authToken)
     })()
   }, [])

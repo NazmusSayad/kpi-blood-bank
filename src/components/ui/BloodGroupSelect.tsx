@@ -15,4 +15,4 @@ export default function BloodGroupSelect(props: BloodGroupSelectProps) {
   )
 }
 
-type BloodGroupSelectProps = SelectProps & {}
+type BloodGroupSelectProps = SelectProps

@@ -26,3 +26,7 @@ export const UserPrivateFields = [
 
 export type PublicUser = Pick<User, (typeof UserPublicFields)[number]>
 export type PrivateUser = Pick<User, (typeof UserPrivateFields)[number]>
+
+export const UserPublicDBSelect = Object.fromEntries(
+  UserPublicFields.map((field) => [field, true])
+) as Record<(typeof UserPublicFields)[number], true>

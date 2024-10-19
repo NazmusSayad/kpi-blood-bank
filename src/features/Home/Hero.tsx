@@ -38,7 +38,7 @@ export default function Hero() {
               </div>
               <div className={'flex gap-3 md:justify-start justify-center'}>
                 <Button
-                  href={'/donate'}
+                  href={'/blood/donate'}
                   LinkComponent={Link}
                   variant={'contained'}
                   color={'error'}
@@ -47,7 +47,7 @@ export default function Hero() {
                 </Button>
 
                 <Button
-                  href={'/request'}
+                  href={'/blood/request'}
                   LinkComponent={Link}
                   variant={'outlined'}
                   color={'error'}

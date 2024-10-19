@@ -2,12 +2,20 @@ import { RypeClientError } from 'rype'
 import { ErrorManager } from 'req-error'
 import { NextRequest } from 'next/server'
 import { User } from '@prisma/client'
+import {
+  PrismaClientKnownRequestError,
+  PrismaClientValidationError,
+} from '@prisma/client/runtime/library'
 
 export const errorManager = new ErrorManager({
   handlers: [
     (err) => {
-      if (err instanceof RypeClientError) return [err.message, 400]
+      if (err instanceof PrismaClientValidationError) return [err.message, 400]
+      if (err instanceof PrismaClientKnownRequestError) {
+        return [err.meta?.cause ? String(err.meta?.cause) : err.message, 400]
+      }
 
+      if (err instanceof RypeClientError) return [err.message, 400]
       if (err.name === 'JWTExpired') return ['Token expired', 401]
       if (err.name === 'JWSSignatureVerificationFailed') {
         return ['Invalid token', 401]
@@ -15,7 +23,7 @@ export const errorManager = new ErrorManager({
 
       if (err.code === 'P2002') {
         return [
-          err.meta.target.join(',') +
+          err.meta?.target?.join(',') +
             ' already exists for ' +
             err.meta.modelName,
           400,
