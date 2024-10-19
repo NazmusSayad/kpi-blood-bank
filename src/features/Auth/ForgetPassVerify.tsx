@@ -15,14 +15,11 @@ export default function ForgetPassVerify({ token }: ForgetPassVerifyProps) {
   const [password, setPassword] = useState('')
 
   async function handleSubmit() {
-    const { data, ok } = await api.post<{ data: User }>(
-      '/auth/reset-password/verify',
-      {
-        token,
-        otp,
-        password,
-      }
-    )
+    const { data, ok } = await api.post<User>('/auth/reset-password/verify', {
+      token,
+      otp,
+      password,
+    })
 
     if (!ok) return
     userStore.setUser(data)

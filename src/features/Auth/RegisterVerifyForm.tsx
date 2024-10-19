@@ -25,10 +25,10 @@ export default function RegisterVerifyForm({
   const [otp, setOtp] = useState('')
 
   async function handleSubmit() {
-    const { data, ok } = await api.post<{ data: User }>(
-      '/auth/register/confirm',
-      { otp, token }
-    )
+    const { data, ok } = await api.post<User>('/auth/register/confirm', {
+      otp,
+      token,
+    })
 
     if (!ok) return
     userStore.setUser(data)

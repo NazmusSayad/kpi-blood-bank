@@ -18,7 +18,7 @@ export default function Login() {
   const [phoneNumber, setPhoneNumber] = useState('')
 
   async function handleLogin() {
-    const { data, ok } = await api.post<{ data: User }>('/auth/login', {
+    const { data, ok } = await api.post<User>('/auth/login', {
       phone: +phoneNumber,
       password,
     })

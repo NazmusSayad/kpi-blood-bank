@@ -9,7 +9,7 @@ export default function ForgetPassMain({
 }: ForgetPassMainProps) {
   const api = useApi()
   async function handleSubmit() {
-    const { data, ok } = await api.post<{ data: { token: string } }>(
+    const { data, ok } = await api.post<{ token: string }>(
       '/auth/reset-password',
       { phone: +phone }
     )

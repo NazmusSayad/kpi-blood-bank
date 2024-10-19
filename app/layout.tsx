@@ -18,7 +18,7 @@ export default function Layout({ children }: { children: React.ReactNode }) {
     if (hasLoggedIn) {
       userStore.setLoggedIn(true)
       ;(async () => {
-        const { data, ok } = await http.get<{ data: User }>('/account')
+        const { data, ok } = await http.get<User>('/account')
         if (ok) return userStore.setUser(data)
         userStore.destroyUser()
       })()
