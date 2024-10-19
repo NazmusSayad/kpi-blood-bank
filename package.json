@@ -6,8 +6,7 @@
     "dev": "next dev --turbo",
     "lab": "run ./src/__lab__.ts",
     "build": "prisma generate && next build",
-    "prisma": "prisma generate && prisma db push",
-    "deploy-install": "npm install && npm rebuild argon2 --build-from-source"
+    "prisma": "prisma generate && prisma db push"
   },
   "dependencies": {
     "@prisma/client": "^5.21.1",
