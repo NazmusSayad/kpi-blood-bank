@@ -6,11 +6,13 @@
     "dev": "next dev --turbo",
     "build": "prisma generate && next build",
     "prisma": "prisma generate && prisma db push",
-    "lab": "run ./src/__lab__.ts"
+    "lab": "run ./src/__lab__.ts",
+    "deploy-install": "npm install argon2 --build-from-source"
   },
   "dependencies": {
     "@prisma/client": "^5.21.1",
     "argon2": "^0.41.1",
+    "axios": "^1.7.7",
     "jose": "^5.9.4",
     "moment": "^2.30.1",
     "next": "^14.2.15",
