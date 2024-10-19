@@ -1,3 +1,5 @@
+import type { User } from '@prisma/client'
+
 export const UserPublicFields = [
   'id',
   'name',
@@ -21,3 +23,6 @@ export const UserPrivateFields = [
   'student_rollNumber',
   'student_registrationNumber',
 ] as const
+
+export type PublicUser = Pick<User, (typeof UserPublicFields)[number]>
+export type PrivateUser = Pick<User, (typeof UserPrivateFields)[number]>

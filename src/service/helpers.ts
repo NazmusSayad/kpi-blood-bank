@@ -1,7 +1,7 @@
 import { User } from '@prisma/client'
 import { setAuthCookie } from './cookies'
 import { selectInObj } from './db/helpers'
-import { UserPrivateFields } from './db/config'
+import { PrivateUser, UserPrivateFields } from '@/config'
 import { createAuthJwtToken, createCookieJwtToken } from './jwtHelpers'
 
 export async function generatePrivateUser(
@@ -16,7 +16,7 @@ export async function generatePrivateUser(
   const authToken = includeToken ? await createAuthJwtToken(user.id) : undefined
 
   return {
-    user: selectInObj(user, UserPrivateFields),
+    user: selectInObj(user, UserPrivateFields) as PrivateUser,
     authToken,
   }
 }

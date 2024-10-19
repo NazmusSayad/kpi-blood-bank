@@ -1,13 +1,13 @@
 import { create } from 'zustand'
 import { http } from '@/api/http'
-import { User } from '@prisma/client'
+import { PrivateUser } from '@/config'
 
 export const useUserStore = create<{
-  user?: User
+  user?: PrivateUser
   authToken?: string
-  authenticate: (user: User, authToken: string) => void
-  setUser: (user: User) => void
-  putUser: (user: Partial<User>) => void
+  authenticate: (user: PrivateUser, authToken: string) => void
+  setUser: (user: PrivateUser) => void
+  putUser: (user: Partial<PrivateUser>) => void
   clearUser: () => void
 }>((set) => ({
   user: undefined,

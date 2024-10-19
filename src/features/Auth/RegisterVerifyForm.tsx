@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import { useApi } from '@/api/http'
-import { User } from '@prisma/client'
+import { PrivateUser } from '@/config'
 import { useUserStore } from '@/zustand'
 import { useRouter } from 'next/navigation'
 import { RiRefreshLine } from 'react-icons/ri'
@@ -25,13 +25,13 @@ export default function RegisterVerifyForm({
   const [otp, setOtp] = useState('')
 
   async function handleSubmit() {
-    const { data, ok } = await api.post<{ user: User; authToken: string }>(
-      '/auth/register/confirm',
-      {
-        otp,
-        token,
-      }
-    )
+    const { data, ok } = await api.post<{
+      user: PrivateUser
+      authToken: string
+    }>('/auth/register/confirm', {
+      otp,
+      token,
+    })
 
     if (!ok) return
     userStore.authenticate(data.user, data.authToken)

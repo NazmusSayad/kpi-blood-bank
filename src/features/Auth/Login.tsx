@@ -3,7 +3,7 @@
 import { useState } from 'react'
 import { useApi } from '@/api/http'
 import { Button } from '@mui/material'
-import { User } from '@prisma/client'
+import { PrivateUser } from '@/config'
 import { useUserStore } from '@/zustand'
 import { useRouter } from 'next/navigation'
 import LinkButton from '@/components/ui/LinkButton'
@@ -18,13 +18,13 @@ export default function Login() {
   const [phoneNumber, setPhoneNumber] = useState('')
 
   async function handleLogin() {
-    const { data, ok } = await api.post<{ user: User; authToken: string }>(
-      '/auth/login',
-      {
-        phone: +phoneNumber,
-        password,
-      }
-    )
+    const { data, ok } = await api.post<{
+      user: PrivateUser
+      authToken: string
+    }>('/auth/login', {
+      phone: +phoneNumber,
+      password,
+    })
 
     if (!ok) return
     userStore.authenticate(data.user, data.authToken)
