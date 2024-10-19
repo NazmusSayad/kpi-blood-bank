@@ -67,12 +67,12 @@ export default function NavModal({ isLoggedIn }: { isLoggedIn: boolean }) {
                 <LinkButton
                   variant={'outlined'}
                   color={'primary'}
-                  href={'/login'}
+                  href={'/auth/login'}
                 >
                   Login
                 </LinkButton>
 
-                <LinkButton variant={'contained'} href={'/register'}>
+                <LinkButton variant={'contained'} href={'/auth/register'}>
                   Register
                 </LinkButton>
               </>

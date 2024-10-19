@@ -158,11 +158,11 @@ export type DonationForm = {
 
 const defaultDonationForm: DonationForm = {
   name: '',
-  phoneNumber: '+8801',
+  phoneNumber: '',
   bloodGroup: '',
   address: '',
   dateOfBirth: moment(),
 
-  phoneNumber2: '+8801',
-  whatsappNumber: '+8801',
+  phoneNumber2: '',
+  whatsappNumber: '',
 }

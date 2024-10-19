@@ -4,8 +4,8 @@ import { User } from '@prisma/client'
 import { useUserStore } from '@/zustand'
 import { useRouter } from 'next/navigation'
 import { RiRefreshLine } from 'react-icons/ri'
+import { Button, TextField } from '@mui/material'
 import RegisterFormLayout from './RegisterFormLayout'
-import { Button, TextField, Tooltip } from '@mui/material'
 import type { RegisterFormData, SetRegisterFormData } from './Register'
 
 export default function RegisterVerifyForm({

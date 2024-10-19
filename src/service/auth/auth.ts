@@ -37,7 +37,7 @@ export async function createSignupToken(data: unknown) {
       OR: [
         { phone: user.phone },
         { nidNumber: user.nidNumber },
-        user.accountType === 'STUDENT' && {
+        user.birthCertificateNumber && {
           birthCertificateNumber: user.birthCertificateNumber,
         },
         user.accountType === 'STUDENT' && {

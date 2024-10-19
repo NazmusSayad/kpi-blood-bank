@@ -22,16 +22,15 @@ export default function RegisterMainForm({
   const api = useApi()
 
   async function handleRegister() {
-    const { data, error, ok } = await api.post<{ data: { token: string } }>(
+    const { data, ok } = await api.post<{ data: { token: string } }>(
       '/auth/register',
       {
         ...formData,
-        phone: +formData.phone.replace('+8801', ''),
+        phone: +formData.phone,
       }
     )
 
     if (ok) return setToken(data.token)
-    console.error(error)
   }
 
   return (

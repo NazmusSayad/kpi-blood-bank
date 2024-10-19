@@ -15,12 +15,15 @@ model User {
   role        UserRole
   accountType AccountType
   bloodGroup  BloodGroup
+  createdAt   DateTime    @default(now())
 
   nidNumber              String? @unique
   birthCertificateNumber String? @unique
 
-  email     String?
-  birthDate DateTime?
+  email         String?
+  birthDate     DateTime?
+  avatar_fileId String?
+  avatar_url    String?
 
   student_educationalInstitute String?
   student_department           String?

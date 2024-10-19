@@ -15,11 +15,11 @@ export default function Login() {
   const router = useRouter()
   const userStore = useUserStore()
   const [password, setPassword] = useState('')
-  const [phoneNumber, setPhoneNumber] = useState('+8801')
+  const [phoneNumber, setPhoneNumber] = useState('')
 
   async function handleLogin() {
-    const { data, error, ok } = await api.post<{ data: User }>('/auth/login', {
-      phone: +phoneNumber.replace('+8801', ''),
+    const { data, ok } = await api.post<{ data: User }>('/auth/login', {
+      phone: +phoneNumber,
       password,
     })
 
@@ -38,55 +38,53 @@ export default function Login() {
           handleLogin()
         }}
       >
+        <div className={'mb-4'}>
+          <PhoneNumberInput
+            fullWidth
+            required
+            label={'Phone Number'}
+            value={phoneNumber}
+            onChange={setPhoneNumber}
+          />
+        </div>
+
+        <div className={'mb-0'}>
+          <PasswordInput
+            fullWidth
+            required
+            label={'Password'}
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+          />
+        </div>
+
+        <div className={'text-right gap-0'}>
+          <LinkButton
+            size={'small'}
+            className="text-blue-500"
+            href="/auth/reset"
+          >
+            Forgot Password?
+          </LinkButton>
+        </div>
+
+        <div className={'mb-2'}>
+          <Button fullWidth variant={'contained'} type={'submit'}>
+            Login
+          </Button>
+        </div>
+
         <div>
-          <div className={'mb-4'}>
-            <PhoneNumberInput
-              fullWidth
-              required
-              label={'Phone Number'}
-              value={phoneNumber}
-              onChange={setPhoneNumber}
-            />
-          </div>
-
-          <div className={'mb-0'}>
-            <PasswordInput
-              fullWidth
-              required
-              label={'Password'}
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-            />
-          </div>
-
-          <div className={'text-right gap-0'}>
+          <p className={'text-center'}>
+            Don't have an account?{' '}
             <LinkButton
               size={'small'}
               className="text-blue-500"
-              href="/forgot-password"
+              href="/auth/register"
             >
-              Forgot Password?
+              Register
             </LinkButton>
-          </div>
-
-          <div className={'mb-2'}>
-            <Button fullWidth variant={'contained'} type={'submit'}>
-              Login
-            </Button>
-          </div>
-
-          <div>
-            <p className={'text-center'}>
-              Don't have an account?{' '}
-              <LinkButton
-                size={'small'}
-                className="text-blue-500"
-                href="/register"
-              >
-                Register
-              </LinkButton>
-            </p>
-          </div>
+          </p>
         </div>
       </form>
     </div>

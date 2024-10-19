@@ -26,11 +26,20 @@ export const appRoute = RouteWrapper<[NextRequestCustom, NextRequestContext]>(
     return NextResponse.json(data, { status })
   }
 ).use(async (req, ctx) => {
+  req.data = {}
+
   try {
-    req.data = await req.json()
-  } catch {
-    req.data = {}
-  }
+    const contentType = req.headers.get('content-type')
+
+    if (contentType.startsWith('application/json')) {
+      req.data = await req.json()
+    } else if (
+      contentType.startsWith('application/x-www-form-urlencoded') ||
+      contentType.startsWith('multipart/form-data')
+    ) {
+      req.form_data = await req.formData()
+    }
+  } catch {}
 
   const token = cookies().get('authorization')
   ctx.authorizationToken = token?.value

@@ -72,14 +72,14 @@ export default function Nav(props: NavProps) {
             ) : (
               <>
                 <LinkButton
-                  href={'/login'}
+                  href={'/auth/login'}
                   color={'inherit'}
                   variant={'outlined'}
                 >
                   Login
                 </LinkButton>
                 <LinkButton
-                  href={'/register'}
+                  href={'/auth/register'}
                   color={scrollPosition > 0 ? undefined : 'inherit'}
                   variant={scrollPosition > 0 ? 'contained' : 'outlined'}
                 >

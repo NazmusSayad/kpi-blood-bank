@@ -27,6 +27,7 @@ export const errorManager = new ErrorManager({
 
 export type NextRequestCustom = NextRequest & {
   data: Record<string, any>
+  form_data?: FormData | undefined
 }
 
 export type NextAuthRequestCustom = NextRequestCustom & { user: User }

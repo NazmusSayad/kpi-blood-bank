@@ -21,7 +21,7 @@ export default function RequestForm() {
   }>({
     name: '',
     age: '',
-    phoneNumber: '+8801',
+    phoneNumber: '',
     bloodGroup: '',
     disease: '',
     address: '',

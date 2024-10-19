@@ -5,7 +5,7 @@ export function middleware(request: NextRequest) {
   const authorization = request.cookies.get('authorization')?.value
 
   if (isAuthRoute(nextPath) && !authorization) {
-    return NextResponse.redirect(new URL('/login', request.url))
+    return NextResponse.redirect(new URL('/auth/login', request.url))
   }
 
   if (isNonAuthRoute(nextPath) && authorization) {
@@ -16,7 +16,7 @@ export function middleware(request: NextRequest) {
 }
 
 const isAuthRoute = genRouteController('/admin', '/account')
-const isNonAuthRoute = genRouteController('/login', '/register')
+const isNonAuthRoute = genRouteController('/auth/login', '/auth/register')
 function genRouteController(...paths: string[]) {
   return (nextPath: string) => {
     for (const path of paths) {

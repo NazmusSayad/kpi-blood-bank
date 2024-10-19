@@ -7,8 +7,6 @@ export default function Page() {
   const res = useApiOnce({ url: '/api' })
   const data = res.responses?.[0]?.data || ({} as any)
 
-  console.log(data)
-
   return (
     <main>
       <Nav />

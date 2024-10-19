@@ -8,6 +8,9 @@ export const UserPublicFields = [
   'student_educationalInstitute',
   'student_department',
   'student_session',
+
+  'avatar_fileId',
+  'avatar_url',
 ] as const
 
 export const UserPrivateFields = [
