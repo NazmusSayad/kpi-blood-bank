@@ -38,7 +38,6 @@ export default function ForgetPassVerify({ token }: ForgetPassVerifyProps) {
           label={'OTP'}
           value={otp}
           onChange={(e) => setOtp(e.target.value.slice(0, 6))}
-          autoComplete={'off'}
         />
       </div>
 
