@@ -3,7 +3,7 @@ import db from '@/service/db'
 import { ReactNode } from 'react'
 import { cookies } from 'next/headers'
 import AppProvider from '@/components/AppProvider'
-import { throwPrivateUser } from '@/service/helpers'
+import { generatePrivateUser } from '@/service/helpers'
 import RootBackground from '@/components/RootBackground'
 import { parseCookieJwtToken } from '@/service/jwtHelpers'
 
@@ -15,12 +15,7 @@ async function getAuthInfo() {
     const userId = await parseCookieJwtToken(cookieToken)
     const user = await db.user.findUnique({ where: { id: userId } })
 
-    try {
-      await throwPrivateUser(user, true, false)
-    } catch (err) {
-      if (err instanceof Error) throw err
-      return err
-    }
+    return generatePrivateUser(user, true, false)
   } catch {
     return null
   }

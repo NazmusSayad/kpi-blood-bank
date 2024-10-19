@@ -1,6 +1,6 @@
 import { appRoute } from '@/router/api'
 import { confirmSignUp } from '@/service/auth/auth'
-import { throwPrivateUser } from '@/service/helpers'
+import { generatePrivateUser } from '@/service/helpers'
 
 export const POST = appRoute(async (req) => {
   if (!req.data.token || !req.data.otp) {
@@ -12,5 +12,5 @@ export const POST = appRoute(async (req) => {
     req.data.otp as string
   )
 
-  await throwPrivateUser(user)
+  throw generatePrivateUser(user)
 })

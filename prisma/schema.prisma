@@ -30,6 +30,40 @@ model User {
   student_session              String?
   student_rollNumber           String?
   student_registrationNumber   String?
+
+  X_donations            BloodDonation[] @relation("BloodDonationUser")
+  X_donationsCreated     BloodDonation[] @relation("BloodDonationCreatedBy")
+  X_donationsApproved    BloodDonation[] @relation("BloodDonationCompletionApprover")
+  X_bloodRequests        BloodRequest[]  @relation("BloodRequest")
+  X_requestAssignedDonor BloodRequest[]  @relation("BloodRequestAssignDonors")
+}
+
+model BloodDonation {
+  id         String              @id @default(uuid())
+  status     BloodDonationStatus @default(PENDING)
+  bloodGroup BloodGroup
+
+  userId Int
+  user   User @relation("BloodDonationUser", fields: [userId], references: [id])
+
+  createdBy Int
+  createdAt DateTime @default(now())
+  creator   User     @relation("BloodDonationCreatedBy", fields: [createdBy], references: [id])
+
+  completionApprovedBy Int?
+  completedAt          DateTime?
+  completionApprover   User?     @relation("BloodDonationCompletionApprover", fields: [completionApprovedBy], references: [id])
+}
+
+model BloodRequest {
+  id         String     @id @default(uuid())
+  createdAt  DateTime   @default(now())
+  bloodGroup BloodGroup
+
+  userId Int
+  user   User @relation("BloodRequest", fields: [userId], references: [id])
+
+  assignDonors User[] @relation("BloodRequestAssignDonors")
 }
 
 enum UserRole {
@@ -54,4 +88,11 @@ enum BloodGroup {
   O_NEGATIVE
   AB_POSITIVE
   AB_NEGATIVE
+}
+
+enum BloodDonationStatus {
+  PENDING
+  APPROVED
+  REJECTED
+  COMPLETED
 }

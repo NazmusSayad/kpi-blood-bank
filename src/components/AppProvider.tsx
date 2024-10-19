@@ -1,7 +1,6 @@
 'use client'
 
 import { http } from '@/api/http'
-import { User } from '@prisma/client'
 import { useUserStore } from '@/zustand'
 import muiTheme from '@/styles/mui-theme'
 import { ThemeProvider } from '@mui/material'
@@ -12,7 +11,7 @@ export default function AppProvider({
   authInfo,
 }: {
   children: ReactNode
-  authInfo: { user: User; authToken: string } | null
+  authInfo: { user: any; authToken: string } | null
 }) {
   const userStore = useUserStore()
 

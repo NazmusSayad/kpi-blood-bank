@@ -4,7 +4,7 @@ import { selectInObj } from './db/helpers'
 import { UserPrivateFields } from './db/config'
 import { createAuthJwtToken, createCookieJwtToken } from './jwtHelpers'
 
-export async function throwPrivateUser(
+export async function generatePrivateUser(
   user: User,
   includeToken = true,
   setCookie = true
@@ -15,8 +15,8 @@ export async function throwPrivateUser(
 
   const authToken = includeToken ? await createAuthJwtToken(user.id) : undefined
 
-  throw {
-    authToken,
+  return {
     user: selectInObj(user, UserPrivateFields),
+    authToken,
   }
 }
