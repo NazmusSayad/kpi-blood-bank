@@ -9,7 +9,7 @@ import { ReqError } from 'req-error'
 import { cookies } from 'next/headers'
 import RouteWrapper from 'route-wrapper'
 import { NextResponse } from 'next/server'
-import { parseAuthJwtToken, parseCookieJwtToken } from '@/service/jwtHelpers'
+import { parseAuthJwtToken } from '@/service/jwtHelpers'
 
 export const appRoute = RouteWrapper<[NextRequestCustom, NextRequestContext]>(
   (err) => {
@@ -58,23 +58,6 @@ export const appRoute = RouteWrapper<[NextRequestCustom, NextRequestContext]>(
   req.authToken = req.headers.get('authorization')
   req.cookieToken = cookies().get('authorization')?.value
 })
-
-export const cookieAuthRoute = appRoute
-  .create<[NextAuthRequestCustom, NextRequestContext]>()
-  .use(async (req) => {
-    if (!req.cookieToken) {
-      throw new ReqError('Authorization cookie token is required', 401)
-    }
-
-    const userId = await parseCookieJwtToken(req.cookieToken)
-    const user = await db.user.findUnique({ where: { id: userId } })
-
-    if (!user) {
-      throw new ReqError('User not found', 404)
-    }
-
-    req.user = user
-  })
 
 export const authRoute = appRoute
   .create<[NextAuthRequestCustom, NextRequestContext]>()

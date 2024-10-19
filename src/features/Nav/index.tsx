@@ -12,8 +12,8 @@ import Image from 'next/image'
 import { useUserStore } from '@/zustand'
 
 export default function Nav(props: NavProps) {
+  const isLoggedIn = useUserStore((state) => Boolean(state.user))
   const [scrollPosition, setScrollPosition] = useState(0)
-  const isLoggedIn = useUserStore((state) => state.isLoggedIn)
 
   useLayoutEffect(() => {
     const handleScroll = () => {
@@ -90,7 +90,7 @@ export default function Nav(props: NavProps) {
           </div>
 
           <div className={'block sm:hidden'}>
-            <NavModal  isLoggedIn={isLoggedIn}/>
+            <NavModal isLoggedIn={isLoggedIn} />
           </div>
         </div>
       </Wrapper>

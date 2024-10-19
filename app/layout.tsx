@@ -1,35 +1,36 @@
-'use client'
-
 import '@/styles/index.scss'
-import { http } from '@/api/http'
-import { User } from '@prisma/client'
-import { useLayoutEffect } from 'react'
-import { useUserStore } from '@/zustand'
-import muiTheme from '@/styles/mui-theme'
-import { ThemeProvider } from '@mui/material'
+import db from '@/service/db'
+import { ReactNode } from 'react'
+import { cookies } from 'next/headers'
+import AppProvider from '@/components/AppProvider'
+import { throwPrivateUser } from '@/service/helpers'
 import RootBackground from '@/components/RootBackground'
+import { parseCookieJwtToken } from '@/service/jwtHelpers'
 
-export default function Layout({ children }: { children: React.ReactNode }) {
-  const userStore = useUserStore((state) => state)
+async function getAuthInfo() {
+  try {
+    const cookieToken = cookies().get('authorization')?.value
+    if (!cookieToken) return null
 
-  useLayoutEffect(() => {
-    const hasLoggedIn = localStorage.getItem('isLoggedIn') === '1'
+    const userId = await parseCookieJwtToken(cookieToken)
+    const user = await db.user.findUnique({ where: { id: userId } })
 
-    if (hasLoggedIn) {
-      userStore.setLoggedIn(true)
-      ;(async () => {
-        const { data, ok } = await http.get<{ user: User; authToken: string }>(
-          '/auth'
-        )
-
-        if (!ok) return userStore.clearUser()
-        userStore.authenticate(data.user, data.authToken)
-      })()
+    try {
+      await throwPrivateUser(user, true, false)
+    } catch (err) {
+      if (err instanceof Error) throw err
+      return err
     }
-  }, [])
+  } catch {
+    return null
+  }
+}
+
+export default async function Layout({ children }: { children: ReactNode }) {
+  const authInfo = await getAuthInfo()
 
   return (
-    <ThemeProvider theme={muiTheme}>
+    <AppProvider authInfo={authInfo}>
       <html>
         <head>
           <title>KPI Blood Bank</title>
@@ -40,6 +41,6 @@ export default function Layout({ children }: { children: React.ReactNode }) {
           {children}
         </body>
       </html>
-    </ThemeProvider>
+    </AppProvider>
   )
 }
