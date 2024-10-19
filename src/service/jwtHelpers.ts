@@ -33,7 +33,7 @@ export async function parseSignupJwtToken(
 ): Promise<r.inferOutput<typeof userType>> {
   try {
     return (await jwt.parse(token, { secret: '@SIGNUP@' + code })).data
-  } catch (err) {
+  } catch (err: any) {
     if (
       err.name === 'JWSSignatureVerificationFailed' ||
       err.name === 'JWSInvalid'
@@ -64,7 +64,7 @@ export async function parseForgetPassJwtToken(
 ): Promise<number> {
   try {
     return (await jwt.parse(token, { secret: '@FORGET@' + code })).userId
-  } catch (err) {
+  } catch (err: any) {
     if (
       err.name === 'JWSSignatureVerificationFailed' ||
       err.name === 'JWSInvalid'

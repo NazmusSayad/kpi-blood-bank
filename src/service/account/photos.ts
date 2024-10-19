@@ -5,9 +5,9 @@ import { deleteFile, uploadAvatar } from '../imageKit'
 
 const MAX_AVATAR_SIZE = 3 * 1024 * 1024
 export async function changeAvatar(user: User, file: File) {
-  if (!file) throw new ReqError('File is required', 400)
-  if (file.size > MAX_AVATAR_SIZE)
+  if (file.size > MAX_AVATAR_SIZE) {
     throw new ReqError('File must be less than 3MiB', 400)
+  }
 
   const result = await uploadAvatar(file)
   const newUser = await db.user.update({

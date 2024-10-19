@@ -2,9 +2,9 @@
 
 import { http } from '@/api/http'
 import { PrivateUser } from '@/config'
-import { useUserStore } from '@/zustand'
 import muiTheme from '@/styles/mui-theme'
 import { ThemeProvider } from '@mui/material'
+import useUserStore from '@/zustand/useUserStore'
 import { ReactNode, useLayoutEffect } from 'react'
 
 export default function AppProvider({ children }: { children: ReactNode }) {

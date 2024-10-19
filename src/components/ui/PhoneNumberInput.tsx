@@ -13,7 +13,7 @@ export default function PhoneNumberInput(props: PhoneNumberInputProps) {
         ((e, info) => {
           const number = e.replace(/ /g, '').replace('+8801', '')
           if (number.length > 9) return
-          props.onChange(number, info)
+          props.onChange?.(number, info)
         })
       }
     />

@@ -1,9 +1,9 @@
 'use client'
 
-import { useLayoutEffect, useState } from 'react'
-import ForgetPassVerify from './ForgetPassVerify'
 import ForgetPassMain from './ForgetPassMain'
-import { useUserStore } from '@/zustand'
+import ForgetPassVerify from './ForgetPassVerify'
+import useUserStore from '@/zustand/useUserStore'
+import { useLayoutEffect, useState } from 'react'
 
 export default function Forget() {
   const [token, setToken] = useState('')

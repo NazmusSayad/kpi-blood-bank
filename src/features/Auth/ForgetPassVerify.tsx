@@ -1,11 +1,11 @@
 import { useState } from 'react'
 import { useApi } from '@/api/http'
-import { useUserStore } from '@/zustand'
+import { PrivateUser } from '@/config'
 import { TextField } from '@mui/material'
 import { useRouter } from 'next/navigation'
+import useUserStore from '@/zustand/useUserStore'
 import ForgetPassLayout from './ForgetPassLayout'
 import PasswordInput from '@/components/ui/PasswordInput'
-import { PrivateUser } from '@/config'
 
 export default function ForgetPassVerify({ token }: ForgetPassVerifyProps) {
   const api = useApi()
@@ -15,7 +15,7 @@ export default function ForgetPassVerify({ token }: ForgetPassVerifyProps) {
   const [password, setPassword] = useState('')
 
   async function handleSubmit() {
-    const { data, ok } = await api.post<{
+    const { ok, data } = await api.post<{
       user: PrivateUser
       authToken: string
     }>('/auth/reset-password/verify', {

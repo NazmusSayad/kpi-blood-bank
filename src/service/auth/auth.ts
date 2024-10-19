@@ -40,11 +40,11 @@ export async function createSignupToken(data: unknown) {
           student_rollNumber: user.student_rollNumber,
           student_registrationNumber: user.student_registrationNumber,
         },
-      ].filter(Boolean),
+      ].filter(Boolean) as any,
     },
   })
 
-  let existedKey = []
+  let existedKey: string[] = []
   if (existedUser) {
     if (existedUser.phone === user.phone) existedKey.push('Phone number')
     if (existedUser.nidNumber === user.nidNumber) existedKey.push('NID number')

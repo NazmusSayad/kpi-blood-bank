@@ -1,7 +1,7 @@
 import { createSecretKey } from 'crypto'
 import { SignJWT, jwtVerify } from 'jose'
 
-const JWT_SECRET = process.env.JWT_SECRET
+const JWT_SECRET = process.env.JWT_SECRET!
 const JWT_SECRET_KEY = createSecretKey(JWT_SECRET, 'utf-8')
 
 export default {

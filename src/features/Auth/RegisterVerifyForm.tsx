@@ -1,10 +1,10 @@
 import { useState } from 'react'
 import { useApi } from '@/api/http'
 import { PrivateUser } from '@/config'
-import { useUserStore } from '@/zustand'
 import { useRouter } from 'next/navigation'
 import { RiRefreshLine } from 'react-icons/ri'
 import { Button, TextField } from '@mui/material'
+import useUserStore from '@/zustand/useUserStore'
 import RegisterFormLayout from './RegisterFormLayout'
 import type { RegisterFormData, SetRegisterFormData } from './Register'
 

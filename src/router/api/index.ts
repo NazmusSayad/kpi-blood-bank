@@ -33,9 +33,9 @@ export const appRoute = RouteWrapper<[NextRequestCustom, NextRequestContext]>(
   try {
     const contentType = req.headers.get('content-type')
 
-    if (contentType.startsWith('application/json')) {
+    if (contentType?.startsWith('application/json')) {
       req.data = await req.json()
-    } else if (contentType.startsWith('multipart/form-data')) {
+    } else if (contentType?.startsWith('multipart/form-data')) {
       const formData = await req.formData()
       formData.forEach((value, key) => {
         if (value instanceof File) return
@@ -55,7 +55,7 @@ export const appRoute = RouteWrapper<[NextRequestCustom, NextRequestContext]>(
     }
   } catch {}
 
-  req.authToken = req.headers.get('authorization')
+  req.authToken = req.headers.get('authorization') ?? undefined
   req.cookieToken = cookies().get('authorization')?.value
 })
 
