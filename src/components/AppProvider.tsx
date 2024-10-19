@@ -1,26 +1,26 @@
 'use client'
 
 import { http } from '@/api/http'
+import { PrivateUser } from '@/config'
 import { useUserStore } from '@/zustand'
 import muiTheme from '@/styles/mui-theme'
 import { ThemeProvider } from '@mui/material'
 import { ReactNode, useLayoutEffect } from 'react'
-import { PrivateUser } from '@/config'
 
-export default function AppProvider({
-  children,
-  authInfo,
-}: {
-  children: ReactNode
-  authInfo: { user: PrivateUser; authToken: string } | null
-}) {
+export default function AppProvider({ children }: { children: ReactNode }) {
   const userStore = useUserStore()
 
   useLayoutEffect(() => {
-    if (!authInfo) return userStore.clearUser()
-    userStore.authenticate(authInfo.user, authInfo.authToken)
-    http.get('/auth/refresh').then(() => console.log('Cookie refreshed...'))
-  }, [authInfo])
+    ;(async () => {
+      const { data, ok } = await http.get<{
+        user: PrivateUser
+        authToken: string
+      }>('/auth')
+
+      if (!ok) return userStore.clearUser()
+      userStore.authenticate(data.user, data.authToken)
+    })()
+  }, [])
 
   return <ThemeProvider theme={muiTheme}>{children}</ThemeProvider>
 }
