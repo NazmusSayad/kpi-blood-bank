@@ -27,17 +27,31 @@ export const appRoute = RouteWrapper<[NextRequestCustom, NextRequestContext]>(
   }
 ).use(async (req) => {
   req.data = {}
+  req.getFormFile = () => null
+  req.getAllFormFile = () => []
 
   try {
     const contentType = req.headers.get('content-type')
 
     if (contentType.startsWith('application/json')) {
       req.data = await req.json()
-    } else if (
-      contentType.startsWith('application/x-www-form-urlencoded') ||
-      contentType.startsWith('multipart/form-data')
-    ) {
-      req.form_data = await req.formData()
+    } else if (contentType.startsWith('multipart/form-data')) {
+      const formData = await req.formData()
+      formData.forEach((value, key) => {
+        if (value instanceof File) return
+        req.data[key] = value
+      })
+
+      req.getFormFile = (key) => {
+        const file = formData.get(key)
+        if (file instanceof File) return file
+        return null
+      }
+
+      req.getAllFormFile = (key) => {
+        const files = formData.getAll(key)
+        return files.filter((file) => file instanceof File)
+      }
     }
   } catch {}
 

@@ -27,7 +27,8 @@ export const errorManager = new ErrorManager({
 
 export type NextRequestCustom = NextRequest & {
   data: Record<string, any>
-  form_data?: FormData | undefined
+  getFormFile(key: string): File | null
+  getAllFormFile(key: string): File[]
   authToken?: string
   cookieToken?: string
 }
