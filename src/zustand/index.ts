@@ -1,27 +1,48 @@
 import { create } from 'zustand'
 import { User } from '@prisma/client'
+import { http } from '@/api/http'
 
 export const useUserStore = create<{
-  user: User | null
+  user?: User
+  authToken?: string
   isLoggedIn: boolean
+  authenticate: (user: User, authToken: string) => void
   setUser: (user: User) => void
-  destroyUser: () => void
+  putUser: (user: Partial<User>) => void
+  clearUser: () => void
   setLoggedIn: (status: boolean) => void
 }>((set) => ({
-  user: null,
+  user: undefined,
+  authToken: undefined,
   isLoggedIn: false,
 
-  setUser: (user: User) => {
-    set((state) => ({ ...state, user, isLoggedIn: true }))
+  authenticate(user, authToken) {
+    console.log('> User set')
     localStorage.setItem('isLoggedIn', '1')
+    http.axios.defaults.headers.common['Authorization'] = `Bearer ${authToken}`
+    set((state) => ({
+      ...state,
+      user,
+      authToken,
+      isLoggedIn: true,
+    }))
   },
 
-  destroyUser: () => {
-    set((state) => ({ ...state, user: null, isLoggedIn: false }))
+  setUser(user) {
+    set((state) => ({ ...state, user }))
+  },
+
+  putUser(user) {
+    set((state) => ({ ...state, user: { ...state.user, ...user } }))
+  },
+
+  clearUser() {
+    console.log('> User cleared')
     localStorage.removeItem('isLoggedIn')
+    set((state) => ({ ...state, user: null, isLoggedIn: false }))
   },
 
-  setLoggedIn: (status) => {
+  setLoggedIn(status) {
     set((state) => ({ ...state, isLoggedIn: status }))
   },
 }))

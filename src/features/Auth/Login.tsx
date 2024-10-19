@@ -18,13 +18,16 @@ export default function Login() {
   const [phoneNumber, setPhoneNumber] = useState('')
 
   async function handleLogin() {
-    const { data, ok } = await api.post<User>('/auth/login', {
-      phone: +phoneNumber,
-      password,
-    })
+    const { data, ok } = await api.post<{ user: User; authToken: string }>(
+      '/auth/login',
+      {
+        phone: +phoneNumber,
+        password,
+      }
+    )
 
     if (!ok) return
-    userStore.setUser(data)
+    userStore.authenticate(data.user, data.authToken)
     router.replace('/account')
   }
 

@@ -3,9 +3,9 @@ import { useApi } from '@/api/http'
 import { User } from '@prisma/client'
 import { useUserStore } from '@/zustand'
 import { TextField } from '@mui/material'
+import { useRouter } from 'next/navigation'
 import ForgetPassLayout from './ForgetPassLayout'
 import PasswordInput from '@/components/ui/PasswordInput'
-import { useRouter } from 'next/navigation'
 
 export default function ForgetPassVerify({ token }: ForgetPassVerifyProps) {
   const api = useApi()
@@ -15,14 +15,17 @@ export default function ForgetPassVerify({ token }: ForgetPassVerifyProps) {
   const [password, setPassword] = useState('')
 
   async function handleSubmit() {
-    const { data, ok } = await api.post<User>('/auth/reset-password/verify', {
-      token,
-      otp,
-      password,
-    })
+    const { data, ok } = await api.post<{ user: User; authToken: string }>(
+      '/auth/reset-password/verify',
+      {
+        token,
+        otp,
+        password,
+      }
+    )
 
     if (!ok) return
-    userStore.setUser(data)
+    userStore.authenticate(data.user, data.authToken)
     router.push('/account')
   }
 

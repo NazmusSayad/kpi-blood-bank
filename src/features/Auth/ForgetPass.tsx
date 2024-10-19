@@ -1,12 +1,18 @@
 'use client'
 
-import { useState } from 'react'
-import ForgetPassMain from './ForgetPassMain'
+import { useLayoutEffect, useState } from 'react'
 import ForgetPassVerify from './ForgetPassVerify'
+import ForgetPassMain from './ForgetPassMain'
+import { useUserStore } from '@/zustand'
 
 export default function Forget() {
   const [token, setToken] = useState('')
   const [phoneNumber, setPhoneNumber] = useState('')
+  const userPhoneNumber = useUserStore((state) => state.user?.phone)
+
+  useLayoutEffect(() => {
+    if (userPhoneNumber) setPhoneNumber(String(userPhoneNumber))
+  }, [userPhoneNumber])
 
   return (
     <div className={'grid grid-rows-[auto,1fr]'}>

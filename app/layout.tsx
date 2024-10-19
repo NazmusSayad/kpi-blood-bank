@@ -18,9 +18,12 @@ export default function Layout({ children }: { children: React.ReactNode }) {
     if (hasLoggedIn) {
       userStore.setLoggedIn(true)
       ;(async () => {
-        const { data, ok } = await http.get<User>('/account')
-        if (ok) return userStore.setUser(data)
-        userStore.destroyUser()
+        const { data, ok } = await http.get<{ user: User; authToken: string }>(
+          '/auth'
+        )
+
+        if (!ok) return userStore.clearUser()
+        userStore.authenticate(data.user, data.authToken)
       })()
     }
   }, [])

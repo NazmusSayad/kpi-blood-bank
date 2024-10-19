@@ -1,14 +1,10 @@
-import {
-  createAuthJwtToken,
-  createSignupJwtToken,
-  parseSignupJwtToken,
-} from '../jwtHelpers'
 import db from '@/service/db'
 import argon2 from '@/utils/argon2'
 import { ReqError } from 'req-error'
 import userType from '@/rype/userType'
 import _printOTP from '@/utils/_printOTP'
 import generateOtp from '@/utils/generateOtp'
+import { createSignupJwtToken, parseSignupJwtToken } from '../jwtHelpers'
 
 export async function login(password: string, id: number, phone: number) {
   if (!(id || phone) || !password) {
@@ -27,7 +23,7 @@ export async function login(password: string, id: number, phone: number) {
     throw new ReqError('Incorrect password entered', 400)
   }
 
-  return { user, jwtToken: await createAuthJwtToken(user.id) }
+  return user
 }
 
 export async function createSignupToken(data: unknown) {
@@ -79,13 +75,11 @@ export async function createSignupToken(data: unknown) {
 
 export async function confirmSignUp(token: string, otp: string) {
   const data = await parseSignupJwtToken(token, otp)
-  const user = await db.user.create({
+  return db.user.create({
     data: {
       ...data,
       role: 'MEMBER',
       password: await argon2.generate(data.password),
     },
   })
-
-  return { user, jwtToken: await createAuthJwtToken(user.id) }
 }

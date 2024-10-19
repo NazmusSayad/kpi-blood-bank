@@ -1,5 +1,4 @@
 import {
-  createAuthJwtToken,
   parseForgetPassJwtToken,
   createForgetPassJwtToken,
 } from '../jwtHelpers'
@@ -45,13 +44,8 @@ export async function resetPassword(
     throw new ReqError('User not found', 404)
   }
 
-  const newUser = await db.user.update({
+  return db.user.update({
     where: { id: userId },
     data: { password: await argon2.generate(password) },
   })
-
-  return {
-    user: newUser,
-    jwtToken: await createAuthJwtToken(newUser.id),
-  }
 }

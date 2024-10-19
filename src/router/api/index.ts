@@ -9,7 +9,7 @@ import { ReqError } from 'req-error'
 import { cookies } from 'next/headers'
 import RouteWrapper from 'route-wrapper'
 import { NextResponse } from 'next/server'
-import { parseAuthJwtToken } from '@/service/jwtHelpers'
+import { parseAuthJwtToken, parseCookieJwtToken } from '@/service/jwtHelpers'
 
 export const appRoute = RouteWrapper<[NextRequestCustom, NextRequestContext]>(
   (err) => {
@@ -21,11 +21,11 @@ export const appRoute = RouteWrapper<[NextRequestCustom, NextRequestContext]>(
     return NextResponse.json({ message }, { status: statusCode })
   },
 
-  (data, _, ctx) => {
+  (data, req, ctx) => {
     const status = ctx.status ? +ctx.status : 200
     return NextResponse.json(data, { status })
   }
-).use(async (req, ctx) => {
+).use(async (req) => {
   req.data = {}
 
   try {
@@ -41,18 +41,36 @@ export const appRoute = RouteWrapper<[NextRequestCustom, NextRequestContext]>(
     }
   } catch {}
 
-  const token = cookies().get('authorization')
-  ctx.authorizationToken = token?.value
+  req.authToken = req.headers.get('authorization')
+  req.cookieToken = cookies().get('authorization')?.value
 })
+
+export const cookieAuthRoute = appRoute
+  .create<[NextAuthRequestCustom, NextRequestContext]>()
+  .use(async (req) => {
+    if (!req.cookieToken) {
+      throw new ReqError('Authorization cookie token is required', 401)
+    }
+
+    const userId = await parseCookieJwtToken(req.cookieToken)
+    const user = await db.user.findUnique({ where: { id: userId } })
+
+    if (!user) {
+      throw new ReqError('User not found', 404)
+    }
+
+    req.user = user
+  })
 
 export const authRoute = appRoute
   .create<[NextAuthRequestCustom, NextRequestContext]>()
-  .use(async (req, ctx) => {
-    if (!ctx.authorizationToken) {
+  .use(async (req) => {
+    if (!req.authToken) {
       throw new ReqError('Authorization token is required', 401)
     }
 
-    const userId = await parseAuthJwtToken(ctx.authorizationToken)
+    const jwtToken = req.authToken.split('Bearer ')[1]
+    const userId = await parseAuthJwtToken(jwtToken)
     const user = await db.user.findUnique({ where: { id: userId } })
 
     if (!user) {

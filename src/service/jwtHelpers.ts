@@ -4,10 +4,17 @@ import { ReqError } from 'req-error'
 import userType from '@/rype/userType'
 
 export function createAuthJwtToken(userId: number) {
-  return jwt.create({ userId: userId })
+  return jwt.create({ userId: userId }, { secret: '@AUTH' })
 }
 export async function parseAuthJwtToken(token: string): Promise<number> {
-  return ((await jwt.parse(token)) as any)?.userId
+  return (await jwt.parse(token, { secret: '@AUTH' })).userId
+}
+
+export function createCookieJwtToken(userId: number) {
+  return jwt.create({ userId: userId }, { secret: '@COOKIE' })
+}
+export async function parseCookieJwtToken(token: string): Promise<number> {
+  return (await jwt.parse(token, { secret: '@COOKIE' })).userId
 }
 
 export function createSignupJwtToken(data: unknown, code: string) {
@@ -15,7 +22,7 @@ export function createSignupJwtToken(data: unknown, code: string) {
     { data },
     {
       expiresIn: '10d',
-      secret: process.env.JWT_SIGNUP_SECRET + '@SIGNUP@' + code,
+      secret: '@SIGNUP@' + code,
     }
   )
 }
@@ -25,11 +32,7 @@ export async function parseSignupJwtToken(
   code: string
 ): Promise<r.inferOutput<typeof userType>> {
   try {
-    return (
-      (await jwt.parse(token, {
-        secret: process.env.JWT_SIGNUP_SECRET + '@SIGNUP@' + code,
-      })) as any
-    ).data
+    return (await jwt.parse(token, { secret: '@SIGNUP@' + code })).data
   } catch (err) {
     if (
       err.name === 'JWSSignatureVerificationFailed' ||
@@ -50,7 +53,7 @@ export function createForgetPassJwtToken(userId: number, code: string) {
     { userId },
     {
       expiresIn: '10d',
-      secret: process.env.JWT_FORGET_PASS_SECRET + '@FORGET@' + code,
+      secret: '@FORGET@' + code,
     }
   )
 }
@@ -60,11 +63,7 @@ export async function parseForgetPassJwtToken(
   code: string
 ): Promise<number> {
   try {
-    return (
-      (await jwt.parse(token, {
-        secret: process.env.JWT_FORGET_PASS_SECRET + '@FORGET@' + code,
-      })) as any
-    )?.userId
+    return (await jwt.parse(token, { secret: '@FORGET@' + code })).userId
   } catch (err) {
     if (
       err.name === 'JWSSignatureVerificationFailed' ||

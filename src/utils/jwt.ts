@@ -26,6 +26,6 @@ export default {
       : JWT_SECRET_KEY
 
     const parsed = await jwtVerify(jwt, secret)
-    return parsed.payload.payload as unknown
+    return parsed.payload.payload as any
   },
 }

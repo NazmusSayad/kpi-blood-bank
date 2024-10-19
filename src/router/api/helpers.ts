@@ -28,12 +28,15 @@ export const errorManager = new ErrorManager({
 export type NextRequestCustom = NextRequest & {
   data: Record<string, any>
   form_data?: FormData | undefined
+  authToken?: string
+  cookieToken?: string
 }
 
-export type NextAuthRequestCustom = NextRequestCustom & { user: User }
+export type NextAuthRequestCustom = NextRequestCustom & {
+  user: User
+}
 
 export type NextRequestContext = Record<string, unknown> & {
   readonly params: Record<string, string>
   status: number
-  authorizationToken?: string
 }
