@@ -1,5 +1,5 @@
 import { User } from '@prisma/client'
-import { cookies } from 'next/headers'
+import { setAuthCookie } from './cookies'
 import { selectInObj } from './db/helpers'
 import { UserPrivateFields } from './db/config'
 import { createAuthJwtToken, createCookieJwtToken } from './jwtHelpers'
@@ -10,11 +10,7 @@ export async function throwPrivateUser(
   setCookie = true
 ) {
   if (setCookie) {
-    const cookieToken = await createCookieJwtToken(user.id)
-    cookies().set('authorization', cookieToken, {
-      httpOnly: true,
-      secure: true,
-    })
+    setAuthCookie(await createCookieJwtToken(user.id))
   }
 
   const authToken = includeToken ? await createAuthJwtToken(user.id) : undefined

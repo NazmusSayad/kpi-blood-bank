@@ -1,5 +1,6 @@
 'use client'
 
+import { http } from '@/api/http'
 import { User } from '@prisma/client'
 import { useUserStore } from '@/zustand'
 import muiTheme from '@/styles/mui-theme'
@@ -18,6 +19,7 @@ export default function AppProvider({
   useLayoutEffect(() => {
     if (!authInfo) return userStore.clearUser()
     userStore.authenticate(authInfo.user, authInfo.authToken)
+    http.get('/auth/refresh').then(() => console.log('Cookie refreshed...'))
   }, [authInfo])
 
   return <ThemeProvider theme={muiTheme}>{children}</ThemeProvider>
