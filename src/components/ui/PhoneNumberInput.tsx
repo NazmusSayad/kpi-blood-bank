@@ -7,12 +7,12 @@ export default function PhoneNumberInput(props: PhoneNumberInputProps) {
       defaultCountry={'BD'}
       onlyCountries={['BD']}
       langOfCountryName={'bn'}
-      value={'+8801' + props.value}
+      value={props.value || '+8801'}
       onChange={
         props.onChange &&
         ((e, info) => {
-          const number = e.replace(/ /g, '').replace('+8801', '')
-          if (number.length > 9) return
+          const number = e.replace(/ /g, '').slice(0, 14)
+          if (!number.startsWith('+8801')) return
           props.onChange?.(number, info)
         })
       }

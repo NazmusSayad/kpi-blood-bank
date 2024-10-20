@@ -8,8 +8,8 @@ datasource db {
 }
 
 model User {
-  id          Int         @id @default(autoincrement())
-  phone       Int         @unique
+  id          Int         @id() @default(autoincrement())
+  phone       String      @unique()
   name        String
   password    String
   role        UserRole
@@ -44,11 +44,11 @@ model BloodDonation {
   bloodGroup BloodGroup
 
   userId Int
-  user   User @relation("BloodDonationUser", fields: [userId], references: [id])
+  user   User @relation("BloodDonationUser", fields: [userId], references: [id], onDelete: Cascade)
 
   createdAt   DateTime @default(now())
   createdById Int
-  createdBy   User     @relation("BloodDonationCreatedBy", fields: [createdById], references: [id])
+  createdBy   User     @relation("BloodDonationCreatedBy", fields: [createdById], references: [id], onDelete: Cascade)
 
   statusUpdatedAt     DateTime?
   statusUpdatedById   Int?
@@ -57,12 +57,12 @@ model BloodDonation {
 }
 
 model BloodRequest {
-  id         String     @id @default(uuid())
+  id         String     @id() @default(uuid())
   createdAt  DateTime   @default(now())
   bloodGroup BloodGroup
 
   userId Int
-  user   User @relation("BloodRequest", fields: [userId], references: [id])
+  user   User @relation("BloodRequest", fields: [userId], references: [id], onDelete: Cascade)
 
   assignDonors User[] @relation("BloodRequestAssignDonors")
 }

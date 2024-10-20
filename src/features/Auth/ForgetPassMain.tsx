@@ -11,7 +11,7 @@ export default function ForgetPassMain({
   async function handleSubmit() {
     const { data, ok } = await api.post<{ token: string }>(
       '/auth/reset-password',
-      { phone: +phone }
+      { phone }
     )
 
     if (!ok) return

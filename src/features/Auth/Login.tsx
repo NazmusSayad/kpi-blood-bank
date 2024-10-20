@@ -22,7 +22,7 @@ export default function Login() {
       user: PrivateUser
       authToken: string
     }>('/auth/login', {
-      phone: +phoneNumber,
+      phone: phoneNumber,
       password,
     })
 

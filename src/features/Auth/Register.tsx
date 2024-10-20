@@ -49,7 +49,7 @@ const registerFormDataDefault = {
   name: 'Nazmus Sayad',
   password: 'superhero',
   bloodGroup: 'A_POSITIVE',
-  phone: '712345678',
+  phone: '+8801712345678',
   accountType: AccountType.STUDENT,
   nidNumber: '12345678',
   birthCertificateNumber: '',

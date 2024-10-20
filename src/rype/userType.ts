@@ -1,15 +1,24 @@
-import r from 'rype'
+import { r } from 'rype'
 import { BloodGroup, Prisma } from '@prisma/client'
+
+const NidString = r.string().regex(/^\d+$/)
+const BirthCertificateString = r.string().regex(/^\d+$/)
 
 const mainFields = {
   name: r.string(),
   password: r.string().minLength(6),
   accountType: r.string('GUEST', 'TEACHER'),
-  bloodGroup: r.string(...Object.values(BloodGroup)),
-  phone: r.number().max(999999999).min(100000000),
+  bloodGroup: r
+    .string(...Object.values(BloodGroup))
+    .typeErr('Invalid blood group'),
 
-  nidNumber: r.string().optional(),
-  birthCertificateNumber: r.string().optional(),
+  phone: r
+    .string()
+    .regex(/^\+8801[0-9]{9}$/)
+    .typeErr('Invalid phone number'),
+
+  nidNumber: NidString.optional(),
+  birthCertificateNumber: BirthCertificateString.optional(),
 } as const
 
 const studentsFields = {
@@ -24,21 +33,20 @@ const studentsFields = {
 const userType = r.or(
   r.object({
     ...mainFields,
-    nidNumber: r.string(),
+    nidNumber: NidString.clone(),
   }),
   r.object({
     ...mainFields,
     ...studentsFields,
-    nidNumber: r.string(),
+    nidNumber: NidString.clone(),
   }),
   r.object({
     ...mainFields,
     ...studentsFields,
-    birthCertificateNumber: r.string(),
+    birthCertificateNumber: BirthCertificateString.clone(),
   })
 )
 
 const userInstance = {} as r.inferOutput<typeof userType>
 userInstance satisfies Omit<Prisma.UserCreateInput, 'role'>
-
 export default userType

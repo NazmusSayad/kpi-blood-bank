@@ -24,7 +24,7 @@ export default function RegisterMainForm({
   async function handleRegister() {
     const { data, ok } = await api.post<{ token: string }>('/auth/register', {
       ...formData,
-      phone: +formData.phone,
+      phone: formData.phone,
     })
 
     if (ok) return setToken(data.token)

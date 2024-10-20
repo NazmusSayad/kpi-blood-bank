@@ -21,7 +21,7 @@ export default function AppProvider({ children }: { children: ReactNode }) {
 
       if (!ok) {
         userStore.clearUser()
-        await http.get('/auth/clear')
+        await http.delete('/auth')
         return router.refresh()
       }
       userStore.authenticate(data.user, data.authToken)

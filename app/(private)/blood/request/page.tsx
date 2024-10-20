@@ -1,2 +1,2 @@
-import RequestPage from '@/features/Forms/Request/RequestPage'
+import RequestPage from '@/features/Blood/Request/RequestPage'
 export default RequestPage

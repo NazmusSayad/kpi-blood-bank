@@ -8,6 +8,6 @@ export const GET = authRoute(async (req) => {
 export const PATCH = authRoute(async (req) => {
   throw {
     STATUS: 'NOT_IMPLEMENTED',
-    ...req.data,
+    body: req.data,
   }
 })

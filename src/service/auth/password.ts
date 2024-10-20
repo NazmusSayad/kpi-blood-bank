@@ -8,7 +8,7 @@ import { ReqError } from 'req-error'
 import _printOTP from '@/service/sendOtp'
 import generateOtp from '@/utils/generateOtp'
 
-export async function forgetPassword(phone: number) {
+export async function forgetPassword(phone: string) {
   if (!phone) {
     throw new ReqError('Missing required fields', 400)
   }

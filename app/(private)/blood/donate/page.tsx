@@ -1,2 +1,2 @@
-import DonatePage from '@/features/Forms/Donate/DonatePage'
+import DonatePage from '@/features/Blood/Donate/DonatePage'
 export default DonatePage

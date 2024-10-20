@@ -6,7 +6,7 @@ import _printOTP from '@/service/sendOtp'
 import generateOtp from '@/utils/generateOtp'
 import { createSignupJwtToken, parseSignupJwtToken } from '../jwtHelpers'
 
-export async function login(password: string, id: number, phone: number) {
+export async function login(password: string, id: number, phone: string) {
   if (!(id || phone) || !password) {
     throw new ReqError('UserId or Phone and Password are required', 400)
   }
@@ -65,7 +65,7 @@ export async function createSignupToken(data: unknown) {
   }
 
   if (existedKey.length) {
-    throw new ReqError(existedKey.join(', ') + ' already used', 400)
+    throw new ReqError(existedKey.join(', ') + ' already exists', 400)
   }
 
   const otp = generateOtp()

@@ -3,9 +3,10 @@
 import { useState } from 'react'
 import moment, { Moment } from 'moment'
 import { BloodGroup } from '@prisma/client'
+import useUserStore from '@/zustand/useUserStore'
 import { Button, FormControl } from '@mui/material'
 import BloodGroupSelect from '@/components/ui/BloodGroupSelect'
-import useUserStore from '@/zustand/useUserStore'
+import UserSearchInput from '@/components/ui/UserSearchInput'
 
 export default function DonateForm() {
   const userStore = useUserStore()
@@ -32,6 +33,8 @@ export default function DonateForm() {
             value={userStore.user?.bloodGroup ?? ''}
             onChange={(e) => setFormValue('bloodGroup', e.target.value as any)}
           />
+
+          <UserSearchInput />
 
           <FormControl>
             <Button type={'submit'} variant={'contained'} size={'large'}>

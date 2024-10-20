@@ -2,6 +2,7 @@ import db from '@/service/db'
 import { ReqError } from 'req-error'
 import { cookies } from 'next/headers'
 import { appRoute } from '@/router/api'
+import { NextResponse } from 'next/server'
 import { generatePrivateUser } from '@/service/helpers'
 import { parseCookieJwtToken } from '@/service/jwtHelpers'
 
@@ -14,3 +15,14 @@ export const GET = appRoute(async () => {
   if (!user) throw new ReqError('User not found', 401)
   throw generatePrivateUser(user)
 })
+
+export function DELETE() {
+  cookies()
+    .getAll()
+    .forEach((cookie) => {
+      console.log('Deleting cookie:', cookie.name)
+      cookies().delete(cookie.name)
+    })
+
+  return NextResponse.json({ success: true })
+}
