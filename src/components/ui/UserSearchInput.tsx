@@ -40,13 +40,18 @@ export default function UserSearchInput() {
   ])
 
   useEffect(() => {
+    if (!searchValue) return setOptions([])
+
     async function fetchUsers() {
-      const { data, ok } = await api.get<PublicUser[]>('/users', {
-        signal: signal(),
-      })
+      const { data, ok } = await api.get<PublicUser[]>(
+        `/users/?id=${searchValue}&name=${searchValue}`,
+        {
+          signal: signal(),
+        }
+      )
 
       if (!ok) return
-      // setOptions(data)
+      setOptions(data)
     }
 
     const timeout = setTimeout(fetchUsers, 300)
@@ -58,12 +63,17 @@ export default function UserSearchInput() {
 
   return (
     <Autocomplete
+      clearOnBlur={false}
+      clearOnEscape={false}
       value={selectedUser}
       onChange={(_, newValue) => setSelectedUser(newValue!)}
+      options={options}
+      filterOptions={(options) => options}
+      getOptionLabel={(option) => option.name}
       renderInput={(params) => (
         <TextField
           {...params}
-          label="User"
+          label={'User @' + (selectedUser?.id ?? 'Search')}
           placeholder={'Type User Id'}
           onChange={(event) => {
             setSearchValue(event.target.value)
@@ -71,15 +81,12 @@ export default function UserSearchInput() {
           }}
         />
       )}
-      options={options}
-      filterOptions={(options) => options}
-      getOptionLabel={(option) => option.name + ' @' + option.id}
-      renderOption={({ key, ...optionProps }, option) => {
+      renderOption={({ key, ...optionProps }, user) => {
         return (
           <div key={key} {...(optionProps as any)}>
             <div className={'flex items-center gap-2'}>
-              <img loading="lazy" src={`https://flagcdn.com/w20/bd.png`} />
-              {option.name}
+              <img className={'size-8'} loading="lazy" src={user.avatar_url!} />
+              {user.name}
             </div>
           </div>
         )

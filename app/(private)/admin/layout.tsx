@@ -2,8 +2,8 @@ import Nav from '@/features/Nav'
 
 export default function Layout({ children }) {
   return (
-    <main>
-      <Nav  />
+    <main className={'grid grid-rows-[auto_1fr]'}>
+      <Nav />
 
       {children}
     </main>

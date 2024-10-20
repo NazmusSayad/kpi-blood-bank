@@ -3,10 +3,10 @@
 import { http } from '@/api/http'
 import { PrivateUser } from '@/config'
 import muiTheme from '@/styles/mui-theme'
+import { useRouter } from 'next/navigation'
 import { ThemeProvider } from '@mui/material'
 import useUserStore from '@/zustand/useUserStore'
 import { ReactNode, useLayoutEffect } from 'react'
-import { useRouter } from 'next/navigation'
 
 export default function AppProvider({ children }: { children: ReactNode }) {
   const router = useRouter()

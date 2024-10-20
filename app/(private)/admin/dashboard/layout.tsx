@@ -11,7 +11,7 @@ export default function DashboardLayout({
     <div className={'flex size-full flex-col-reverse md:flex-row'}>
       <DashboardSidebar />
 
-      <div className={'overflow-auto size-full max-w-full flex-1'}>
+      <div className={'overflow-auto size-full max-w-[100vw] flex-1'}>
         {children}
       </div>
     </div>

@@ -1,3 +1,9 @@
+import Nav from '@/features/Nav'
+
 export default function Page() {
-  return <div>page</div>
+  return (
+    <main>
+      <Nav />
+    </main>
+  )
 }
