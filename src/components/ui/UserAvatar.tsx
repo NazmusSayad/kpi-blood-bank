@@ -11,7 +11,7 @@ function UserAvatar({ avatarUrl, className, ...props }: UserAvatarProps) {
     return (
       <img
         {...props}
-        className={cn('size-6 rounded-full', className)}
+        className={cn('size-8 rounded-full', className)}
         src={avatarUrl ?? config.defaultAvatar}
       />
     )

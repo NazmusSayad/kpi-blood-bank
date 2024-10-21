@@ -1,7 +1,7 @@
 'use client'
 
 import { cn } from '@/utils'
-import Nav from '@/features/Nav'
+import Nav from '@/components/Nav'
 import { usePathname } from 'next/navigation'
 
 export default function AppLayout({ children }) {

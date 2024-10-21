@@ -79,7 +79,7 @@ export default function NavModal({
                   variant={'contained'}
                   color={'primary'}
                   href={'/@' + user?.id}
-                  startIcon={<UserAvatar avatarUrl={user?.avatar_url} />}
+                  startIcon={<UserAvatar avatarUrl={user?.avatar_url} className={'size-6'} />}
                 >
                   Account
                 </LinkButton>

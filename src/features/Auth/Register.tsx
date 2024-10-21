@@ -16,7 +16,7 @@ export default function Register() {
   }
 
   return (
-    <div className={'grid grid-rows-[auto,1fr]'}>
+    <div className={'grid grid-rows-[auto,1fr] mb-12'}>
       <h1 className={'text-4xl text-center font-medium my-12'}>
         {registerToken ? 'Verify Account' : 'Create Account'}
       </h1>

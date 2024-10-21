@@ -3,8 +3,9 @@ import bgImage from '@/assets/6262.svg'
 import Wrapper from '@/layouts/Wrapper'
 
 export default function Layout({ children }) {
+  const minHeight = 'min-h-[calc(100%-7.5rem)] '
   return (
-    <div>
+    <div className={minHeight + 'grid'}>
       <div
         className={
           'fixed inset-0 opacity-20 md:w-[50vw] md:opacity-100 blur-md md:blur-none bg-green-500/5'
@@ -19,7 +20,7 @@ export default function Layout({ children }) {
         />
       </div>
 
-      <Wrapper className={'grid min-h-[calc(100%-10rem)]'}>
+      <Wrapper className={minHeight + 'grid'}>
         <div className={'grid items-center md:grid-cols-[1fr,1fr]'}>
           <div className={'hidden md:block'} />
           <Wrapper className={'max-w-[33rem]'}>{children}</Wrapper>
