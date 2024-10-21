@@ -15,7 +15,7 @@ export function middleware(request: NextRequest) {
   return NextResponse.next()
 }
 
-const isAuthRoute = genRouteController('/admin', '/account', '/blood')
+const isAuthRoute = genRouteController('/account', '/admin', '/blood')
 const isNonAuthRoute = genRouteController('/auth/login', '/auth/register')
 function genRouteController(...paths: string[]) {
   return (nextPath: string) => {

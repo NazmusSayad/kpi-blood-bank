@@ -2,6 +2,7 @@
 
 import Link from 'next/link'
 import { cn } from '@/utils'
+import config from '@/config'
 import Image from 'next/image'
 import NavModal from './NavModal'
 import Wrapper from '@/layouts/Wrapper'
@@ -9,10 +10,12 @@ import logoImage from '@/assets/logo.jpg'
 import { IconButton } from '@mui/material'
 import { useLayoutEffect, useState } from 'react'
 import useUserStore from '@/zustand/useUserStore'
+import { RiShieldFlashLine } from 'react-icons/ri'
 import LinkButton from '@/components/ui/LinkButton'
 
 export default function Nav(props: NavProps) {
   const isLoggedIn = useUserStore((state) => Boolean(state.user))
+  const user = useUserStore((state) => state.user)
   const [scrollPosition, setScrollPosition] = useState(0)
 
   useLayoutEffect(() => {
@@ -39,7 +42,7 @@ export default function Nav(props: NavProps) {
             <Image
               alt={'Logo'}
               src={logoImage.src}
-              className={'w-10 h-10 rounded-[50%]'}
+              className={'size-8 rounded-[50%]'}
               width={logoImage.width}
               height={logoImage.height}
             />
@@ -58,39 +61,50 @@ export default function Nav(props: NavProps) {
             ))}
           </div>
 
-          <div className={'hidden sm:flex gap-2'}>
-            {isLoggedIn ? (
-              <>
-                <LinkButton
-                  href={'/account'}
-                  color={'inherit'}
-                  variant={'outlined'}
-                >
-                  Account
-                </LinkButton>
-              </>
-            ) : (
-              <>
-                <LinkButton
-                  href={'/auth/login'}
-                  color={'inherit'}
-                  variant={'outlined'}
-                >
-                  Login
-                </LinkButton>
-                <LinkButton
-                  href={'/auth/register'}
-                  color={scrollPosition > 0 ? undefined : 'inherit'}
-                  variant={scrollPosition > 0 ? 'contained' : 'outlined'}
-                >
-                  Register
-                </LinkButton>
-              </>
-            )}
-          </div>
+          {isLoggedIn ? (
+            <div className={'hidden sm:flex'}>
+              <LinkButton
+                iconButton
+                color={'inherit'}
+                href={'/admin'}
+                variant={'outlined'}
+              >
+                <RiShieldFlashLine className={'size-6'} />
+              </LinkButton>
+
+              <LinkButton
+                iconButton
+                href={'/account'}
+                color={'inherit'}
+                variant={'outlined'}
+              >
+                <img
+                  className={'size-8 rounded-full'}
+                  src={user?.avatar_url ?? config.defaultAvatar}
+                />
+              </LinkButton>
+            </div>
+          ) : (
+            <div className={'hidden sm:flex gap-2'}>
+              <LinkButton
+                href={'/auth/login'}
+                color={'inherit'}
+                variant={'outlined'}
+              >
+                Login
+              </LinkButton>
+              <LinkButton
+                href={'/auth/register'}
+                color={scrollPosition > 0 ? undefined : 'inherit'}
+                variant={scrollPosition > 0 ? 'contained' : 'outlined'}
+              >
+                Register
+              </LinkButton>
+            </div>
+          )}
 
           <div className={'block sm:hidden'}>
-            <NavModal isLoggedIn={isLoggedIn} />
+            <NavModal isLoggedIn={isLoggedIn} user={user} />
           </div>
         </div>
       </Wrapper>

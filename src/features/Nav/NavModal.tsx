@@ -1,11 +1,20 @@
-import { useState } from 'react'
-import { IconButton, Modal } from '@mui/material'
-import { RxHamburgerMenu } from 'react-icons/rx'
-import navLinks from './nav-links'
-import LinkButton from '@/components/ui/LinkButton'
 import { cn } from '@/utils'
+import { useState } from 'react'
+import navLinks from './nav-links'
+import { PrivateUser } from '@/config'
+import { userAccess } from '@/service/utils'
+import { RxHamburgerMenu } from 'react-icons/rx'
+import { IconButton, Modal } from '@mui/material'
+import { RiShieldFlashLine } from 'react-icons/ri'
+import LinkButton from '@/components/ui/LinkButton'
 
-export default function NavModal({ isLoggedIn }: { isLoggedIn: boolean }) {
+export default function NavModal({
+  isLoggedIn,
+  user,
+}: {
+  isLoggedIn: boolean
+  user?: PrivateUser | null
+}) {
   const [isOpen, setIsOpen] = useState(false)
 
   function handleOnClose(e: MouseEvent, reason: string) {
@@ -54,10 +63,27 @@ export default function NavModal({ isLoggedIn }: { isLoggedIn: boolean }) {
           <div className={'flex flex-col gap-2'}>
             {isLoggedIn ? (
               <>
+                {user && userAccess(user).isModerator && (
+                  <LinkButton
+                    variant={'outlined'}
+                    color={'primary'}
+                    href={'/admin'}
+                    startIcon={<RiShieldFlashLine className={'mt-[-0.2rem]'}/>}
+                  >
+                    Admin
+                  </LinkButton>
+                )}
+
                 <LinkButton
                   variant={'contained'}
                   color={'primary'}
                   href={'/account'}
+                  startIcon={
+                    <img
+                      className={'size-6 rounded-full'}
+                      src={user?.avatar_url ?? '/default-avatar.jpg'}
+                    />
+                  }
                 >
                   Account
                 </LinkButton>

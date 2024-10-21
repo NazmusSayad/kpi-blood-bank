@@ -4,7 +4,7 @@
     "tsc": "tsc --watch",
     "start": "next start",
     "dev": "next dev --turbo",
-    "lab": "run ./src/__lab__.ts",
+    "lab": "run ./src/__lab__/index.ts",
     "build": "prisma generate && next build",
     "db": "prisma generate && prisma db push",
     "setup-dev": "run ./src/setup.ts",
