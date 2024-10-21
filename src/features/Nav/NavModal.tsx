@@ -7,6 +7,7 @@ import { RxHamburgerMenu } from 'react-icons/rx'
 import { IconButton, Modal } from '@mui/material'
 import { RiShieldFlashLine } from 'react-icons/ri'
 import LinkButton from '@/components/ui/LinkButton'
+import UserAvatar from '../../components/ui/UserAvatar'
 
 export default function NavModal({
   isLoggedIn,
@@ -78,12 +79,7 @@ export default function NavModal({
                   variant={'contained'}
                   color={'primary'}
                   href={'/@' + user?.id}
-                  startIcon={
-                    <img
-                      className={'size-6 rounded-full'}
-                      src={user?.avatar_url ?? '/default-avatar.jpg'}
-                    />
-                  }
+                  startIcon={<UserAvatar avatarUrl={user?.avatar_url} />}
                 >
                   Account
                 </LinkButton>

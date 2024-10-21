@@ -1,6 +1,4 @@
 'use client'
-
-import Nav from '@/features/Nav'
 import { useApiOnce } from '@/api/http'
 
 export default function Page() {
@@ -8,8 +6,7 @@ export default function Page() {
   const data = res.responses?.[0]?.data || ({} as any)
 
   return (
-    <main>
-      <Nav />
+    <div>
       <h1>About</h1>
 
       <p>{data.message}</p>
@@ -22,6 +19,6 @@ export default function Page() {
           <li key={donor.id}>{donor.name}</li>
         ))}
       </ul>
-    </main>
+    </div>
   )
 }

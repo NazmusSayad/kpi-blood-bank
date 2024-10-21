@@ -1,9 +1,3 @@
-import Nav from '@/features/Nav'
-
 export default function Page() {
-  return (
-    <main>
-      <Nav />
-    </main>
-  )
+  return <h1>CONTACT</h1>
 }

@@ -6,14 +6,19 @@ import config from '@/config'
 const PRIVATE_KEY = process.env.IMAGE_KIT_KEY
 const PRIVATE_KEY_BASE64 = Buffer.from(PRIVATE_KEY + ':').toString('base64')
 
-async function upload(fileBuffer: Buffer, fileName: string, folder?: string) {
+async function upload(
+  fileBuffer: Buffer,
+  fileName: string,
+  contentType: string,
+  folder?: string
+) {
   const form = new FormData()
 
   if (folder) form.append('folder', folder)
   form.append('fileName', fileName)
   form.append('file', fileBuffer, {
     filename: fileName,
-    contentType: 'image/jgp',
+    contentType,
   })
 
   const { data } = await axios.post(
@@ -45,10 +50,10 @@ export async function uploadAvatar(file: File) {
   const fileBuffer = await file.arrayBuffer()
   const optimizedFileBuffer = await sharp(fileBuffer)
     .resize(256, 256, { fit: 'cover' })
-    .toFormat('jpg', { quality: 80 })
+    .toFormat('webp', { quality: 80 })
     .toBuffer()
 
-  return upload(optimizedFileBuffer, 'avatar.jpg', '/avatars')
+  return upload(optimizedFileBuffer, 'avatar.webp', 'image/webp', '/avatars')
 }
 
 export async function deleteFile(fileId: string) {

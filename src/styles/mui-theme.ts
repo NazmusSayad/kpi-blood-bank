@@ -18,6 +18,6 @@ export default createTheme({
   },
 
   shape: {
-    borderRadius: 7.5,
+    borderRadius: 10,
   },
 })

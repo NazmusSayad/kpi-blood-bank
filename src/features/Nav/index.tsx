@@ -2,18 +2,18 @@
 
 import Link from 'next/link'
 import { cn } from '@/utils'
-import config from '@/config'
 import Image from 'next/image'
 import NavModal from './NavModal'
+import navLinks from './nav-links'
 import Wrapper from '@/layouts/Wrapper'
 import logoImage from '@/assets/logo.jpg'
 import { IconButton } from '@mui/material'
+import { userHasAccess } from '@/service/utils'
 import { useLayoutEffect, useState } from 'react'
 import useUserStore from '@/zustand/useUserStore'
 import { RiShieldFlashLine } from 'react-icons/ri'
 import LinkButton from '@/components/ui/LinkButton'
-import navLinks from './nav-links'
-import { userHasAccess } from '@/service/utils'
+import UserAvatar from '@/components/ui/UserAvatar'
 
 export default function Nav(props: NavProps) {
   const [scrollPosition, setScrollPosition] = useState(0)
@@ -81,10 +81,7 @@ export default function Nav(props: NavProps) {
                 color={'inherit'}
                 variant={'outlined'}
               >
-                <img
-                  className={'size-8 rounded-full'}
-                  src={user?.avatar_url ?? config.defaultAvatar}
-                />
+                <UserAvatar avatarUrl={user?.avatar_url} />
               </LinkButton>
             </div>
           ) : (
@@ -92,14 +89,14 @@ export default function Nav(props: NavProps) {
               <LinkButton
                 href={'/auth/login'}
                 color={'inherit'}
-                variant={'outlined'}
+                variant={'text'}
               >
                 Login
               </LinkButton>
               <LinkButton
                 href={'/auth/register'}
-                color={scrollPosition > 0 ? undefined : 'inherit'}
-                variant={scrollPosition > 0 ? 'contained' : 'outlined'}
+                variant={'outlined'}
+                color={'inherit'}
               >
                 Register
               </LinkButton>

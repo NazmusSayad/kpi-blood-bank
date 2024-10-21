@@ -1,13 +1,10 @@
-import Nav from '../Nav'
 import Image from 'next/image'
 import bgImage from '@/assets/6262.svg'
 import Wrapper from '@/layouts/Wrapper'
 
 export default function Layout({ children }) {
   return (
-    <main className={'relative'}>
-      <Nav />
-
+    <div>
       <div
         className={
           'fixed inset-0 opacity-20 md:w-[50vw] md:opacity-100 blur-md md:blur-none bg-green-500/5'
@@ -28,6 +25,6 @@ export default function Layout({ children }) {
           <Wrapper className={'max-w-[33rem]'}>{children}</Wrapper>
         </div>
       </Wrapper>
-    </main>
+    </div>
   )
 }
