@@ -28,7 +28,7 @@ export default function Login() {
 
     if (!ok) return
     userStore.authenticate(data.user, data.authToken)
-    router.replace('/account')
+    router.replace('/@' + data.user.id)
   }
 
   return (

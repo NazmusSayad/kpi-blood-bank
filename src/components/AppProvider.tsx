@@ -20,7 +20,7 @@ export default function AppProvider({ children }: { children: ReactNode }) {
       }>('/auth')
 
       if (!ok) {
-        userStore.clearUser()
+        userStore.clear()
         await http.delete('/auth')
         return router.refresh()
       }

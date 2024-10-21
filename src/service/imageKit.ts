@@ -1,6 +1,7 @@
 import sharp from 'sharp'
 import axios from 'axios'
 import FormData from 'form-data'
+import config from '@/config'
 
 const PRIVATE_KEY = process.env.IMAGE_KIT_KEY
 const PRIVATE_KEY_BASE64 = Buffer.from(PRIVATE_KEY + ':').toString('base64')
@@ -53,7 +54,7 @@ export async function uploadAvatar(file: File) {
 export async function deleteFile(fileId: string) {
   const { data } = await axios.delete(
     `https://api.imagekit.io/v1/files/${fileId}`,
-    { headers: { Authorization: 'Basic ' + PRIVATE_KEY_BASE64 } }
+    { headers: { [config.headerAuthTokenKey]: 'Basic ' + PRIVATE_KEY_BASE64 } }
   )
 
   return data

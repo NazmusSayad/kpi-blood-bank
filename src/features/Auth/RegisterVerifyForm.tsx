@@ -35,7 +35,7 @@ export default function RegisterVerifyForm({
 
     if (!ok) return
     userStore.authenticate(data.user, data.authToken)
-    router.push('/account')
+    router.push('/@' + data.user.id)
   }
 
   function handleBack() {

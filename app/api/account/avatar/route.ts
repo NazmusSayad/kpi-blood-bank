@@ -1,7 +1,7 @@
-import { authRoute } from '@/router/api'
-import { generatePrivateUser } from '@/service/helpers'
-import { changeAvatar } from '@/service/account/photos'
 import { ReqError } from 'req-error'
+import { authRoute } from '@/router/api'
+import { changeAvatar } from '@/service/account/photos'
+import { generatePrivateUser } from '@/service/helpers'
 
 export const POST = authRoute(async (req) => {
   const file = req.getFormFile('file')

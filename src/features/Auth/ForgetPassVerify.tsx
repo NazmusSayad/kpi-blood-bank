@@ -26,7 +26,7 @@ export default function ForgetPassVerify({ token }: ForgetPassVerifyProps) {
 
     if (!ok) return
     userStore.authenticate(data.user, data.authToken)
-    router.push('/account')
+    router.push('/@' + data.user.id)
   }
 
   return (

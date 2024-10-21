@@ -12,11 +12,13 @@ import { useLayoutEffect, useState } from 'react'
 import useUserStore from '@/zustand/useUserStore'
 import { RiShieldFlashLine } from 'react-icons/ri'
 import LinkButton from '@/components/ui/LinkButton'
+import navLinks from './nav-links'
+import { userHasAccess } from '@/service/utils'
 
 export default function Nav(props: NavProps) {
-  const isLoggedIn = useUserStore((state) => Boolean(state.user))
-  const user = useUserStore((state) => state.user)
   const [scrollPosition, setScrollPosition] = useState(0)
+  const user = useUserStore((state) => state.user)
+  const isLoggedIn = !!user
 
   useLayoutEffect(() => {
     const handleScroll = () => {
@@ -49,7 +51,7 @@ export default function Nav(props: NavProps) {
           </IconButton>
 
           <div className={'hidden sm:flex items-center gap-3'}>
-            {links.map((link, i) => (
+            {navLinks.map((link, i) => (
               <LinkButton
                 key={i}
                 variant={'text'}
@@ -63,18 +65,19 @@ export default function Nav(props: NavProps) {
 
           {isLoggedIn ? (
             <div className={'hidden sm:flex'}>
+              {userHasAccess(user).moderator && (
+                <LinkButton
+                  iconButton
+                  color={'inherit'}
+                  href={'/admin'}
+                  variant={'outlined'}
+                >
+                  <RiShieldFlashLine className={'size-6'} />
+                </LinkButton>
+              )}
               <LinkButton
                 iconButton
-                color={'inherit'}
-                href={'/admin'}
-                variant={'outlined'}
-              >
-                <RiShieldFlashLine className={'size-6'} />
-              </LinkButton>
-
-              <LinkButton
-                iconButton
-                href={'/account'}
+                href={'/@' + user?.id}
                 color={'inherit'}
                 variant={'outlined'}
               >
@@ -111,12 +114,6 @@ export default function Nav(props: NavProps) {
     </nav>
   )
 }
-
-const links = [
-  { label: 'Home', to: '/' },
-  { label: 'About', to: '/about' },
-  { label: 'Contact', to: '/contacts' },
-]
 
 type NavProps = {
   transparent?: boolean

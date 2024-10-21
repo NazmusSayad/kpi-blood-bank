@@ -1,6 +1,6 @@
-import PublicProfile from '@/features/Profile/PublicProfile'
-import { findUsers } from '@/service/account/user'
 import { notFound } from 'next/navigation'
+import { findUsers } from '@/service/account/user'
+import Profile from '@/features/Account/Profile'
 
 export default async function Page({ params }) {
   const userId = decodeURIComponent(params.userId)
@@ -16,5 +16,5 @@ export default async function Page({ params }) {
       </div>
     )
 
-  return <PublicProfile user={user} />
+  return <Profile user={user} />
 }

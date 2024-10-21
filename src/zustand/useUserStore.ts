@@ -1,37 +1,37 @@
 import { create } from 'zustand'
 import { http } from '@/api/http'
-import { PrivateUser } from '@/config'
+import config, { PrivateUser } from '@/config'
 import { combine } from 'zustand/middleware'
 
+const initialState = {
+  user: null as PrivateUser | null,
+  authToken: null as string | null,
+} as const
+
 export default create(
-  combine(
-    {
-      user: null as PrivateUser | null,
-      authToken: null as string | null,
+  combine({ ...initialState }, (set) => ({
+    authenticate(user: PrivateUser, authToken: string) {
+      http.axios.defaults.headers.common[
+        config.headerAuthTokenKey
+      ] = `Bearer ${authToken}`
+      set((state) => ({
+        ...state,
+        user,
+        authToken,
+      }))
     },
-    (set) => ({
-      authenticate(user: PrivateUser, authToken: string) {
-        http.axios.defaults.headers.common[
-          'Authorization'
-        ] = `Bearer ${authToken}`
-        set((state) => ({
-          ...state,
-          user,
-          authToken,
-        }))
-      },
 
-      setUser(user: PrivateUser) {
-        set((state) => ({ ...state, user }))
-      },
+    setUser(user: PrivateUser) {
+      set((state) => ({ ...state, user }))
+    },
 
-      putUser(user: PrivateUser) {
-        set((state) => ({ ...state, user: { ...state.user, ...user } }))
-      },
+    updateUser(user: PrivateUser) {
+      set((state) => ({ ...state, user: { ...state.user, ...user } }))
+    },
 
-      clearUser() {
-        set((state) => ({ ...state, user: null }))
-      },
-    })
-  )
+    clear() {
+      http.axios.defaults.headers.common[config.headerAuthTokenKey] = undefined
+      set({ ...initialState })
+    },
+  }))
 )

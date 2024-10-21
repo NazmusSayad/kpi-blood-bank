@@ -1,4 +1,5 @@
 import db from '@/service/db'
+import config from '@/config'
 import { ReqError } from 'req-error'
 import { cookies } from 'next/headers'
 import { appRoute } from '@/router/api'
@@ -7,7 +8,7 @@ import { generatePrivateUser } from '@/service/helpers'
 import { parseCookieJwtToken } from '@/service/jwtHelpers'
 
 export const GET = appRoute(async () => {
-  const cookieToken = cookies().get('authorization')?.value
+  const cookieToken = cookies().get(config.cookieAuthTokenKey)?.value
   if (!cookieToken) throw new ReqError('No cookie token found', 401)
 
   const userId = await parseCookieJwtToken(cookieToken)
@@ -17,12 +18,6 @@ export const GET = appRoute(async () => {
 })
 
 export function DELETE() {
-  cookies()
-    .getAll()
-    .forEach((cookie) => {
-      console.log('Deleting cookie:', cookie.name)
-      cookies().delete(cookie.name)
-    })
-
+  cookies().delete(config.cookieAuthTokenKey)
   return NextResponse.json({ success: true })
 }

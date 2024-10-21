@@ -6,7 +6,7 @@ import {
 } from '@prisma/client'
 import db from '../db'
 import { ReqError } from 'req-error'
-import { userAccess } from '../utils'
+import { userHasAccess } from '../utils'
 import { Prettify } from '@/utils/types.t'
 import { UserPublicDBSelect } from '@/config'
 
@@ -27,7 +27,7 @@ export async function createDonation(
     Pick<BloodDonation, 'bloodGroup'> & Partial<Pick<BloodDonation, 'userId'>>
   >
 ) {
-  if (body.userId != null && !userAccess(user).isModerator) {
+  if (body.userId != null && !userHasAccess(user).moderator) {
     throw new ReqError('You are not allowed to create donation for other users')
   }
 
@@ -51,7 +51,7 @@ export async function updateDonationStatus(
   status: BloodDonationStatus,
   reason: string
 ) {
-  if (!userAccess(user).isModerator) {
+  if (!userHasAccess(user).moderator) {
     throw new ReqError('You are not allowed to update blood donation status')
   }
 
@@ -72,7 +72,7 @@ export async function updateDonationStatus(
 }
 
 export async function deleteDonation(user: User, id: string) {
-  if (!userAccess(user).isAdmin) {
+  if (!userHasAccess(user).admin) {
     throw new ReqError('You are not allowed to delete blood donation')
   }
 

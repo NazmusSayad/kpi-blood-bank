@@ -10,6 +10,8 @@ import { cookies } from 'next/headers'
 import RouteWrapper from 'route-wrapper'
 import { NextResponse } from 'next/server'
 import { parseAuthJwtToken } from '@/service/jwtHelpers'
+import config from '@/config'
+import { userHasAccess } from '@/service/utils'
 
 export const appRoute = RouteWrapper<[NextRequestCustom, NextRequestContext]>(
   (err) => {
@@ -55,8 +57,8 @@ export const appRoute = RouteWrapper<[NextRequestCustom, NextRequestContext]>(
     }
   } catch {}
 
-  req.authToken = req.headers.get('authorization') ?? undefined
-  req.cookieToken = cookies().get('authorization')?.value
+  req.authToken = req.headers.get(config.headerAuthTokenKey) ?? undefined
+  req.cookieToken = cookies().get(config.cookieAuthTokenKey)?.value
 })
 
 export const authRoute = appRoute
@@ -76,3 +78,21 @@ export const authRoute = appRoute
 
     req.user = user
   })
+
+export const authRouteMod = authRoute.create().use((req) => {
+  if (!userHasAccess(req.user).moderator) {
+    throw new ReqError('At least you have to be a moderator', 403)
+  }
+})
+
+export const authRouteAdmin = authRoute.create().use((req) => {
+  if (!userHasAccess(req.user).admin) {
+    throw new ReqError('At least you have to be a admin', 403)
+  }
+})
+
+export const authRouteSuperAdmin = authRoute.create().use((req) => {
+  if (!userHasAccess(req.user).superAdmin) {
+    throw new ReqError('Only SuperAdmin can do this', 403)
+  }
+})
