@@ -1,9 +1,25 @@
+import {
+  User,
+  Prisma,
+  BloodDonation,
+  BloodDonationStatus,
+} from '@prisma/client'
 import db from '../db'
 import { ReqError } from 'req-error'
 import { userAccess } from '../utils'
 import { Prettify } from '@/utils/types.t'
 import { UserPublicDBSelect } from '@/config'
-import { BloodDonation, BloodDonationStatus, User } from '@prisma/client'
+
+export async function getDonations(where: Prisma.BloodDonationWhereInput) {
+  return db.bloodDonation.findMany({
+    where,
+    include: {
+      user: { select: UserPublicDBSelect },
+      createdBy: { select: UserPublicDBSelect },
+      statusUpdatedBy: { select: UserPublicDBSelect },
+    },
+  })
+}
 
 export async function createDonation(
   user: User,

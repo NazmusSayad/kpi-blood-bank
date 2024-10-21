@@ -7,6 +7,7 @@ import generateOtp from '@/utils/generateOtp'
 import { createSignupJwtToken, parseSignupJwtToken } from '../jwtHelpers'
 
 export async function login(password: string, id: number, phone: string) {
+  console.log('login', password, id, phone)
   if (!(id || phone) || !password) {
     throw new ReqError('UserId or Phone and Password are required', 400)
   }

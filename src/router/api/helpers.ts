@@ -1,11 +1,11 @@
+import {
+  PrismaClientValidationError,
+  PrismaClientKnownRequestError,
+} from '@prisma/client/runtime/library'
+import { User } from '@prisma/client'
 import { RypeClientError } from 'rype'
 import { ErrorManager } from 'req-error'
 import { NextRequest } from 'next/server'
-import { User } from '@prisma/client'
-import {
-  PrismaClientKnownRequestError,
-  PrismaClientValidationError,
-} from '@prisma/client/runtime/library'
 
 export const errorManager = new ErrorManager({
   handlers: [

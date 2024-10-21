@@ -34,7 +34,8 @@ model User {
   X_donations              BloodDonation[] @relation("BloodDonationUser")
   X_donationsCreated       BloodDonation[] @relation("BloodDonationCreatedBy")
   X_donationsStatusUpdated BloodDonation[] @relation("BloodDonationStatusUpdatedBy")
-  X_bloodRequests          BloodRequest[]  @relation("BloodRequest")
+  X_bloodRequests          BloodRequest[]  @relation("BloodRequestOwner")
+  X_requestCreator         BloodRequest[]  @relation("BloodRequestCreator")
   X_requestAssignedDonor   BloodRequest[]  @relation("BloodRequestAssignDonors")
 }
 
@@ -60,9 +61,12 @@ model BloodRequest {
   id         String     @id() @default(uuid())
   createdAt  DateTime   @default(now())
   bloodGroup BloodGroup
+  amount     Int
 
-  userId Int
-  user   User @relation("BloodRequest", fields: [userId], references: [id], onDelete: Cascade)
+  userId      Int
+  user        User @relation("BloodRequestOwner", fields: [userId], references: [id], onDelete: Cascade)
+  createdById Int
+  createdBy   User @relation("BloodRequestCreator", fields: [createdById], references: [id], onDelete: Cascade)
 
   assignDonors User[] @relation("BloodRequestAssignDonors")
 }

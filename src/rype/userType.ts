@@ -1,5 +1,5 @@
 import { r } from 'rype'
-import { BloodGroup, Prisma } from '@prisma/client'
+import { Prisma, BloodGroup } from '@prisma/client'
 
 const NidString = r.string().regex(/^\d+$/)
 const BirthCertificateString = r.string().regex(/^\d+$/)
