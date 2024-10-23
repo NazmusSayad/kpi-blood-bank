@@ -1,18 +1,12 @@
+import Wrapper from '@/layouts/Wrapper'
 import DashboardSidebar from '@/features/Dashboard/DashboardSidebar'
 
-
-
-export default function DashboardLayout({
-  children,
-}: {
-  children: React.ReactNode
-}) {
+export default function DashboardLayout({ children }) {
   return (
-    <div className={'flex size-full flex-col-reverse md:flex-row'}>
+    <div className={'flex overflow-hidden flex-col-reverse md:flex-row'}>
       <DashboardSidebar />
-
-      <div className={'overflow-auto size-full max-w-[100vw] flex-1'}>
-        {children}
+      <div className={'overflow-auto flex-1'}>
+        <Wrapper>{children}</Wrapper>
       </div>
     </div>
   )

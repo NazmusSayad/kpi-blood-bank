@@ -2,12 +2,16 @@ import BetterSelect from './BetterSelect'
 import { BloodGroup } from '@prisma/client'
 import { SelectProps } from '@mui/material/Select'
 
-export default function BloodGroupSelect(props: BloodGroupSelectProps) {
+export default function BloodGroupSelect({
+  setValue,
+  ...props
+}: BloodGroupSelectProps) {
   return (
     <BetterSelect
-      {...props}
+      onChange={setValue && ((e) => setValue(e.target.value as BloodGroup))}
       label={'Blood Group'}
-      items={Object.keys(BloodGroup).map((group) => ({
+      {...props}
+      items={[...Object.keys(BloodGroup)].filter(Boolean).map((group) => ({
         value: group,
         label: group.replace('_POSITIVE', '+').replace('_NEGATIVE', '-'),
       }))}
@@ -15,4 +19,7 @@ export default function BloodGroupSelect(props: BloodGroupSelectProps) {
   )
 }
 
-type BloodGroupSelectProps = SelectProps
+type BloodGroupSelectProps = SelectProps & {
+  value?: BloodGroup | ''
+  setValue?: (value: BloodGroup | '') => void
+}

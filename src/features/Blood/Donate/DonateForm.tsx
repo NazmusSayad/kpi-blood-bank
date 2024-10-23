@@ -31,7 +31,7 @@ export default function DonateForm() {
           <BloodGroupSelect
             disabled
             value={userStore.user?.bloodGroup ?? ''}
-            onChange={(e) => setFormValue('bloodGroup', e.target.value as any)}
+            setValue={(value) => setFormValue('bloodGroup', value)}
           />
 
           <UserSearchInput />

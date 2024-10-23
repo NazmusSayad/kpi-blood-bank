@@ -2,6 +2,7 @@ import type { User } from '@prisma/client'
 
 export const UserPublicFields = [
   'id',
+  'createdAt',
   'name',
   'role',
   'accountType',
@@ -12,6 +13,15 @@ export const UserPublicFields = [
   'student_educationalInstitute',
   'student_department',
   'student_session',
+] as const
+
+export const UserAdminFields = [
+  ...UserPublicFields,
+  'phone',
+  'nidNumber',
+  'birthCertificateNumber',
+  'student_rollNumber',
+  'student_registrationNumber',
 ] as const
 
 export const UserPrivateFields = [
@@ -25,11 +35,16 @@ export const UserPrivateFields = [
 ] as const
 
 export type PublicUser = Pick<User, (typeof UserPublicFields)[number]>
+export type AdminUser = Pick<User, (typeof UserAdminFields)[number]>
 export type PrivateUser = Pick<User, (typeof UserPrivateFields)[number]>
 
 export const UserPublicDBSelect = Object.fromEntries(
   UserPublicFields.map((field) => [field, true])
 ) as Record<(typeof UserPublicFields)[number], true>
+
+export const UserAdminDBSelect = Object.fromEntries(
+  UserAdminFields.map((field) => [field, true])
+) as Record<(typeof UserAdminFields)[number], true>
 
 export default {
   defaultAvatar:

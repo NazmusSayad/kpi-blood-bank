@@ -48,8 +48,8 @@ export default function RegisterMainForm({
         <BloodGroupSelect
           required
           fullWidth
-          value={formData.bloodGroup}
-          onChange={(e) => setFormData('bloodGroup', e.target.value as string)}
+          value={formData.bloodGroup as any}
+          setValue={(value) => setFormData('bloodGroup', value)}
         />
 
         <PhoneNumberInput

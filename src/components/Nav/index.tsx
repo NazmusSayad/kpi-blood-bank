@@ -32,7 +32,7 @@ export default function Nav(props: NavProps) {
   return (
     <nav
       className={cn(
-        props.fixed ? 'fixed' : 'sticky',
+        props.position ?? 'sticky',
         'top-0 w-full -z-[-999] border-b border-transparent transition-all duration-300 text-white bg-transparent',
         !(scrollPosition === 0 && props.transparent) &&
           'bg-red-500/95 border-b-gray-500/20 backdrop-blur-lg shadow-sm'
@@ -114,5 +114,12 @@ export default function Nav(props: NavProps) {
 
 type NavProps = {
   transparent?: boolean
-  fixed?: boolean
+  position?:
+    | 'fixed'
+    | 'sticky'
+    | 'absolute'
+    | 'relative'
+    | 'static'
+    | 'initial'
+    | 'inherit'
 }
