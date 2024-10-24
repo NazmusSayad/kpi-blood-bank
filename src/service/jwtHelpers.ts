@@ -7,9 +7,9 @@ import userType from '@/rype/userType'
 const AUTH_SECRET = '@AUTH'
 const COOKIE_SECRET = '@COOKIE'
 const SIGNUP_SECRET = (code: string) =>
-  '@SIGNUP@' + (env['UNSAFE___DEV___USE_FIXED_OTP'] ?? code)
+  '@SIGNUP@' + (env['___UNSAFE___DEV___USE_FIXED_OTP'] ?? code)
 const FORGET_SECRET = (code: string) =>
-  '@FORGET@' + (env['UNSAFE___DEV___USE_FIXED_OTP'] ?? code)
+  '@FORGET@' + (env['___UNSAFE___DEV___USE_FIXED_OTP'] ?? code)
 
 export function createAuthJwtToken(userId: number) {
   return jwt.create({ userId: userId }, { secret: AUTH_SECRET })

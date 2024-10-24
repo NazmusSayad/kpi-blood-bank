@@ -5,5 +5,5 @@ export default env({
   IMAGE_KIT_KEY: r.string(),
   JWT_SECRET: r.string(),
 
-  UNSAFE___DEV___USE_FIXED_OTP: r.string().optional(),
+  ___UNSAFE___DEV___USE_FIXED_OTP: r.string().optional(),
 })

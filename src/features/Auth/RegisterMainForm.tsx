@@ -25,6 +25,8 @@ export default function RegisterMainForm({
     const { data, ok } = await api.post<{ token: string }>('/auth/register', {
       ...formData,
       phone: formData.phone,
+      nidNumber: formData.nidNumber || undefined,
+      birthCertificateNumber: formData.birthCertificateNumber || undefined,
     })
 
     if (ok) return setToken(data.token)
@@ -84,111 +86,6 @@ export default function RegisterMainForm({
           onChange={(e) =>
             setFormData('nidNumber', e.target.value.replace(/\D/g, ''))
           }
-        />
-
-        <TextField
-          fullWidth
-          required={
-            formData.accountType === AccountType.STUDENT && !formData.nidNumber
-          }
-          label={'Birth Certificate Number'}
-          value={formData.birthCertificateNumber}
-          onChange={(e) => {
-            setFormData(
-              'birthCertificateNumber',
-              e.target.value.replace(/\D/g, '')
-            )
-          }}
-        />
-
-        <TextField
-          fullWidth
-          required={
-            formData.accountType === AccountType.STUDENT && !formData.nidNumber
-          }
-          label={'Birth Certificate Number'}
-          value={formData.birthCertificateNumber}
-          onChange={(e) => {
-            setFormData(
-              'birthCertificateNumber',
-              e.target.value.replace(/\D/g, '')
-            )
-          }}
-        />
-
-        <TextField
-          fullWidth
-          required={
-            formData.accountType === AccountType.STUDENT && !formData.nidNumber
-          }
-          label={'Birth Certificate Number'}
-          value={formData.birthCertificateNumber}
-          onChange={(e) => {
-            setFormData(
-              'birthCertificateNumber',
-              e.target.value.replace(/\D/g, '')
-            )
-          }}
-        />
-
-        <TextField
-          fullWidth
-          required={
-            formData.accountType === AccountType.STUDENT && !formData.nidNumber
-          }
-          label={'Birth Certificate Number'}
-          value={formData.birthCertificateNumber}
-          onChange={(e) => {
-            setFormData(
-              'birthCertificateNumber',
-              e.target.value.replace(/\D/g, '')
-            )
-          }}
-        />
-
-        <TextField
-          fullWidth
-          required={
-            formData.accountType === AccountType.STUDENT && !formData.nidNumber
-          }
-          label={'Birth Certificate Number'}
-          value={formData.birthCertificateNumber}
-          onChange={(e) => {
-            setFormData(
-              'birthCertificateNumber',
-              e.target.value.replace(/\D/g, '')
-            )
-          }}
-        />
-
-        <TextField
-          fullWidth
-          required={
-            formData.accountType === AccountType.STUDENT && !formData.nidNumber
-          }
-          label={'Birth Certificate Number'}
-          value={formData.birthCertificateNumber}
-          onChange={(e) => {
-            setFormData(
-              'birthCertificateNumber',
-              e.target.value.replace(/\D/g, '')
-            )
-          }}
-        />
-
-        <TextField
-          fullWidth
-          required={
-            formData.accountType === AccountType.STUDENT && !formData.nidNumber
-          }
-          label={'Birth Certificate Number'}
-          value={formData.birthCertificateNumber}
-          onChange={(e) => {
-            setFormData(
-              'birthCertificateNumber',
-              e.target.value.replace(/\D/g, '')
-            )
-          }}
         />
 
         <TextField
