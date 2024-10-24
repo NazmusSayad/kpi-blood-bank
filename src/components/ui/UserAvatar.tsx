@@ -5,8 +5,6 @@ import { cn } from '@/utils'
 import { ComponentProps, memo, useMemo } from 'react'
 
 function UserAvatar({ avatarUrl, className, ...props }: UserAvatarProps) {
-  console.log('UserAvatar', avatarUrl)
-
   const img = useMemo(() => {
     return (
       <img

@@ -1,6 +1,7 @@
 'use client'
 
 import Header from './Header'
+import Content from './Content'
 import UserCard from './UserCard'
 import { useApi } from '@/api/http'
 import { AdminUser } from '@/config'
@@ -8,7 +9,6 @@ import { BloodGroup } from '@prisma/client'
 import { useEffect, useState } from 'react'
 import { useAbortSignal } from 'react-net-kit'
 import BloodGroupSelect from '@/components/ui/BloodGroupSelect'
-import { cn } from '@/utils'
 
 export default function UserPage() {
   const api = useApi()
@@ -17,18 +17,27 @@ export default function UserPage() {
   const [searchValue, setSearchValue] = useState('')
   const [bloodGroup, setBloodGroup] = useState<BloodGroup | ''>('')
 
-  useEffect(() => {
-    async function fetchUsers() {
-      const { ok, data } = await api.get<AdminUser[]>(
-        `/users/admin?search=${searchValue}&bloodGroup=${bloodGroup}`,
-        { signal: signal() }
-      )
+  async function fetchUsers(
+    searchQuery: string,
+    bloodQuery: BloodGroup | '',
+    cursor: number | string = ''
+  ) {
+    const { ok, data } = await api.get<{ users: AdminUser[]; total: number }>(
+      `/users/admin?limit=16&search=${searchQuery}&bloodGroup=${bloodQuery}&cursor=${cursor}`,
+      { signal: signal() }
+    )
 
-      if (!ok) return
-      setUsers(data)
+    if (!ok) return
+    return data.users
+  }
+
+  useEffect(() => {
+    async function loadInitialUsers() {
+      const users = await fetchUsers(searchValue, bloodGroup)
+      users && setUsers(users)
     }
 
-    const timeout = setTimeout(fetchUsers, 300)
+    const timeout = setTimeout(loadInitialUsers, 300)
     return () => clearTimeout(timeout)
   }, [searchValue, bloodGroup])
 
@@ -43,21 +52,21 @@ export default function UserPage() {
         />
       </Header>
 
-      <div
-        className={cn(
-          'grid gap-3 content-center mb-12',
-          'grid-cols-[repeat(auto-fit,minmax(auto,1fr))]',
-          'xs:grid-cols-[repeat(auto-fit,minmax(18rem,1fr))]'
-        )}
-      >
-        {users.map((user) => (
-          <div>
-            <div className={'max-w-[28rem] mx-auto'}>
-              <UserCard key={user.id} user={user} />
-            </div>
-          </div>
+      <Content
+        loadMore={async () => {
+          const newUsers = await fetchUsers(
+            searchValue,
+            bloodGroup,
+            users[users.length - 1].id
+          )
+
+          newUsers && setUsers((prev) => [...prev, ...newUsers])
+        }}
+        isLoading={api.loading}
+        items={users.map((user) => (
+          <UserCard key={user.id} user={user} />
         ))}
-      </div>
+      />
     </div>
   )
 }

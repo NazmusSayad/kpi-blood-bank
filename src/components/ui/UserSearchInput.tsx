@@ -8,7 +8,7 @@ import { Autocomplete, TextField } from '@mui/material'
 
 export default function UserSearchInput() {
   const api = useApi()
-  const [signal, abortSignal] = useAbortSignal()
+  const [signal] = useAbortSignal()
   const [options, setOptions] = useState<PublicUser[]>([])
   const [searchValue, setSearchValue] = useState('')
   const [selectedUser, setSelectedUser] = useState<PublicUser | null>(null)
@@ -17,15 +17,13 @@ export default function UserSearchInput() {
     if (!searchValue) return setOptions([])
 
     async function fetchUsers() {
-      const { data, ok } = await api.get<PublicUser[]>(
-        `/users/?id=${searchValue}&name=${searchValue}`,
-        {
-          signal: signal(),
-        }
+      const { data, ok } = await api.get<{ users: PublicUser[] }>(
+        `/users/?limit=10&id=${searchValue}&name=${searchValue}`,
+        { signal: signal() }
       )
 
       if (!ok) return
-      setOptions(data)
+      setOptions(data.users)
     }
 
     const timeout = setTimeout(fetchUsers, 300)

@@ -7,7 +7,9 @@ export default async function Page({ params }) {
   if (!userId.startsWith('@')) return notFound()
   const actualUserId = userId.slice(1)
   if (!actualUserId || actualUserId.match(/\D/)) return notFound()
-  const [user] = await findUsers({ id: +actualUserId })
+  const users = await findUsers({ id: +actualUserId })
+  const user = users.users[0]
+
   if (!user)
     return (
       <div>

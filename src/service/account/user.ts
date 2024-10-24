@@ -4,12 +4,15 @@ import { UserPublicDBSelect } from '@/config'
 
 export async function findUsers(
   where: Prisma.UserWhereInput,
-  options: Partial<{ select: Prisma.UserSelect }> = {}
+  options: Prisma.UserFindManyArgs = {}
 ) {
-  return db.user.findMany({
+  const total = await db.user.count({})
+  const users = await db.user.findMany({
+    ...options,
+    where: { ...where },
+    take: options.take ?? 24,
     select: options.select ?? UserPublicDBSelect,
-    where: {
-      ...where,
-    },
   })
+
+  return { total, users }
 }

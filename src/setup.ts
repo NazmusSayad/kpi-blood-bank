@@ -35,7 +35,13 @@ const bangladeshiNames = [
 
 const password = await argon2.generate('superhero')
 await db.user.createMany({
-  data: bangladeshiNames.map((name, i) => {
+  data: [
+    ...bangladeshiNames,
+    ...bangladeshiNames,
+    ...bangladeshiNames,
+    ...bangladeshiNames,
+    ...bangladeshiNames,
+  ].map((name, i) => {
     const accountType = i < 10 ? 'STUDENT' : i < 15 ? 'TEACHER' : 'GUEST'
     return {
       ...userType.parse({

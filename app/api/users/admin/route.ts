@@ -4,9 +4,12 @@ import { UserAdminDBSelect } from '@/config'
 import { findUsers } from '@/service/account/user'
 
 export const GET = authRouteAdmin(async (req) => {
-  const searchQuery = req.nextUrl.searchParams.get('search')
-  const queryId = searchQuery?.replace(/\D/g, '')
   const queryBloodGroup = req.nextUrl.searchParams.get('bloodGroup')
+  const queryLimit = req.nextUrl.searchParams.get('limit')
+  const queryCursor = req.nextUrl.searchParams.get('cursor')
+
+  const searchQuery = req.nextUrl.searchParams.get('search')
+  const idQuery = searchQuery?.replace(/\D/g, '')
 
   throw findUsers(
     {
@@ -18,7 +21,7 @@ export const GET = authRouteAdmin(async (req) => {
         },
         {
           OR: [
-            queryId && { id: +queryId },
+            idQuery && { id: +idQuery },
             searchQuery && {
               name: { contains: searchQuery, mode: 'insensitive' },
             },
@@ -26,6 +29,11 @@ export const GET = authRouteAdmin(async (req) => {
         },
       ],
     },
-    { select: UserAdminDBSelect }
+    {
+      select: UserAdminDBSelect,
+      take: queryLimit ? +queryLimit : undefined,
+      cursor: queryCursor ? { id: +queryCursor } : undefined,
+      skip: queryCursor ? 1 : undefined,
+    }
   )
 })
