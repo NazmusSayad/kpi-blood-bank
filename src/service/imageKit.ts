@@ -1,10 +1,12 @@
+import env from '@/env'
 import sharp from 'sharp'
 import axios from 'axios'
 import FormData from 'form-data'
 import config from '@/config'
 
-const PRIVATE_KEY = process.env.IMAGE_KIT_KEY
-const PRIVATE_KEY_BASE64 = Buffer.from(PRIVATE_KEY + ':').toString('base64')
+const PRIVATE_KEY_BASE64 = Buffer.from(env.IMAGE_KIT_KEY + ':').toString(
+  'base64'
+)
 
 async function upload(
   fileBuffer: Buffer,
