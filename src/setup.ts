@@ -12,7 +12,7 @@ console.log('Database cleared')
 
 const bangladeshiNames = [
   'Nazmus Sayad',
-  'Fatima Khatun',
+  'Mohammad Nafees',
   'Rakib Ahmed',
   'Ayesha Akhter',
   'Shafiul Islam',
