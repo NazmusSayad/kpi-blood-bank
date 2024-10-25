@@ -28,7 +28,6 @@
     "@emotion/styled": "^11.13.0",
     "@mui/icons-material": "^6.1.4",
     "@mui/material": "^6.1.4",
-    "@mui/x-data-grid": "^7.21.0",
     "@mui/x-date-pickers": "^7.21.0",
     "@types/node": "22.7.5",
     "@types/react": "18.3.11",

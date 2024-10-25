@@ -1,5 +1,2 @@
-import Table from '@/features/Dashboard/Table'
-
-export default function Page() {
-  return <Table />
-}
+import RequestPage from '@/features/Dashboard/RequestPage'
+export default RequestPage
