@@ -61,14 +61,19 @@ await db.user.createMany({
 })
 
 const users = await db.user.findMany()
-for (const user of users) {
-  await db.bloodDonation.createMany({
-    data: new Array(10).fill(0).map((_, i) => ({
-      userId: user.id,
-      createdById: user.id,
-      bloodGroup: Object.keys(BloodGroup)[i % 8] as any,
-    })),
-  })
+await db.bloodDonation.createMany({
+  data: users
+    .map((user) =>
+      new Array(10).fill(0).map((_, i) => ({
+        userId: user.id,
+        createdById: 1,
+        statusUpdatedById: 1,
+        statusUpdatedAt: new Date(),
+        statusUpdateComment: 'Auto Setup, ' + i,
+        bloodGroup: Object.keys(BloodGroup)[i % 8] as any,
+      }))
+    )
+    .flat(),
+})
 
-  console.log('User setup:', user.name)
-}
+console.log('Database seeded')
