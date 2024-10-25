@@ -38,7 +38,7 @@ export default function UserSearchInput() {
       onChange={(_, newValue) => setSelectedUser(newValue!)}
       options={options}
       filterOptions={(options) => options}
-      getOptionLabel={(option) => option.name}
+      getOptionLabel={(option) => option.name + ' @' + option.id}
       renderInput={(params) => (
         <TextField
           {...params}
@@ -52,7 +52,7 @@ export default function UserSearchInput() {
       )}
       renderOption={({ key, ...optionProps }, user) => {
         return (
-          <div key={key} {...(optionProps as any)}>
+          <div key={user.id} {...(optionProps as any)}>
             <div className={'flex items-center gap-2'}>
               <img className={'size-8'} loading="lazy" src={user.avatar_url!} />
               {user.name}

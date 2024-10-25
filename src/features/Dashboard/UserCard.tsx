@@ -1,10 +1,14 @@
 import { cn } from '@/utils'
-import { Card } from '@mui/material'
+import { useState } from 'react'
 import { AdminUser } from '@/config'
+import { FaCheck } from 'react-icons/fa6'
+import { UserRole } from '@prisma/client'
+import { Card, IconButton } from '@mui/material'
 import UserAvatar from '@/components/ui/UserAvatar'
+import BetterSelect from '@/components/ui/BetterSelect'
 import { convertBloodGroupToNormal } from '@/service/db/utils'
 
-export function UserDetails({ user }: { user?: AdminUser }) {
+export function UserDetails({ user, includeRole }: { user?: AdminUser; includeRole?: boolean }) {
   return (
     <>
       <div className={'flex items-center gap-2'}>
@@ -17,9 +21,11 @@ export function UserDetails({ user }: { user?: AdminUser }) {
       </div>
 
       <div className={'mt-2'}>
-        <p className={'text-sm text-gray-500'}>
-          <span className={'font-medium'}>Role:</span> {user?.role}
-        </p>
+        {includeRole && (
+          <p className={'text-sm text-gray-500'}>
+            <span className={'font-medium'}>Role:</span> {user?.role}
+          </p>
+        )}
 
         <p className={'text-sm text-gray-500'}>
           <span className={'font-medium'}>Phone:</span>{' '}
@@ -43,6 +49,9 @@ export function UserDetails({ user }: { user?: AdminUser }) {
 }
 
 export default function UserCard({ user }: { user: AdminUser }) {
+  const [role, setRole] = useState(user.role)
+  console.log(role)
+
   return (
     <Card className={'px-3 py-2 !bg-red-50'}>
       <div className={'relative isolate'}>
@@ -57,6 +66,35 @@ export default function UserCard({ user }: { user: AdminUser }) {
         </div>
 
         <UserDetails user={user} />
+
+        <div className={'flex items-center gap-2 mt-3'}>
+          {/* <Select
+            fullWidth
+            size={'small'}
+            value={role}
+            onChange={(e) => setRole(e.target.value as any)}
+          >
+            {Object.keys(UserRole).map((role) => (
+              <MenuItem key={role} value={role}>
+                {role}
+              </MenuItem>
+            ))}
+          </Select> */}
+
+          <BetterSelect
+            fullWidth
+            required={false}
+            label={'Role'}
+            size={'small'}
+            value={role}
+            items={Object.keys(UserRole).map((role) => ({ label: role, value: role }))}
+            onChange={(e) => setRole(e.target.value as any)}
+          />
+
+          <IconButton className={'!bg-sky-200/40'}>
+            <FaCheck />
+          </IconButton>
+        </div>
       </div>
     </Card>
   )

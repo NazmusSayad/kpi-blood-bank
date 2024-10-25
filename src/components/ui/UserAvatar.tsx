@@ -9,7 +9,7 @@ function UserAvatar({ avatarUrl, className, ...props }: UserAvatarProps) {
     return (
       <img
         {...props}
-        className={cn('size-8 rounded-full shadow-lg shadow-black/20', className)}
+        className={cn('block size-8 rounded-full shadow-lg shadow-black/20', className)}
         src={avatarUrl ?? config.defaultAvatar}
       />
     )

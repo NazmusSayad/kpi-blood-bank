@@ -3,17 +3,15 @@ import MenuItem from '@mui/material/MenuItem'
 import { FormControl, InputLabel } from '@mui/material'
 import Select, { SelectProps } from '@mui/material/Select'
 
-export default function BetterSelect({ ...props }: BetterSelectProps) {
-  props.required ??= true
-
+export default function BetterSelect({ clearable, ...props }: BetterSelectProps) {
   const id = useId()
-  const label = props.label ?? 'Select'
+  const label = props.label ?? undefined
 
   return (
     <FormControl fullWidth={props.fullWidth} required={props.required}>
       <InputLabel id={id}>{label}</InputLabel>
       <Select {...props} labelId={id} label={label}>
-        {props.required || (
+        {clearable && (
           <MenuItem value={''} className={'text-gray-600'}>
             Clear
           </MenuItem>
@@ -31,4 +29,5 @@ export default function BetterSelect({ ...props }: BetterSelectProps) {
 
 type BetterSelectProps = SelectProps & {
   items: { label: string; value: string }[]
+  clearable?: boolean
 }

@@ -7,6 +7,7 @@ export default function BloodGroupSelect({ setValue, ...props }: BloodGroupSelec
     <BetterSelect
       onChange={setValue && ((e) => setValue(e.target.value as BloodGroup))}
       label={'Blood Group'}
+      clearable={!props.required}
       {...props}
       items={[...Object.keys(BloodGroup)].filter(Boolean).map((group) => ({
         value: group,
