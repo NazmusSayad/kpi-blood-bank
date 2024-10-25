@@ -23,18 +23,18 @@ export default function ProfileTop({ user }: { user: PublicUser }) {
           }
         >
           <div className={'-mt-12 md:-mt-10'}>
-            <UserAvatar avatarUrl={user.avatar_url} className={'size-48 mx-auto'} />
+            <UserAvatar avatarUrl={user.avatar_url} className={'size-[min(100vw,12rem)] mx-auto'} />
           </div>
 
           <div className={'md:mt-6 text-center md:text-left'}>
             <h2 className={'text-4xl font-bold'}>{user.name}</h2>
-            <div className={'mt-2 bg-red-200 rounded-full py-1 px-2 w-min'}>
+            <div className={'mt-2 bg-red-200 rounded-full py-1 px-2 w-min mx-auto md:mx-0'}>
               {convertBloodGroupToNormal(user.bloodGroup)}
             </div>
           </div>
 
           {currentUser.user?.id === user.id && (
-            <div className={'self-center flex justify-center gap-2'}>
+            <div className={'self-center flex justify-center gap-2 flex-col'}>
               <Button variant={'outlined'} startIcon={<TbUserEdit />}>
                 Edit Profile
               </Button>
