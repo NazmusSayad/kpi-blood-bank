@@ -52,12 +52,7 @@ export default function Nav(props: NavProps) {
 
           <div className={'hidden sm:flex items-center gap-3'}>
             {navLinks.map((link, i) => (
-              <LinkButton
-                key={i}
-                variant={'text'}
-                color={'inherit'}
-                href={link.to}
-              >
+              <LinkButton key={i} variant={'text'} color={'inherit'} href={link.to}>
                 {link.label}
               </LinkButton>
             ))}
@@ -66,38 +61,20 @@ export default function Nav(props: NavProps) {
           {isLoggedIn ? (
             <div className={'hidden sm:flex'}>
               {userHasAccess(user).moderator && (
-                <LinkButton
-                  iconButton
-                  color={'inherit'}
-                  href={'/admin'}
-                  variant={'outlined'}
-                >
+                <LinkButton iconButton color={'inherit'} href={'/admin'} variant={'outlined'}>
                   <RiShieldFlashLine className={'size-6'} />
                 </LinkButton>
               )}
-              <LinkButton
-                iconButton
-                href={'/@' + user?.id}
-                color={'inherit'}
-                variant={'outlined'}
-              >
+              <LinkButton iconButton href={'/@' + user?.id} color={'inherit'} variant={'outlined'}>
                 <UserAvatar avatarUrl={user?.avatar_url} />
               </LinkButton>
             </div>
           ) : (
             <div className={'hidden sm:flex gap-2'}>
-              <LinkButton
-                href={'/auth/login'}
-                color={'inherit'}
-                variant={'text'}
-              >
+              <LinkButton href={'/auth/login'} color={'inherit'} variant={'text'}>
                 Login
               </LinkButton>
-              <LinkButton
-                href={'/auth/register'}
-                variant={'outlined'}
-                color={'inherit'}
-              >
+              <LinkButton href={'/auth/register'} variant={'outlined'} color={'inherit'}>
                 Register
               </LinkButton>
             </div>
@@ -114,12 +91,5 @@ export default function Nav(props: NavProps) {
 
 type NavProps = {
   transparent?: boolean
-  position?:
-    | 'fixed'
-    | 'sticky'
-    | 'absolute'
-    | 'relative'
-    | 'static'
-    | 'initial'
-    | 'inherit'
+  position?: 'fixed' | 'sticky' | 'absolute' | 'relative' | 'static' | 'initial' | 'inherit'
 }

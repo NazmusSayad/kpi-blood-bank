@@ -1,5 +1,2 @@
-import Table from '@/features/Dashboard/Table'
-
-export default function Page() {
-  return <Table />
-}
+import DonationsPage from '@/features/Dashboard/DonationsPage'
+export default DonationsPage

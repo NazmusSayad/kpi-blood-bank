@@ -1,8 +1,4 @@
-import {
-  DatePicker,
-  DatePickerSlotProps,
-  LocalizationProvider,
-} from '@mui/x-date-pickers'
+import { DatePicker, DatePickerSlotProps, LocalizationProvider } from '@mui/x-date-pickers'
 import { ComponentProps } from 'react'
 import { AdapterMoment } from '@mui/x-date-pickers/AdapterMoment'
 

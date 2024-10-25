@@ -48,11 +48,7 @@ export default function RegisterVerifyForm({
         <p className={'text-lg flex items-center justify-center'}>
           <span>We have send an OTP to</span>
 
-          <Button
-            size={'small'}
-            className={'text-primary'}
-            onClick={handleBack}
-          >
+          <Button size={'small'} className={'text-primary'} onClick={handleBack}>
             <div className={'flex gap-1 items-center'}>
               <span>{formData.phone}</span>
               <RiRefreshLine />

@@ -161,9 +161,7 @@ export default function Table() {
   )
 }
 
-export function createRowColumn<
-  T extends Record<string, Omit<GridColDef, 'field'>>
->(
+export function createRowColumn<T extends Record<string, Omit<GridColDef, 'field'>>>(
   columns: T,
   ...rows: {
     [key in keyof T]?: string | number

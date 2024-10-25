@@ -7,18 +7,11 @@ import { usePathname } from 'next/navigation'
 export default function AppLayout({ children }) {
   const pathName = usePathname()
   const isHomePage = pathName === '/'
-  const isDashboard = isHomePage
-    ? false
-    : pathName.startsWith('/admin/dashboard')
+  const isDashboard = isHomePage ? false : pathName.startsWith('/admin/dashboard')
 
   return (
-    <main
-      className={cn('relative', isDashboard && 'grid grid-rows-[auto_1fr]')}
-    >
-      <Nav
-        transparent={isHomePage}
-        position={isHomePage ? 'fixed' : undefined}
-      />
+    <main className={cn('relative', isDashboard && 'grid grid-rows-[auto_1fr]')}>
+      <Nav transparent={isHomePage} position={isHomePage ? 'fixed' : undefined} />
       {children}
     </main>
   )

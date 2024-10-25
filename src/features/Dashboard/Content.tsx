@@ -20,12 +20,7 @@ export default function Content({ items, loadMore, isLoading }: ContentProps) {
 
       <div className={'mb-10'}>
         <div className={'flex justify-center'}>
-          <Button
-            color={'info'}
-            onClick={loadMore}
-            disabled={isLoading}
-            variant={'contained'}
-          >
+          <Button color={'info'} onClick={loadMore} disabled={isLoading} variant={'contained'}>
             Load More
           </Button>
         </div>

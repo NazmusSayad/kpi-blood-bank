@@ -27,7 +27,9 @@
       hsla(0, 0%, 0%, 0) 56%
     );
 
-    animation: fade-frames 200ms infinite, scale-frames 2s infinite;
+    animation:
+      fade-frames 200ms infinite,
+      scale-frames 2s infinite;
 
     @keyframes fade-frames {
       0% {
@@ -76,19 +78,11 @@
 
       @keyframes #{$framesName} {
         from {
-          transform: translate3d(
-            math.random(100) + vw,
-            $startPositionY + vh,
-            0
-          );
+          transform: translate3d(math.random(100) + vw, $startPositionY + vh, 0);
         }
 
         to {
-          transform: translate3d(
-            math.random(100) + vw,
-            -$startPositionY - math.random(30) + vh,
-            0
-          );
+          transform: translate3d(math.random(100) + vw, -$startPositionY - math.random(30) + vh, 0);
         }
       }
 

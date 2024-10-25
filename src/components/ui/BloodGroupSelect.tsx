@@ -2,10 +2,7 @@ import BetterSelect from './BetterSelect'
 import { BloodGroup } from '@prisma/client'
 import { SelectProps } from '@mui/material/Select'
 
-export default function BloodGroupSelect({
-  setValue,
-  ...props
-}: BloodGroupSelectProps) {
+export default function BloodGroupSelect({ setValue, ...props }: BloodGroupSelectProps) {
   return (
     <BetterSelect
       onChange={setValue && ((e) => setValue(e.target.value as BloodGroup))}

@@ -2,17 +2,10 @@ import { useApi } from '@/api/http'
 import ForgetPassLayout from './ForgetPassLayout'
 import PhoneNumberInput from '@/components/ui/PhoneNumberInput'
 
-export default function ForgetPassMain({
-  phone,
-  setPhone,
-  setToken,
-}: ForgetPassMainProps) {
+export default function ForgetPassMain({ phone, setPhone, setToken }: ForgetPassMainProps) {
   const api = useApi()
   async function handleSubmit() {
-    const { data, ok } = await api.post<{ token: string }>(
-      '/auth/reset-password',
-      { phone }
-    )
+    const { data, ok } = await api.post<{ token: string }>('/auth/reset-password', { phone })
 
     if (!ok) return
     setToken(data.token)

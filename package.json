@@ -8,7 +8,8 @@
     "build": "prisma generate && next build",
     "db": "prisma generate && prisma db push",
     "setup-dev": "run ./src/setup.ts",
-    "setup": "tsx ./src/setup.ts"
+    "setup": "tsx ./src/setup.ts",
+    "format": "prettier . --write"
   },
   "dependencies": {
     "@prisma/client": "^5.21.1",
@@ -36,6 +37,7 @@
     "get-classnames": "^2.0.0",
     "mui-tel-input": "^6.0.1",
     "postcss-preset-env": "^10.0.7",
+    "prettier": "^3.3.3",
     "prisma": "^5.21.1",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",

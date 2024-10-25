@@ -51,22 +51,24 @@ await db.user.createMany({
         phone: '+8801711' + i.toString().padStart(6, '0'),
         bloodGroup: Object.keys(BloodGroup)[i % 8] as any,
         birthCertificateNumber: '1' + i.toString().padStart(9, '0'),
-        nidNumber:
-          accountType === 'STUDENT'
-            ? undefined
-            : '2' + i.toString().padStart(9, '0'),
+        nidNumber: accountType === 'STUDENT' ? undefined : '2' + i.toString().padStart(9, '0'),
       }),
-      id: i,
-      role:
-        i < 5
-          ? 'SUPER_ADMIN'
-          : i < 10
-          ? 'ADMIN'
-          : i < 15
-          ? 'MODERATOR'
-          : 'MEMBER',
+      id: i + 1,
       avatar_url: `https://avatar.iran.liara.run/public/${i + 1}`,
+      role: i < 5 ? 'SUPER_ADMIN' : i < 10 ? 'ADMIN' : i < 15 ? 'MODERATOR' : 'MEMBER',
     } as const
   }),
 })
-console.log('Users created')
+
+const users = await db.user.findMany()
+for (const user of users) {
+  await db.bloodDonation.createMany({
+    data: new Array(10).fill(0).map((_, i) => ({
+      userId: user.id,
+      createdById: user.id,
+      bloodGroup: Object.keys(BloodGroup)[i % 8] as any,
+    })),
+  })
+
+  console.log('User setup:', user.name)
+}

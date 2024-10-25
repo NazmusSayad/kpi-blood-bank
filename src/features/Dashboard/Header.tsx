@@ -1,12 +1,6 @@
 'use client'
 
-import {
-  Menu,
-  Button,
-  TextField,
-  IconButton,
-  useMediaQuery,
-} from '@mui/material'
+import { Menu, Button, TextField, IconButton, useMediaQuery } from '@mui/material'
 import { cn } from '@/utils'
 import { LuFilter } from 'react-icons/lu'
 import { ReactNode, useRef, useState } from 'react'
@@ -50,11 +44,7 @@ export default function Header({ children, ...props }: HeaderProps) {
             </IconButton>
           )}
 
-          <Menu
-            open={isMenuOpen}
-            anchorEl={anchorRef.current}
-            onClose={() => setMenuOpen(false)}
-          >
+          <Menu open={isMenuOpen} anchorEl={anchorRef.current} onClose={() => setMenuOpen(false)}>
             <div className={'min-w-48 px-2'}>{children}</div>
           </Menu>
         </div>

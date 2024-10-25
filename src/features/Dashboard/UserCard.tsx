@@ -7,10 +7,10 @@ import { convertBloodGroupToNormal } from '@/service/db/utils'
 export default function UserCard({ user }: { user: AdminUser }) {
   return (
     <Card className={'px-3 py-2 !bg-red-50'}>
-      <div className={'relative'}>
+      <div className={'relative isolate'}>
         <div
           className={cn(
-            'absolute p-2 rounded-full bg-red-200 top-0 right-0 grid place-content-center font-bold text-sm'
+            '-z-10 absolute p-2 rounded-full bg-red-200 top-0 right-0 grid place-content-center font-bold text-sm'
           )}
         >
           <div className={'min-w-[3ch] text-center'}>
@@ -46,8 +46,7 @@ export default function UserCard({ user }: { user: AdminUser }) {
           </p>
 
           <p className={'text-sm text-gray-500'}>
-            <span className={'font-medium'}>Birth Certificate:</span>{' '}
-            {user.birthCertificateNumber}
+            <span className={'font-medium'}>Birth Certificate:</span> {user.birthCertificateNumber}
           </p>
         </div>
       </div>

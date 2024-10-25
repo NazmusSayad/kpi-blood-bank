@@ -23,7 +23,7 @@ export default function UserPage() {
     cursor: number | string = ''
   ) {
     const { ok, data } = await api.get<{ users: AdminUser[]; total: number }>(
-      `/users/admin?limit=16&search=${searchQuery}&bloodGroup=${bloodQuery}&cursor=${cursor}`,
+      `/users/manage?limit=24&search=${searchQuery}&bloodGroup=${bloodQuery}&cursor=${cursor}`,
       { signal: signal() }
     )
 
@@ -44,21 +44,12 @@ export default function UserPage() {
   return (
     <div>
       <Header searchValue={searchValue} setSearchValue={setSearchValue}>
-        <BloodGroupSelect
-          fullWidth
-          required={false}
-          value={bloodGroup}
-          setValue={setBloodGroup}
-        />
+        <BloodGroupSelect fullWidth required={false} value={bloodGroup} setValue={setBloodGroup} />
       </Header>
 
       <Content
         loadMore={async () => {
-          const newUsers = await fetchUsers(
-            searchValue,
-            bloodGroup,
-            users[users.length - 1].id
-          )
+          const newUsers = await fetchUsers(searchValue, bloodGroup, users[users.length - 1].id)
 
           newUsers && setUsers((prev) => [...prev, ...newUsers])
         }}

@@ -8,9 +8,7 @@ const mainFields = {
   name: r.string(),
   password: r.string().minLength(6),
   accountType: r.string('GUEST', 'TEACHER'),
-  bloodGroup: r
-    .string(...Object.values(BloodGroup))
-    .typeErr('Invalid blood group'),
+  bloodGroup: r.string(...Object.values(BloodGroup)).typeErr('Invalid blood group'),
 
   phone: r
     .string()

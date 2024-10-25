@@ -42,10 +42,7 @@ export async function parseSignupJwtToken(
   try {
     return (await jwt.parse(token, { secret: SIGNUP_SECRET(code) })).data
   } catch (err: any) {
-    if (
-      err.name === 'JWSSignatureVerificationFailed' ||
-      err.name === 'JWSInvalid'
-    ) {
+    if (err.name === 'JWSSignatureVerificationFailed' || err.name === 'JWSInvalid') {
       throw new ReqError('Incorrect verification code provided', 401)
     }
     if (err.name === 'JWTExpired') {
@@ -66,17 +63,11 @@ export function createForgetPassJwtToken(userId: number, code: string) {
   )
 }
 
-export async function parseForgetPassJwtToken(
-  token: string,
-  code: string
-): Promise<number> {
+export async function parseForgetPassJwtToken(token: string, code: string): Promise<number> {
   try {
     return (await jwt.parse(token, { secret: FORGET_SECRET(code) })).userId
   } catch (err: any) {
-    if (
-      err.name === 'JWSSignatureVerificationFailed' ||
-      err.name === 'JWSInvalid'
-    ) {
+    if (err.name === 'JWSSignatureVerificationFailed' || err.name === 'JWSInvalid') {
       throw new ReqError('Incorrect verification code provided', 401)
     }
 

@@ -5,10 +5,7 @@ import { SignJWT, jwtVerify } from 'jose'
 const JWT_SECRET_KEY = createSecretKey(env.JWT_SECRET, 'utf-8')
 
 export default {
-  create(
-    payload: unknown,
-    options: { expiresIn?: string; secret?: string } = {}
-  ) {
+  create(payload: unknown, options: { expiresIn?: string; secret?: string } = {}) {
     const secret = options.secret
       ? createSecretKey(env.JWT_SECRET + '@' + options.secret, 'utf-8')
       : JWT_SECRET_KEY

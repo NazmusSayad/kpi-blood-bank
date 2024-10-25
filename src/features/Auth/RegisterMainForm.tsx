@@ -77,29 +77,20 @@ export default function RegisterMainForm({
         <TextField
           fullWidth
           required={
-            formData.accountType === AccountType.STUDENT
-              ? !formData.birthCertificateNumber
-              : true
+            formData.accountType === AccountType.STUDENT ? !formData.birthCertificateNumber : true
           }
           label={'NID Number'}
           value={formData.nidNumber}
-          onChange={(e) =>
-            setFormData('nidNumber', e.target.value.replace(/\D/g, ''))
-          }
+          onChange={(e) => setFormData('nidNumber', e.target.value.replace(/\D/g, ''))}
         />
 
         <TextField
           fullWidth
-          required={
-            formData.accountType === AccountType.STUDENT && !formData.nidNumber
-          }
+          required={formData.accountType === AccountType.STUDENT && !formData.nidNumber}
           label={'Birth Certificate Number'}
           value={formData.birthCertificateNumber}
           onChange={(e) => {
-            setFormData(
-              'birthCertificateNumber',
-              e.target.value.replace(/\D/g, '')
-            )
+            setFormData('birthCertificateNumber', e.target.value.replace(/\D/g, ''))
           }}
         />
 

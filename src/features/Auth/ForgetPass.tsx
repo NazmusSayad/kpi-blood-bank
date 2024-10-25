@@ -21,11 +21,7 @@ export default function Forget() {
       </h1>
 
       {token ? (
-        <ForgetPassVerify
-          token={token}
-          setToken={setToken}
-          phone={phoneNumber}
-        />
+        <ForgetPassVerify token={token} setToken={setToken} phone={phoneNumber} />
       ) : (
         <ForgetPassMain
           phone={phoneNumber}

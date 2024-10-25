@@ -7,10 +7,7 @@ export const POST = appRoute(async (req) => {
     throw { message: 'Token and OTP are required', status: 400 }
   }
 
-  const user = await confirmSignUp(
-    req.data.token as string,
-    req.data.otp as string
-  )
+  const user = await confirmSignUp(req.data.token as string, req.data.otp as string)
 
   throw generatePrivateUser(user)
 })

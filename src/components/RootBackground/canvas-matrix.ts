@@ -5,10 +5,7 @@ export default class CanvasMatrix {
   private context: CanvasRenderingContext2D
   private size: [number, number]
 
-  constructor(
-    canvas: HTMLCanvasElement,
-    config: Partial<CanvasMatrixConfig> = {}
-  ) {
+  constructor(canvas: HTMLCanvasElement, config: Partial<CanvasMatrixConfig> = {}) {
     this.config = { ...this.config, ...config }
 
     this.context = canvas.getContext('2d')!
@@ -24,9 +21,7 @@ export default class CanvasMatrix {
     this.context.fillRect(0, 0, ...this.size)
 
     const particleCount =
-      (this.size[0] * this.size[1]) /
-      this.config.size ** 2 /
-      this.config.density
+      (this.size[0] * this.size[1]) / this.config.size ** 2 / this.config.density
 
     for (let i = 0; i < particleCount; i++) {
       this.particles.push(this.newParticle())
@@ -38,8 +33,7 @@ export default class CanvasMatrix {
       x: Math.random() * this.size[0],
       y: -Math.random() * this.size[1] * 2,
       size: Math.floor(
-        Math.random() * (this.config.size * 2 - this.config.size / 2) +
-          this.config.size / 2
+        Math.random() * (this.config.size * 2 - this.config.size / 2) + this.config.size / 2
       ),
     }
   }
@@ -49,9 +43,7 @@ export default class CanvasMatrix {
     this.particles.forEach((particle) => {
       this.context.font = `${particle.size}px ${this.config.font}`
       const randomChar =
-        this.config.characters[
-          Math.floor(Math.random() * this.config.characters.length)
-        ]
+        this.config.characters[Math.floor(Math.random() * this.config.characters.length)]
 
       this.context.fillText(randomChar, particle.x, particle.y)
     })

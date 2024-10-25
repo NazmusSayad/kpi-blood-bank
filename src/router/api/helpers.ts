@@ -22,12 +22,7 @@ export const errorManager = new ErrorManager({
       }
 
       if (err.code === 'P2002') {
-        return [
-          err.meta?.target?.join(',') +
-            ' already exists for ' +
-            err.meta.modelName,
-          400,
-        ]
+        return [err.meta?.target?.join(',') + ' already exists for ' + err.meta.modelName, 400]
       }
     },
   ],

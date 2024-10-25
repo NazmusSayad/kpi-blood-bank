@@ -12,10 +12,7 @@ export default function DonateForm() {
   const userStore = useUserStore()
   const [state, setState] = useState<DonationForm>(defaultDonationForm)
 
-  function setFormValue<T extends keyof DonationForm>(
-    key: T,
-    value: DonationForm[T]
-  ) {
+  function setFormValue<T extends keyof DonationForm>(key: T, value: DonationForm[T]) {
     setState({ ...state, [key]: value })
   }
 

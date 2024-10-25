@@ -15,9 +15,7 @@ export const GET = authRoute(async (req) => {
   throw findUsers({
     AND: [
       {
-        bloodGroup: queryBloodGroup
-          ? (queryBloodGroup as BloodGroup)
-          : undefined,
+        bloodGroup: queryBloodGroup ? (queryBloodGroup as BloodGroup) : undefined,
       },
       {
         OR: [

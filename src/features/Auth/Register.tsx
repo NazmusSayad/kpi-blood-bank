@@ -7,9 +7,7 @@ import RegisterVerifyForm from './RegisterVerifyForm'
 
 export default function Register() {
   const [registerToken, setRegisterToken] = useState<string | null>(null)
-  const [registerFormData, setRegisterFormDataCore] = useState(
-    registerFormDataDefault
-  )
+  const [registerFormData, setRegisterFormDataCore] = useState(registerFormDataDefault)
 
   const setRegisterFormData: SetRegisterFormData = (key, input) => {
     setRegisterFormDataCore((prev) => ({ ...prev, [key]: input }))

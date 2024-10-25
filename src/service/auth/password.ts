@@ -1,7 +1,4 @@
-import {
-  parseForgetPassJwtToken,
-  createForgetPassJwtToken,
-} from '../jwtHelpers'
+import { parseForgetPassJwtToken, createForgetPassJwtToken } from '../jwtHelpers'
 import db from '@/service/db'
 import argon2 from '@/utils/argon2'
 import { ReqError } from 'req-error'
@@ -24,11 +21,7 @@ export async function forgetPassword(phone: string) {
   return { token }
 }
 
-export async function resetPassword(
-  token: string,
-  password: string,
-  otp: string
-) {
+export async function resetPassword(token: string, password: string, otp: string) {
   if (!token || !otp || !password) {
     throw new ReqError('Missing required fields', 400)
   }

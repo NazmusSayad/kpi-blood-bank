@@ -15,9 +15,7 @@ export const GET = authRouteAdmin(async (req) => {
     {
       AND: [
         {
-          bloodGroup: queryBloodGroup
-            ? (queryBloodGroup as BloodGroup)
-            : undefined,
+          bloodGroup: queryBloodGroup ? (queryBloodGroup as BloodGroup) : undefined,
         },
         {
           OR: [

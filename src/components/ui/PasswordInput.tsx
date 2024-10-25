@@ -12,10 +12,7 @@ export default function PasswordInput(props: PasswordInputProps) {
       slotProps={{
         input: {
           endAdornment: (
-            <IconButton
-              size={'small'}
-              onClick={() => setShowPassword((v) => !v)}
-            >
+            <IconButton size={'small'} onClick={() => setShowPassword((v) => !v)}>
               {showPassword ? <FaRegEyeSlash /> : <FaRegEye />}
             </IconButton>
           ),

@@ -57,8 +57,7 @@ export async function createSignupToken(data: unknown) {
 
       if (
         existedUser.student_rollNumber === user.student_rollNumber &&
-        existedUser.student_registrationNumber ===
-          user.student_registrationNumber
+        existedUser.student_registrationNumber === user.student_registrationNumber
       ) {
         existedKey.push('Roll number and registration number')
       }

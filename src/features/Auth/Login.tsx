@@ -62,11 +62,7 @@ export default function Login() {
         </div>
 
         <div className={'text-right gap-0'}>
-          <LinkButton
-            size={'small'}
-            className="text-blue-500"
-            href="/auth/reset"
-          >
+          <LinkButton size={'small'} className="text-blue-500" href="/auth/reset">
             Forgot Password?
           </LinkButton>
         </div>
@@ -80,11 +76,7 @@ export default function Login() {
         <div>
           <p className={'text-center'}>
             Don't have an account?{' '}
-            <LinkButton
-              size={'small'}
-              className="text-blue-500"
-              href="/auth/register"
-            >
+            <LinkButton size={'small'} className="text-blue-500" href="/auth/register">
               Register
             </LinkButton>
           </p>

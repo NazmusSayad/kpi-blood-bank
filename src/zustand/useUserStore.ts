@@ -11,9 +11,7 @@ const initialState = {
 export default create(
   combine({ ...initialState }, (set) => ({
     authenticate(user: PrivateUser, authToken: string) {
-      http.axios.defaults.headers.common[
-        config.headerAuthTokenKey
-      ] = `Bearer ${authToken}`
+      http.axios.defaults.headers.common[config.headerAuthTokenKey] = `Bearer ${authToken}`
       set((state) => ({
         ...state,
         user,

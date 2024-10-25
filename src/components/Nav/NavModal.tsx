@@ -86,11 +86,7 @@ export default function NavModal({
               </>
             ) : (
               <>
-                <LinkButton
-                  variant={'outlined'}
-                  color={'primary'}
-                  href={'/auth/login'}
-                >
+                <LinkButton variant={'outlined'} color={'primary'} href={'/auth/login'}>
                   Login
                 </LinkButton>
 
