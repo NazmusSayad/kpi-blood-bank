@@ -7,7 +7,7 @@ import UserAvatar from '@/components/ui/UserAvatar'
 import { TbUserEdit, TbLogout } from 'react-icons/tb'
 import { convertBloodGroupToNormal } from '@/service/db/utils'
 
-export default function ProfileTop({ user }: { user: PublicUser }) {
+export default function ProfileTop({ user, enableEditMode }: ProfileTopProps) {
   const currentUser = useUserStore((state) => state)
 
   return (
@@ -35,7 +35,7 @@ export default function ProfileTop({ user }: { user: PublicUser }) {
 
           {currentUser.user?.id === user.id && (
             <div className={'self-center flex justify-center gap-2 flex-col'}>
-              <Button variant={'outlined'} startIcon={<TbUserEdit />}>
+              <Button variant={'outlined'} startIcon={<TbUserEdit />} onClick={enableEditMode}>
                 Edit Profile
               </Button>
 
@@ -56,4 +56,9 @@ export default function ProfileTop({ user }: { user: PublicUser }) {
       </Wrapper>
     </>
   )
+}
+
+type ProfileTopProps = {
+  user: PublicUser
+  enableEditMode: () => void
 }
