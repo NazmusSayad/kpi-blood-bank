@@ -23,7 +23,7 @@ export default function UserPage() {
     cursor: number | string = ''
   ) {
     const { ok, data } = await api.get<{ users: AdminUser[]; total: number }>(
-      `/users/manage?limit=24&search=${searchQuery}&bloodGroup=${bloodQuery}&cursor=${cursor}`,
+      `/users/manage?limit=24&search=${encodeURIComponent(searchQuery)}&bloodGroup=${bloodQuery}&cursor=${cursor}`,
       { signal: signal() }
     )
 

@@ -26,7 +26,7 @@ export default function RegisterMainForm({
       ...formData,
       phone: formData.phone,
       nidNumber: formData.nidNumber || undefined,
-      birthCertificateNumber: formData.birthCertificateNumber || undefined,
+      bcNumber: formData.bcNumber || undefined,
     })
 
     if (ok) return setToken(data.token)
@@ -34,6 +34,7 @@ export default function RegisterMainForm({
 
   return (
     <RegisterFormLayout
+      loading={api.loading}
       error={api.response?.error as string}
       handler={handleRegister}
       button={'Register'}
@@ -77,7 +78,7 @@ export default function RegisterMainForm({
         <TextField
           fullWidth
           required={
-            formData.accountType === AccountType.STUDENT ? !formData.birthCertificateNumber : true
+            formData.accountType === AccountType.STUDENT ? !formData.bcNumber : true
           }
           label={'NID Number'}
           value={formData.nidNumber}
@@ -88,9 +89,9 @@ export default function RegisterMainForm({
           fullWidth
           required={formData.accountType === AccountType.STUDENT && !formData.nidNumber}
           label={'Birth Certificate Number'}
-          value={formData.birthCertificateNumber}
+          value={formData.bcNumber}
           onChange={(e) => {
-            setFormData('birthCertificateNumber', e.target.value.replace(/\D/g, ''))
+            setFormData('bcNumber', e.target.value.replace(/\D/g, ''))
           }}
         />
 

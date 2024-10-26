@@ -41,7 +41,7 @@ export function UserDetails({ user, includeRole }: { user?: AdminUser; includeRo
         </p>
 
         <p className={'text-sm text-gray-500'}>
-          <span className={'font-medium'}>Birth Certificate:</span> {user?.birthCertificateNumber}
+          <span className={'font-medium'}>Birth Certificate:</span> {user?.bcNumber}
         </p>
       </div>
     </>

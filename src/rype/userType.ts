@@ -10,13 +10,17 @@ const mainFields = {
   accountType: r.string('GUEST', 'TEACHER'),
   bloodGroup: r.string(...Object.values(BloodGroup)).typeErr('Invalid blood group'),
 
+  email: r
+    .string()
+    .regex(/^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/)
+    .typeErr('Invalid email'),
   phone: r
     .string()
     .regex(/^\+8801[0-9]{9}$/)
     .typeErr('Invalid phone number'),
 
   nidNumber: NidString.optional(),
-  birthCertificateNumber: BirthCertificateString.optional(),
+  bcNumber: BirthCertificateString.optional(),
 } as const
 
 const studentsFields = {
@@ -41,7 +45,7 @@ const userType = r.or(
   r.object({
     ...mainFields,
     ...studentsFields,
-    birthCertificateNumber: BirthCertificateString.clone(),
+    bcNumber: BirthCertificateString.clone(),
   })
 )
 

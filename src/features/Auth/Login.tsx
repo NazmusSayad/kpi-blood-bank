@@ -69,7 +69,7 @@ export default function Login() {
         </div>
 
         <div className={'mb-2'}>
-          <Button fullWidth variant={'contained'} type={'submit'}>
+          <Button fullWidth variant={'contained'} type={'submit'} disabled={api.loading}>
             Login
           </Button>
         </div>

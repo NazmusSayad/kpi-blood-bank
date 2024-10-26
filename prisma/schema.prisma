@@ -18,7 +18,7 @@ model User {
   createdAt   DateTime    @default(now())
 
   nidNumber              String? @unique
-  birthCertificateNumber String? @unique
+  bcNumber String? @unique
 
   email         String?
   birthDate     DateTime?

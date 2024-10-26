@@ -50,5 +50,5 @@ const registerFormDataDefault = {
   phone: '+8801712345678',
   accountType: AccountType.STUDENT,
   nidNumber: '12345678',
-  birthCertificateNumber: '',
+  bcNumber: '',
 }

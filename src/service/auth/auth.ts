@@ -34,8 +34,8 @@ export async function createSignupToken(data: unknown) {
       OR: [
         { phone: user.phone },
         { nidNumber: user.nidNumber },
-        user.birthCertificateNumber && {
-          birthCertificateNumber: user.birthCertificateNumber,
+        user.bcNumber && {
+          bcNumber: user.bcNumber,
         },
         user.accountType === 'STUDENT' && {
           student_rollNumber: user.student_rollNumber,
@@ -51,7 +51,7 @@ export async function createSignupToken(data: unknown) {
     if (existedUser.nidNumber === user.nidNumber) existedKey.push('NID number')
 
     if (user.accountType === 'STUDENT') {
-      if (existedUser.birthCertificateNumber === user.birthCertificateNumber) {
+      if (existedUser.bcNumber === user.bcNumber) {
         existedKey.push('Birth certificate number')
       }
 

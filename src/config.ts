@@ -19,7 +19,7 @@ export const UserAdminFields = [
   ...UserPublicFields,
   'phone',
   'nidNumber',
-  'birthCertificateNumber',
+  'bcNumber',
   'student_rollNumber',
   'student_registrationNumber',
 ] as const
@@ -28,7 +28,7 @@ export const UserPrivateFields = [
   ...UserPublicFields,
   'phone',
   'nidNumber',
-  'birthCertificateNumber',
+  'bcNumber',
   'birthDate',
   'student_rollNumber',
   'student_registrationNumber',

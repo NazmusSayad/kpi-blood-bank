@@ -43,7 +43,12 @@ export default function RegisterVerifyForm({
   }
 
   return (
-    <RegisterFormLayout handler={handleSubmit} button={'Confirm'}>
+    <RegisterFormLayout
+      handler={handleSubmit}
+      button={'Confirm'}
+      error={api.response?.error}
+      loading={api.loading}
+    >
       <div className={'mb-4'}>
         <p className={'text-lg flex items-center justify-center'}>
           <span>We have send an OTP to</span>

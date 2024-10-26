@@ -1,4 +1,3 @@
-import { cn } from '@/utils'
 import { Button } from '@mui/material'
 import LinkButton from '@/components/ui/LinkButton'
 import AlertSnackBar from '@/components/ui/AlertSnackBar'
@@ -8,6 +7,7 @@ export default function RegisterFormLayout({
   children,
   button,
   error,
+  loading,
 }: RegisterFormLayoutProps) {
   return (
     <form
@@ -19,7 +19,7 @@ export default function RegisterFormLayout({
       {children}
 
       <div className={'mb-2 mt-4'}>
-        <Button fullWidth variant={'contained'} type={'submit'}>
+        <Button fullWidth variant={'contained'} type={'submit'} disabled={loading}>
           {button}
         </Button>
       </div>
@@ -42,5 +42,6 @@ type RegisterFormLayoutProps = {
   handler: () => void
   button: string
   children: React.ReactNode
-  error: string
+  error: any
+  loading: boolean
 }
