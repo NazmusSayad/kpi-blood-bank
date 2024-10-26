@@ -12,7 +12,7 @@ export default function ForgetPassMain({ phone, setPhone, setToken }: ForgetPass
   }
 
   return (
-    <ForgetPassLayout button={'Next'} handler={handleSubmit}>
+    <ForgetPassLayout button={'Next'} handler={handleSubmit} error={api.response?.error}>
       <div className={'mb-4'}>
         <PhoneNumberInput
           fullWidth

@@ -1,6 +1,7 @@
 import { Button } from '@mui/material'
+import AlertSnackBar from '@/components/ui/AlertSnackBar'
 
-export default function ForgetPassLayout({ children, button, handler }) {
+export default function ForgetPassLayout({ children, button, handler, error }) {
   return (
     <form
       onSubmit={(e) => {
@@ -15,6 +16,8 @@ export default function ForgetPassLayout({ children, button, handler }) {
           {button}
         </Button>
       </div>
+
+      <AlertSnackBar text={error} />
     </form>
   )
 }

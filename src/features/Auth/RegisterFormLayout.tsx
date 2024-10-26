@@ -1,6 +1,7 @@
 import { cn } from '@/utils'
 import { Button } from '@mui/material'
 import LinkButton from '@/components/ui/LinkButton'
+import AlertSnackBar from '@/components/ui/AlertSnackBar'
 
 export default function RegisterFormLayout({
   handler,
@@ -23,7 +24,7 @@ export default function RegisterFormLayout({
         </Button>
       </div>
 
-      {error && <p className={'text-red-500 text-center'}>{error}</p>}
+      <AlertSnackBar text={error} />
 
       <div>
         <p className={'text-center text-sm'}>
@@ -41,5 +42,5 @@ type RegisterFormLayoutProps = {
   handler: () => void
   button: string
   children: React.ReactNode
-  error?: string
+  error: string
 }

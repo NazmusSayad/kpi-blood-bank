@@ -53,7 +53,6 @@ await db.user.createMany({
         birthCertificateNumber: '1' + i.toString().padStart(9, '0'),
         nidNumber: accountType === 'STUDENT' ? undefined : '2' + i.toString().padStart(9, '0'),
       }),
-      id: i + 1,
       avatar_url: `https://avatar.iran.liara.run/public/${i + 1}`,
       role: i < 5 ? 'SUPER_ADMIN' : i < 10 ? 'ADMIN' : i < 15 ? 'MODERATOR' : 'MEMBER',
     } as const
@@ -66,8 +65,8 @@ await db.bloodDonation.createMany({
     .map((user) =>
       new Array(10).fill(0).map((_, i) => ({
         userId: user.id,
-        createdById: 1,
-        statusUpdatedById: 1,
+        createdById: users[0].id,
+        statusUpdatedById: users[0].id,
         statusUpdatedAt: new Date(),
         statusUpdateComment: 'Auto Setup, ' + i,
         bloodGroup: Object.keys(BloodGroup)[i % 8] as any,

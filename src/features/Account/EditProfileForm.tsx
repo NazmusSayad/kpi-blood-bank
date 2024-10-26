@@ -36,7 +36,9 @@ export default function EditProfileForm({ user }: { user: PrivateUser }) {
         onChange={(e) => setFormData({ email: e.target.value })}
       />
 
-      <Button variant={'contained'} type={'submit'}>Save</Button>
+      <Button variant={'contained'} type={'submit'}>
+        Save
+      </Button>
     </form>
   )
 }

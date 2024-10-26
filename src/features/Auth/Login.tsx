@@ -2,13 +2,14 @@
 
 import { useState } from 'react'
 import { useApi } from '@/api/http'
-import { Button } from '@mui/material'
+import { Alert, Button } from '@mui/material'
 import { PrivateUser } from '@/config'
 import { useRouter } from 'next/navigation'
 import useUserStore from '@/zustand/useUserStore'
 import LinkButton from '@/components/ui/LinkButton'
 import PasswordInput from '@/components/ui/PasswordInput'
 import PhoneNumberInput from '@/components/ui/PhoneNumberInput'
+import AlertSnackBar from '@/components/ui/AlertSnackBar'
 
 export default function Login() {
   const api = useApi()
@@ -82,6 +83,8 @@ export default function Login() {
           </p>
         </div>
       </form>
+
+      <AlertSnackBar text={api.response?.error} />
     </div>
   )
 }
