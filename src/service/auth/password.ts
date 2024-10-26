@@ -37,7 +37,7 @@ export async function resetPassword(token: string, password: string, otp: string
     throw new ReqError('User not found', 404)
   }
 
-  return db.user.update({
+  return await db.user.update({
     where: { id: userId },
     data: { password: await argon2.generate(password) },
   })

@@ -75,7 +75,7 @@ export async function createSignupToken(data: unknown) {
 
 export async function confirmSignUp(token: string, otp: string) {
   const data = await parseSignupJwtToken(token, otp)
-  return db.user.create({
+  return await db.user.create({
     data: {
       ...data,
       role: 'MEMBER',

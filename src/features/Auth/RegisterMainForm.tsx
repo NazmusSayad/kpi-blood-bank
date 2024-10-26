@@ -77,9 +77,7 @@ export default function RegisterMainForm({
 
         <TextField
           fullWidth
-          required={
-            formData.accountType === AccountType.STUDENT ? !formData.bcNumber : true
-          }
+          required={formData.accountType === AccountType.STUDENT ? !formData.bcNumber : true}
           label={'NID Number'}
           value={formData.nidNumber}
           onChange={(e) => setFormData('nidNumber', e.target.value.replace(/\D/g, ''))}

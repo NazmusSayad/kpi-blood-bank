@@ -39,7 +39,7 @@ export async function createDonation(
     throw new ReqError('You are not allowed to create donation for other users')
   }
 
-  return db.bloodDonation.create({
+  return await db.bloodDonation.create({
     data: {
       ...body,
       createdById: user.id,
@@ -65,7 +65,7 @@ export async function updateDonationStatus(
     throw new ReqError('You are not allowed to update blood donation status')
   }
 
-  return db.bloodDonation.update({
+  return await db.bloodDonation.update({
     where: { id },
     data: {
       status,

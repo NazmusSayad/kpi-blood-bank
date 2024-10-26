@@ -3,7 +3,7 @@ import { Prisma, User } from '@prisma/client'
 import { UserPublicDBSelect } from '@/config'
 
 export async function getRequests(where: Prisma.BloodRequestWhereInput) {
-  return db.bloodRequest.findMany({
+  return await db.bloodRequest.findMany({
     where,
     include: {
       user: {
@@ -22,7 +22,7 @@ export async function createRequest(
     userId?: number
   }
 ) {
-  return db.bloodRequest.create({
+  return await db.bloodRequest.create({
     data: {
       ...data,
       createdById: user.id,

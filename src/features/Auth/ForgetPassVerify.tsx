@@ -30,7 +30,12 @@ export default function ForgetPassVerify({ token }: ForgetPassVerifyProps) {
   }
 
   return (
-    <ForgetPassLayout button={'Confirm'} handler={handleSubmit} error={api.response?.error} loading={api.loading}>
+    <ForgetPassLayout
+      button={'Confirm'}
+      handler={handleSubmit}
+      error={api.response?.error}
+      loading={api.loading}
+    >
       <div className={'mb-4'}>
         <TextField
           fullWidth

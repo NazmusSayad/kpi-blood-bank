@@ -49,6 +49,18 @@ const userType = r.or(
   })
 )
 
+export const modifiableUserType = r
+  .object({
+    name: r.string(),
+    email: r.string(),
+    student_educationalInstitute: studentsFields.student_educationalInstitute,
+    student_department: studentsFields.student_department,
+    student_session: studentsFields.student_session,
+    student_rollNumber: studentsFields.student_rollNumber,
+    student_registrationNumber: studentsFields.student_registrationNumber,
+  })
+  .partial()
+
 const userInstance = {} as r.inferOutput<typeof userType>
 userInstance satisfies Omit<Prisma.UserCreateInput, 'role'>
 export default userType

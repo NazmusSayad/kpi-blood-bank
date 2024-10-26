@@ -1,5 +1,6 @@
 import { cn } from '@/utils'
 import { useState } from 'react'
+import { useApi } from '@/api/http'
 import { AdminUser } from '@/config'
 import { FaCheck } from 'react-icons/fa6'
 import { UserRole } from '@prisma/client'
@@ -49,8 +50,12 @@ export function UserDetails({ user, includeRole }: { user?: AdminUser; includeRo
 }
 
 export default function UserCard({ user }: { user: AdminUser }) {
+  const api = useApi()
   const [role, setRole] = useState(user.role)
-  console.log(role)
+
+  async function handleRoleUpdate() {
+    console.log('role', role)
+  }
 
   return (
     <Card className={'px-3 py-2 !bg-red-50'}>
@@ -68,30 +73,21 @@ export default function UserCard({ user }: { user: AdminUser }) {
         <UserDetails user={user} />
 
         <div className={'flex items-center gap-2 mt-3'}>
-          {/* <Select
-            fullWidth
-            size={'small'}
-            value={role}
-            onChange={(e) => setRole(e.target.value as any)}
-          >
-            {Object.keys(UserRole).map((role) => (
-              <MenuItem key={role} value={role}>
-                {role}
-              </MenuItem>
-            ))}
-          </Select> */}
-
           <BetterSelect
             fullWidth
-            required={false}
-            label={'Role'}
-            size={'small'}
             value={role}
+            size={'small'}
+            label={'Role'}
+            required={false}
             items={Object.keys(UserRole).map((role) => ({ label: role, value: role }))}
             onChange={(e) => setRole(e.target.value as any)}
           />
 
-          <IconButton className={'!bg-sky-200/40'}>
+          <IconButton
+            disabled={api.loading}
+            onClick={handleRoleUpdate}
+            className={'!bg-sky-200/40'}
+          >
             <FaCheck />
           </IconButton>
         </div>
