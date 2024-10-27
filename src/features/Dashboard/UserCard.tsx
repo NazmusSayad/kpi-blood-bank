@@ -1,13 +1,13 @@
 import { cn } from '@/utils'
-import { useState } from 'react'
 import { useApi } from '@/api/http'
 import { AdminUser } from '@/config'
+import { memo, useState } from 'react'
 import { FaCheck } from 'react-icons/fa6'
-import { UserRole } from '@prisma/client'
-import { Card, IconButton } from '@mui/material'
+import { Button, Card } from '@mui/material'
 import UserAvatar from '@/components/ui/UserAvatar'
 import BetterSelect from '@/components/ui/BetterSelect'
 import { convertBloodGroupToNormal } from '@/service/db/utils'
+import { AccountType, BloodGroup, UserRole } from '@prisma/client'
 
 export function UserDetails({ user, includeRole }: { user?: AdminUser; includeRole?: boolean }) {
   return (
@@ -49,12 +49,22 @@ export function UserDetails({ user, includeRole }: { user?: AdminUser; includeRo
   )
 }
 
-export default function UserCard({ user }: { user: AdminUser }) {
+function UserCard({ user, isSuperAdmin }: { user: AdminUser; isSuperAdmin: boolean }) {
   const api = useApi()
+
   const [role, setRole] = useState(user.role)
+  const [bloodGroup, setBloodGroup] = useState(user.bloodGroup)
+  const [accountType, setAccountType] = useState(user.accountType)
 
   async function handleRoleUpdate() {
-    console.log('role', role)
+    const { data, ok } = await api.patch(`/account/${user.id}/manage`, {
+      role,
+      bloodGroup,
+      accountType,
+    })
+
+    if (!ok) return
+    console.log(data)
   }
 
   return (
@@ -72,26 +82,51 @@ export default function UserCard({ user }: { user: AdminUser }) {
 
         <UserDetails user={user} />
 
-        <div className={'flex items-center gap-2 mt-3'}>
+        <div className={'grid gap-3 mt-4'}>
+          {isSuperAdmin && (
+            <BetterSelect
+              fullWidth
+              value={role}
+              size={'small'}
+              label={'Role'}
+              required={false}
+              items={Object.keys(UserRole).map((role) => ({ label: role, value: role }))}
+              onChange={(e) => setRole(e.target.value as any)}
+            />
+          )}
+
           <BetterSelect
             fullWidth
-            value={role}
             size={'small'}
-            label={'Role'}
             required={false}
-            items={Object.keys(UserRole).map((role) => ({ label: role, value: role }))}
-            onChange={(e) => setRole(e.target.value as any)}
+            value={bloodGroup}
+            label={'Blood Group'}
+            items={Object.keys(BloodGroup).map((role) => ({ label: role, value: role }))}
+            onChange={(e) => setBloodGroup(e.target.value as any)}
           />
 
-          <IconButton
+          <BetterSelect
+            fullWidth
+            value={accountType}
+            size={'small'}
+            label={'Account Type'}
+            required={false}
+            items={Object.keys(AccountType).map((role) => ({ label: role, value: role }))}
+            onChange={(e) => setAccountType(e.target.value as any)}
+          />
+
+          <Button
+            variant={'outlined'}
             disabled={api.loading}
+            startIcon={<FaCheck />}
             onClick={handleRoleUpdate}
-            className={'!bg-sky-200/40'}
           >
-            <FaCheck />
-          </IconButton>
+            Save
+          </Button>
         </div>
       </div>
     </Card>
   )
 }
+
+export default memo(UserCard)

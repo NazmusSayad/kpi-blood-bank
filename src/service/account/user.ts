@@ -1,8 +1,8 @@
 import r from 'rype'
 import db from '../db'
-import { Prisma } from '@prisma/client'
 import { UserPublicDBSelect } from '@/config'
 import { modifiableUserType } from '@/rype/userType'
+import { AccountType, BloodGroup, Prisma, UserRole } from '@prisma/client'
 
 export async function findUsers(
   where: Prisma.UserWhereInput,
@@ -24,5 +24,15 @@ export async function updateUser(userId: number, body: r.inferInput<typeof modif
   return await db.user.update({
     where: { id: userId },
     data: parsedBody,
+  })
+}
+
+export async function updateUserAdmin(
+  userId: number,
+  data: Partial<{ role: UserRole; bloodGroup: BloodGroup; accountType: AccountType }>
+) {
+  return await db.user.update({
+    where: { id: userId },
+    data: data,
   })
 }

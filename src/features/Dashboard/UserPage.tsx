@@ -8,14 +8,19 @@ import { AdminUser } from '@/config'
 import { BloodGroup } from '@prisma/client'
 import { useEffect, useState } from 'react'
 import { useAbortSignal } from 'react-net-kit'
+import { userHasAccess } from '@/service/utils'
+import useUserStore from '@/zustand/useUserStore'
 import BloodGroupSelect from '@/components/ui/BloodGroupSelect'
 
 export default function UserPage() {
   const api = useApi()
   const [signal] = useAbortSignal()
+  const currentUser = useUserStore((state) => state.user)
+
   const [users, setUsers] = useState<AdminUser[]>([])
   const [searchValue, setSearchValue] = useState('')
   const [bloodGroup, setBloodGroup] = useState<BloodGroup | ''>('')
+  const isSuperAdmin = !!currentUser && userHasAccess(currentUser).superAdmin
 
   async function fetchUsers(
     searchQuery: string,
@@ -34,7 +39,7 @@ export default function UserPage() {
   useEffect(() => {
     async function loadInitialUsers() {
       const users = await fetchUsers(searchValue, bloodGroup)
-      users && setUsers(users)
+      users && setUsers(users.filter((user) => user.id !== currentUser?.id))
     }
 
     const timeout = setTimeout(loadInitialUsers, 300)
@@ -48,15 +53,14 @@ export default function UserPage() {
       </Header>
 
       <Content
-        loadMore={async () => {
-          const newUsers = await fetchUsers(searchValue, bloodGroup, users[users.length - 1].id)
-
-          newUsers && setUsers((prev) => [...prev, ...newUsers])
-        }}
         isLoading={api.loading}
         items={users.map((user) => (
-          <UserCard key={user.id} user={user} />
+          <UserCard key={user.id} user={user} isSuperAdmin={isSuperAdmin} />
         ))}
+        loadMore={async () => {
+          const newUsers = await fetchUsers(searchValue, bloodGroup, users[users.length - 1].id)
+          newUsers && setUsers((prev) => [...prev, ...newUsers])
+        }}
       />
     </div>
   )

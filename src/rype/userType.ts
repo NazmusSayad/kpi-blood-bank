@@ -4,7 +4,7 @@ import { Prisma, BloodGroup } from '@prisma/client'
 const NidString = r.string().regex(/^\d+$/)
 const BirthCertificateString = r.string().regex(/^\d+$/)
 
-const mainFields = {
+export const userMainType = {
   name: r.string(),
   password: r.string().minLength(6),
   accountType: r.string('GUEST', 'TEACHER'),
@@ -34,16 +34,16 @@ const studentsFields = {
 
 const userType = r.or(
   r.object({
-    ...mainFields,
+    ...userMainType,
     nidNumber: NidString.clone(),
   }),
   r.object({
-    ...mainFields,
+    ...userMainType,
     ...studentsFields,
     nidNumber: NidString.clone(),
   }),
   r.object({
-    ...mainFields,
+    ...userMainType,
     ...studentsFields,
     bcNumber: BirthCertificateString.clone(),
   })
