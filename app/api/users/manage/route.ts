@@ -6,9 +6,9 @@ export const GET = authRouteAdmin(async (req) => {
   const searchQuery = req.nextUrl.searchParams.get('search')
   const numberSearchQuery = searchQuery?.replace(/\D/g, '')
 
-  const queryRole = req.nextUrl.searchParams.get('bloodGroup')
+  const queryRole = req.nextUrl.searchParams.get('role')
   const queryBloodGroup = req.nextUrl.searchParams.get('bloodGroup')
-  const queryAccountType = req.nextUrl.searchParams.get('bloodGroup')
+  const queryAccountType = req.nextUrl.searchParams.get('accountType')
 
   const queryLimit = req.nextUrl.searchParams.get('limit')
   const queryCursor = req.nextUrl.searchParams.get('cursor')
