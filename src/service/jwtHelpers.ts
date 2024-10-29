@@ -2,7 +2,7 @@ import r from 'rype'
 import env from '@/env'
 import jwt from '@/utils/jwt'
 import { ReqError } from 'req-error'
-import userType from '@/rype/userType'
+import { userType } from '@/rype/userType'
 
 const AUTH_SECRET = '@AUTH'
 const COOKIE_SECRET = '@COOKIE'

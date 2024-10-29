@@ -1,25 +1,28 @@
 import { r } from 'rype'
 import { Prisma, BloodGroup } from '@prisma/client'
 
-const NidString = r.string().regex(/^\d+$/)
+const NameString = r.string().transform((v) => v.replaceAll(/\W|\d/g, ' ').trim())
+const NidNumberString = r.string().regex(/^\d+$/)
 const BirthCertificateString = r.string().regex(/^\d+$/)
+const PhoneString = r
+  .string()
+  .regex(/^\+8801[0-9]{9}$/)
+  .typeErr('Invalid phone number')
+const EmailString = r
+  .string()
+  .regex(/^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/)
+  .typeErr('Invalid email address')
 
-export const userMainType = {
-  name: r.string(),
+const userMainType = {
+  name: NameString,
   password: r.string().minLength(6),
   accountType: r.string('GUEST', 'TEACHER'),
   bloodGroup: r.string(...Object.values(BloodGroup)).typeErr('Invalid blood group'),
 
-  email: r
-    .string()
-    .regex(/^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/)
-    .typeErr('Invalid email'),
-  phone: r
-    .string()
-    .regex(/^\+8801[0-9]{9}$/)
-    .typeErr('Invalid phone number'),
+  phone: PhoneString,
+  email: EmailString.optional(),
 
-  nidNumber: NidString.optional(),
+  nidNumber: NidNumberString.optional(),
   bcNumber: BirthCertificateString.optional(),
 } as const
 
@@ -32,27 +35,27 @@ const studentsFields = {
   student_registrationNumber: r.string().optional(),
 }
 
-const userType = r.or(
+export const userType = r.or(
   r.object({
     ...userMainType,
-    nidNumber: NidString.clone(),
+    nidNumber: NidNumberString,
   }),
   r.object({
     ...userMainType,
     ...studentsFields,
-    nidNumber: NidString.clone(),
+    nidNumber: NidNumberString,
   }),
   r.object({
     ...userMainType,
     ...studentsFields,
-    bcNumber: BirthCertificateString.clone(),
+    bcNumber: BirthCertificateString,
   })
 )
 
 export const modifiableUserType = r
   .object({
-    name: r.string(),
-    email: r.string(),
+    name: NameString,
+    email: EmailString,
     student_educationalInstitute: studentsFields.student_educationalInstitute,
     student_department: studentsFields.student_department,
     student_session: studentsFields.student_session,
@@ -63,4 +66,6 @@ export const modifiableUserType = r
 
 const userInstance = {} as r.inferOutput<typeof userType>
 userInstance satisfies Omit<Prisma.UserCreateInput, 'role'>
-export default userType
+
+const modifiableUserInstance = {} as r.inferOutput<typeof modifiableUserType>
+modifiableUserInstance satisfies Omit<Prisma.UserUpdateInput, 'role'>

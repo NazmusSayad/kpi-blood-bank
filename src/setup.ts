@@ -1,6 +1,6 @@
 import db from '@/service/db'
 import argon2 from '@/utils/argon2'
-import userType from '@/rype/userType'
+import { userType } from '@/rype/userType'
 import { BloodGroup } from '@prisma/client'
 
 for (const modelName of Object.keys(db).filter(

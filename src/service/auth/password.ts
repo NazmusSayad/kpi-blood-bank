@@ -1,9 +1,9 @@
-import { parseForgetPassJwtToken, createForgetPassJwtToken } from '../jwtHelpers'
 import db from '@/service/db'
 import argon2 from '@/utils/argon2'
 import { ReqError } from 'req-error'
-import _printOTP from '@/service/sendOtp'
+import sendOtp from '@/service/sendOtp'
 import generateOtp from '@/utils/generateOtp'
+import { parseForgetPassJwtToken, createForgetPassJwtToken } from '../jwtHelpers'
 
 export async function forgetPassword(phone: string) {
   if (!phone) {
@@ -16,7 +16,7 @@ export async function forgetPassword(phone: string) {
   }
 
   const otp = generateOtp()
-  _printOTP('Forget Password', otp)
+  sendOtp('Forget Password', otp)
   const token = await createForgetPassJwtToken(user.id, otp)
   return { token }
 }
